@@ -27,10 +27,13 @@ export class LoginComponent{
   }
 
   signIn(data: Object) {
-    console.log(data);
     this.dialogRef.close();
     this.authService.signIn(data).subscribe(answer => {
-      console.log("subscribe is working", answer);
+      if (answer['success'] === true) {
+        this.authService.setUser(answer['user']);
+      } else {
+        console.log(answer['message']);
+      }
     });
   }
 

@@ -1,5 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <button mat-raised-button (click)="openDialogSignIn()">Sign in</button>
-  <button mat-raised-button (click)="openDialogSignUp()">Sign up</button>
+  <ng-template [ngIf]="!user" [ngIfElse]="signedin">
+    <button mat-raised-button (click)="openDialogSignIn()">Sign in</button>
+    <button mat-raised-button (click)="openDialogSignUp()">Sign up</button>
+  </ng-template>
+  <ng-template #signedin>
+      <h1>Hello, {{user.name}}</h1>
+      <button mat-raised-button (click)="logout()">Logout</button>
+  </ng-template>
 </div>
