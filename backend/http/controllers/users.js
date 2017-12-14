@@ -94,10 +94,13 @@ router.post('/signin', (req, res) => {
     let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
     console.log("query", querySignIn);
     connection.query(querySignIn, function (err, rows) {
-        console.log("in the connection");
         if (err) {
-            console.log("error", error);
             res.send(err);
+            return;
+        }
+        if (rows.length === 0) {
+            let answer = getAnswer(false, "Such user doesn't exit. Please, sign up first.");
+            res.send(answer);
             return;
         }
         if (!bcrypt.compareSync(data.password, rows[0].passwordHash)) {
