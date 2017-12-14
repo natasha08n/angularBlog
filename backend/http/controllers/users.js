@@ -24,6 +24,8 @@ router.get('/checkstate', auth, (req, res) => {
 
 router.post('/register', (req, res) => {
     console.log("reqUser-----------------------------------------");
+
+    
 })
 
 router.post('/login', (req, res) => {

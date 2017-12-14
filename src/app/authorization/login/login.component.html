@@ -1,13 +1,17 @@
-<h1 mat-dialog-title>Login form</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title>Sign in</h1>
+<div mat-dialog-content class="signin-form">
   <mat-form-field>
-        <input tabindex="1" matInput placeholder="Login">
+    <input tabindex="1" type="email" [formControl]="email"  matInput [(ngModel)]="data.email" placeholder="Email" required >
+    <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-        <input tabindex="2" matInput placeholder="Password">
+    <mat-hint align="start">Max 80 characters, min 6</mat-hint>
+    <input tabindex="2" type="password" maxlength="80" [formControl]="password" matInput [(ngModel)]="data.password" placeholder="Password" required >
+    <mat-hint align="end">{{password.value?.length||0}}/80</mat-hint>
+    <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data" tabindex="3">Login</button>
-  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  <button mat-button (click)="onNoClickSignIn()" tabindex="-1">Cancel</button>
 </div>

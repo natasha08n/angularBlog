@@ -1,0 +1,11 @@
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field:last-child{
+    margin-top: 10px;
+}
+
+.mat-dialog-title {
+    font-weight: bold;
+}

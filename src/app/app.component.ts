@@ -2,6 +2,7 @@ import { Component }                                from '@angular/core';
 import { Inject }                                   from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginComponent }                           from './authorization/login/login.component';
+import { SignupComponent }                          from './authorization/signup/signup.component';
 
 @Component({
   selector: 'app-root',
@@ -11,20 +12,42 @@ import { LoginComponent }                           from './authorization/login/
 export class AppComponent {
   title = 'creative';
   
-  animal: string;
-  name: string;
+  signIn: Object = {
+    email: "",
+    password: ""
+  };
+
+  signUp: Object = {
+    email: "",
+    name: "",
+    surname: "",
+    password: "",
+    passwordConfirm: ""
+  };
 
   constructor(public dialog: MatDialog) {}
 
-  openDialog(): void {
+  openDialogSignIn(): void {
     let dialogRef = this.dialog.open(LoginComponent, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
+      width: '500px',
+      data: { email: "", password: "" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      this.signIn = result;
+      console.log("data", this.signIn);
+    });
+  }
+
+  openDialogSignUp(): void{
+    let dialogRef = this.dialog.open(SignupComponent, {
+      width: '500px',
+      data: { email: "", name: "", surname: "", password: "", passwordConfirm: "" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.signUp = result;
+      console.log("dataSignUp", this.signUp);
     });
   }
 }

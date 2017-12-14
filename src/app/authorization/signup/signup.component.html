@@ -1,1 +1,24 @@
-<p>Signup works</p>
+<h1 mat-dialog-title>Sign up</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input tabindex="1" type="email" [(ngModel)]="data.email" matInput placeholder="Email" required >
+    </mat-form-field>
+    <mat-form-field>
+        <input tabindex="2" type="text" [(ngModel)]="data.name" matInput placeholder="Name" required >
+    </mat-form-field>
+    <mat-form-field>
+        <input tabIndex="3" type="text" [(ngModel)]="data.surname" matInput placeholder="Surname" required >
+    </mat-form-field>
+    <mat-form-field>
+        <input tabindex="4" [type]="hide ? 'text' : 'password'" [(ngModel)]="data.password" matInput placeholder="Password" required >
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+        <input tabindex="5" [type]="hideConfirm ? 'text' : 'password'" type="password" [(ngModel)]="data.passwordConfirm" matInput placeholder="Confirm Password" required >
+        <mat-icon matSuffix (click)="hideConfirm = !hideConfirm">{{hideConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data" tabindex="6">Sign up</button>
+    <button mat-button (click)="onNoClickSignUp()" tabindex="-1">Cancel</button>
+</div>

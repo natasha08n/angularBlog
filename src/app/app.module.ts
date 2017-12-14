@@ -1,15 +1,16 @@
-import { BrowserModule }                   from '@angular/platform-browser';
-import { NgModule }                        from '@angular/core';
-import { RouterModule }                    from '@angular/router';
-import { Routes }                          from '@angular/router';
+import { BrowserModule }           from '@angular/platform-browser';
+import { NgModule }                from '@angular/core';
+import { RouterModule }            from '@angular/router';
+import { Routes }                  from '@angular/router';
 import 'hammerjs';
-import { FormsModule }                     from '@angular/forms';
-import { ReactiveFormsModule }             from '@angular/forms';
-import { BrowserAnimationsModule }         from '@angular/platform-browser/animations';
-import { MatSelectModule }                 from '@angular/material/select';
-import { MatDialogModule }                 from '@angular/material/dialog';
-import { platformBrowserDynamic }          from '@angular/platform-browser-dynamic';
-import { MatInputModule }                  from '@angular/material';
+import { FormsModule }             from '@angular/forms';
+import { ReactiveFormsModule }     from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule }         from '@angular/material/select';
+import { MatDialogModule }         from '@angular/material/dialog';
+import { platformBrowserDynamic }  from '@angular/platform-browser-dynamic';
+import { MatInputModule }          from '@angular/material';
+import { MatIconModule }           from '@angular/material';
 
 import { AppRoutingModule }        from './app-routing.module';
 import { AppComponent }            from './app.component';
@@ -25,6 +26,7 @@ import { LoginComponent }          from './authorization/login/login.component';
     BrowserAnimationsModule,
     FormsModule,
     AuthModule,
+    MatIconModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule
