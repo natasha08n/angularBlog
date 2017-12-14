@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.user = null;
-    this.message = "Current user has been successfully logout");
+    this.message = "Current user has been successfully logout";
   }
 
   ngOnInit() {
