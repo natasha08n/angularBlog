@@ -1,21 +1,32 @@
 <h1 mat-dialog-title>Sign up</h1>
 <div mat-dialog-content>
     <mat-form-field>
-        <input tabindex="1" type="email" [(ngModel)]="data.email" matInput placeholder="Email" required >
+        <input tabindex="1" [formControl]="email" [(ngModel)]="data.email" matInput placeholder="Email" required >
+        <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input tabindex="2" type="text" [(ngModel)]="data.name" matInput placeholder="Name" required >
+        <mat-hint align="start">Max 80 characters, min 2</mat-hint>
+        <input tabindex="2" type="text" maxlength="80" [formControl]="name" [(ngModel)]="data.name" matInput placeholder="Name" required >
+        <mat-hint align="end">{{name.value?.length||0}}/80</mat-hint>
+        <mat-error *ngIf="name.invalid">{{getErrorNameMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input tabIndex="3" type="text" [(ngModel)]="data.surname" matInput placeholder="Surname" required >
+        <mat-hint align="start">Max 80 characters, min 2</mat-hint>
+        <input tabIndex="3" type="text" maxlength="80" [formControl]="surname" [(ngModel)]="data.surname" matInput placeholder="Surname" required >
+        <mat-hint align="end">{{surname.value?.length||0}}/80</mat-hint>
+        <mat-error *ngIf="surname.invalid">{{getErrorSurnameMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input tabindex="4" [type]="hide ? 'text' : 'password'" [(ngModel)]="data.password" matInput placeholder="Password" required >
+        <input tabindex="4" [type]="hide ? 'text' : 'password'" maxlength="80" [formControl]="password" [(ngModel)]="data.password" matInput placeholder="Password" required >
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-hint align="end">{{password.value?.length||0}}/80</mat-hint>
+        <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input tabindex="5" [type]="hideConfirm ? 'text' : 'password'" type="password" [(ngModel)]="data.passwordConfirm" matInput placeholder="Confirm Password" required >
+        <input tabindex="5" [type]="hideConfirm ? 'text' : 'password'" [formControl]="passwordConfirm" maxlength="80" [(ngModel)]="data.passwordConfirm" matInput placeholder="Confirm Password" required >
         <mat-icon matSuffix (click)="hideConfirm = !hideConfirm">{{hideConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-hint align="end">{{passwordConfirm.value?.length||0}}/80</mat-hint>
+        <mat-error *ngIf="passwordConfirm.invalid">{{getErrorPasswordConfirmMessage()}}</mat-error>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
