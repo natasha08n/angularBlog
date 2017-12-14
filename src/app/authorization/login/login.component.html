@@ -12,6 +12,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" tabindex="3">Login</button>
+  <button mat-button type="submit" tabindex="3" (click)="email.valid && password.valid && signIn(data)">Login</button>
   <button mat-button (click)="onNoClickSignIn()" tabindex="-1">Cancel</button>
 </div>

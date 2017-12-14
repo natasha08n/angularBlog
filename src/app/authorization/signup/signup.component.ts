@@ -3,6 +3,8 @@ import { Inject }                                   from '@angular/core';
 import { FormControl, Validators }                  from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { AuthService }                              from './../auth.service';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -18,12 +20,14 @@ export class SignupComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SignupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
   }
 
-  onNoClickSignIn(): void {
+  onNoClickSignUp(): void {
     this.dialogRef.close();
   }
 
@@ -45,5 +49,13 @@ export class SignupComponent implements OnInit {
 
   getErrorPasswordConfirmMessage() {
     return this.passwordConfirm.hasError("required") ? "Confirm password, please" : this.passwordConfirm.hasError("maxlength") ? "Max length is 80 characters" : this.passwordConfirm.hasError("minlength") ? "Min length is 6 characters" : "";
+  }
+
+  signUp(data: Object) {
+    console.log(data);
+    this.dialogRef.close();
+    this.authService.signUp(data).subscribe(answer => {
+      console.log("subscribe is working in the signUp-method", answer);
+    });
   }
 }

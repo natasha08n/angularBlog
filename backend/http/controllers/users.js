@@ -22,17 +22,107 @@ router.get('/checkstate', auth, (req, res) => {
     res.send(content);
 })
 
-router.post('/register', (req, res) => {
-    console.log("reqUser-----------------------------------------");
-
-    
+router.post('/signup', (req, res) => {
+    console.log("signup-----------------------------------------");
+    var data = req.body;
+    process.nextTick(() => {
+        if (Object.keys(data).length === 0) {
+            let answer = getAnswer(false, "Please, enter information");
+            res.send(answer);
+            return;
+        }
+        else if (data.name.length < 3 || data.name.length > 80){
+            let answer = getAnswer(false, "Name is not valid. It should be between 3 and 80 characters long.");
+            res.send(answer);
+            return;
+        }
+        else if (data.surname.length < 3 || data.surname.length > 80){
+            let answer = getAnswer(false, "Surname is not valid. It should be between 3 and 80 characters long.");
+            res.send(answer);
+            return;
+        }
+        else if (data.password.length < 6 || data.password.length > 80){
+            let answer = getAnswer(false, "Password is not valid. It should be between 6 and 80 charachters long.")
+        }
+        let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
+        connection.query(querySignUp, function(err, rows){
+            if (err) {
+                res.send(err);
+                return;
+            }
+            if (rows.length) {
+                let answer = getAnswer(false, "Such user already exists");
+                res.send(answer);
+                return;
+            } else {
+                let newUser = {
+                    email: data.email,
+                    name: data.name,
+                    surname: data.surname,
+                    passwordHash: bcrypt.hashSync(data.password)
+                };
+                let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ("${newUser.email}", "${newUser.name}", "${newUser.surname}", "${newUser.passwordHash}")`;
+                connection.query(queryInsertNewUser, function(err, rows){
+                    if (err) {
+                        res.send(err);
+                        return;
+                    }
+                    let token = jwt.sign(newUser, config.secret, {
+                        expiresIn: 60 * 60 * 24
+                    });
+                    let answer = {
+                        user: newUser,
+                        success: true,
+                        message: "New user has been successfully created",
+                        token: token
+                    };
+                    console.log("answer", answer);
+                    res.send(answer);
+                    return;
+                }) 
+            }
+        })
+    })
 })
 
-router.post('/login', (req, res) => {
-    console.log('-------------------------function-login');
+router.post('/signin', (req, res) => {
+    console.log('-------------------------function-signin');
+    var data = req.body;
+    if (!data) {
+        let answer = getAnswer(false, "Please, enter information");
+        res.send(answer);
+        return;
+    }
+    let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
+    console.log("query", querySignIn);
+    connection.query(querySignIn, function (err, rows) {
+        console.log("in the connection");
+        if (err) {
+            console.log("error", error);
+            res.send(err);
+            return;
+        }
+        if (!bcrypt.compareSync(data.password, rows[0].passwordHash)) {
+            let answer = getAnswer(false, "Incorrect password");
+            res.send(answer);
+            return;
+        }
+        let registeredUser = rows[0];
+        let token = jwt.sign(registeredUser, config.secret, {
+            expiresIn: 60 * 60 * 24
+        });
+        let answer = {
+            user: registeredUser,
+            success: true,
+            message: "User has already logged in",
+            token: token
+        };
+        res.send(answer);
+        return;
+    })
 })
 
-function getReplyObject(status, message) {
+function getAnswer(status, message) {
     if (message.length === 0){
         return {status, message : "unknown reasons"};
     }

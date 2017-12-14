@@ -3,11 +3,14 @@ import { Inject }                                     from '@angular/core';
 import { FormControl, Validators }                    from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }   from '@angular/material';
 
+import { AuthService }                                from './../auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent{
 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -15,10 +18,20 @@ export class LoginComponent{
 
   constructor(
     public dialogRef: MatDialogRef<LoginComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private authService: AuthService
+  ) { }
 
   onNoClickSignIn(): void {
     this.dialogRef.close();
+  }
+
+  signIn(data: Object) {
+    console.log(data);
+    this.dialogRef.close();
+    this.authService.signIn(data).subscribe(answer => {
+      console.log("subscribe is working", answer);
+    });
   }
 
   getErrorEmailMessage() {

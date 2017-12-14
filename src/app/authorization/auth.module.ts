@@ -6,6 +6,8 @@ import { MatButtonModule }     from '@angular/material';
 import { MatInputModule }      from '@angular/material';
 import { MatDialogModule }     from '@angular/material/dialog';
 import { MatIconModule }       from '@angular/material';
+import { HttpModule }          from '@angular/http';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { LoginComponent }      from './login/login.component';
 import { SignupComponent }     from './signup/signup.component';
@@ -19,7 +21,9 @@ import { SignupComponent }     from './signup/signup.component';
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule
