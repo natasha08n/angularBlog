@@ -25,63 +25,61 @@ router.get('/checkstate', auth, (req, res) => {
 router.post('/signup', (req, res) => {
     console.log("signup-----------------------------------------");
     var data = req.body;
-    process.nextTick(() => {
-        if (Object.keys(data).length === 0) {
-            let answer = getAnswer(false, "Please, enter information");
-            res.send(answer);
+    if (Object.keys(data).length === 0) {
+        let answer = getAnswer(false, "Please, enter information");
+        res.send(answer);
+        return;
+    }
+    else if (data.name.length < 3 || data.name.length > 80){
+        let answer = getAnswer(false, "Name is not valid. It should be between 3 and 80 characters long.");
+        res.send(answer);
+        return;
+    }
+    else if (data.surname.length < 3 || data.surname.length > 80){
+        let answer = getAnswer(false, "Surname is not valid. It should be between 3 and 80 characters long.");
+        res.send(answer);
+        return;
+    }
+    else if (data.password.length < 6 || data.password.length > 80){
+        let answer = getAnswer(false, "Password is not valid. It should be between 6 and 80 charachters long.")
+    }
+    let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
+    connection.query(querySignUp, function(err, rows){
+        if (err) {
+            res.send(err);
             return;
         }
-        else if (data.name.length < 3 || data.name.length > 80){
-            let answer = getAnswer(false, "Name is not valid. It should be between 3 and 80 characters long.");
+        if (rows.length) {
+            let answer = getAnswer(false, "Such user already exists");
             res.send(answer);
             return;
-        }
-        else if (data.surname.length < 3 || data.surname.length > 80){
-            let answer = getAnswer(false, "Surname is not valid. It should be between 3 and 80 characters long.");
-            res.send(answer);
-            return;
-        }
-        else if (data.password.length < 6 || data.password.length > 80){
-            let answer = getAnswer(false, "Password is not valid. It should be between 6 and 80 charachters long.")
-        }
-        let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
-        connection.query(querySignUp, function(err, rows){
-            if (err) {
-                res.send(err);
-                return;
-            }
-            if (rows.length) {
-                let answer = getAnswer(false, "Such user already exists");
+        } else {
+            let newUser = {
+                email: data.email,
+                name: data.name,
+                surname: data.surname,
+                passwordHash: bcrypt.hashSync(data.password)
+            };
+            let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ("${newUser.email}", "${newUser.name}", "${newUser.surname}", "${newUser.passwordHash}")`;
+            connection.query(queryInsertNewUser, function(err, rows){
+                if (err) {
+                    res.send(err);
+                    return;
+                }
+                let token = jwt.sign(newUser, config.secret, {
+                    expiresIn: 60 * 60 * 24
+                });
+                let answer = {
+                    user: newUser,
+                    success: true,
+                    message: "New user has been successfully created",
+                    token: token
+                };
+                console.log("answer", answer);
                 res.send(answer);
                 return;
-            } else {
-                let newUser = {
-                    email: data.email,
-                    name: data.name,
-                    surname: data.surname,
-                    passwordHash: bcrypt.hashSync(data.password)
-                };
-                let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ("${newUser.email}", "${newUser.name}", "${newUser.surname}", "${newUser.passwordHash}")`;
-                connection.query(queryInsertNewUser, function(err, rows){
-                    if (err) {
-                        res.send(err);
-                        return;
-                    }
-                    let token = jwt.sign(newUser, config.secret, {
-                        expiresIn: 60 * 60 * 24
-                    });
-                    let answer = {
-                        user: newUser,
-                        success: true,
-                        message: "New user has been successfully created",
-                        token: token
-                    };
-                    console.log("answer", answer);
-                    res.send(answer);
-                    return;
-                }) 
-            }
-        })
+            }) 
+        }
     })
 })
 
