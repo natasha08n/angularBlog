@@ -22,7 +22,9 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    console.log("constructorAuthService");
+  }
 
   signIn(data: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}/signin`, data, httpOptions)
@@ -54,11 +56,17 @@ export class AuthService {
 
   verify(): Observable<Object> {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let token = (currentUser && "token" in currentUser) ? currentUser.token : this.token;
-    let httpOptionsVerify = {
+    let token = (currentUser && currentUser["token"]) ? currentUser.token : this.token;
+    // if (token){
+    //   console.log("if token", token);
+    //   let httpOptions = {
+    //     headers: new HttpHeaders({ "x-access-token": token })
+    //   };
+    //   console.log("httpOptions", httpOptions);
+    // }
+    return this.http.get(`${this.baseUrl}/checkstate`, {
       headers: new HttpHeaders({ "x-access-token": token })
-    };
-    return this.http.get(`${this.baseUrl}/checkstate`, httpOptionsVerify);
+    });
   }
 
   logout(): void {
