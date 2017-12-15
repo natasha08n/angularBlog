@@ -15,11 +15,11 @@ console.log('conn', dbconfig.database);
 
 router.get('/checkstate', auth, (req, res) => {
     console.log('callback');
-    let content = {
+    let answer = {
         success: true,
         message: 'Successfully logged in'
     };
-    res.send(content);
+    res.send(answer);
 })
 
 router.post('/signup', (req, res) => {

@@ -1,11 +1,43 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <ng-template [ngIf]="!user" [ngIfElse]="signedin">
-    <button mat-raised-button (click)="openDialogSignIn()">Sign in</button>
-    <button mat-raised-button (click)="openDialogSignUp()">Sign up</button>
-  </ng-template>
-  <ng-template #signedin>
-      <h1>Hello, {{user.name}}</h1>
-      <button mat-raised-button (click)="logout()">Logout</button>
-  </ng-template>
+
 </div>
+
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a id="logo" class="navbar-brand" href="index.html">Creative<sup>+</sup></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href="#">Articles</a></li>
+              <li><a href="#">Toutorials</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Web design</a></li>
+              <li><a href="#">Other</a></li>
+              <li><a href="#">Contact</a></li>
+
+          </ul>
+          <div id="appMenu">
+              <ng-template [ngIf]="!user" [ngIfElse]="signedin" class="nav navbar-nav navbar-right new-nav">
+                  <li><button mat-raised-button (click)="openDialogSignIn()">Sign in</button></li>
+                  <li><button mat-raised-button (click)="openDialogSignUp()">Sign up</button></li>
+              </ng-template>
+              <ng-template #signedin class="nav navbar-nav navbar-right new-nav">
+                  <li><h1>Hello, {{user.name}}</h1></li>
+                  <li><button mat-raised-button (click)="logout()">Logout</button></li>
+              </ng-template>
+          </div>
+      </div>
+  </div>
+</nav>
+
+<div class="header"></div>

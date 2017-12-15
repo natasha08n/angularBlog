@@ -21,16 +21,13 @@ export class LoginComponent{
     public dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log("constructorLoginComponent");
   }
 
   getErrorEmailMessage() {
-    console.log("getErrorEmailMessage");
     return this.email.hasError("required") ? "You must enter a value" : this.email.hasError("email") ? "Not a valid email" : "";
   }
 
   getErrorPasswordMessage() {
-    console.log("getErrorPasswordMessage");
     return this.password.hasError("required") ? "Password is required" : this.password.hasError("maxlength") ? "Max length is 80 characters" : this.password.hasError("minlength") ? "Min length is 6 characters" : "";
   }
 

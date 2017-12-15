@@ -3,4 +3,72 @@
 
 body {
     font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #333;
+    margin: 0px;
+    padding: 0px;
+    background: url(http://2.bp.blogspot.com/-iFvxg9CkLPo/U0uTIS8ieWI/AAAAAAAAATE/BFuBsdCrfqI/s1600/background.png) repeat #fff;
+    position: relative;
+}
+
+ul.new-nav li a:hover {
+    cursor: pointer;
+}
+
+.navbar-inverse {
+    background: url(http://1.bp.blogspot.com/-B6zsM4f1UM4/U0uTJb_7yiI/AAAAAAAAATg/PsZGk9FUBfU/s1600/headertopbg.png) repeat center center #444;
+    border: 0;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+    transition: all .5s ease 0s;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #f26c4f;
+}
+
+.navbar-brand {
+    padding: 15px 80px;
+}
+
+a#logo.navbar-brand {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+}
+
+a#logo {
+    color: white;
+    background-color: #f26c4f;
+    transition: all .5s ease 0s;
+}
+
+a#logo:hover,
+a#logo:focus {
+    background-color: #f26c4f;
+    color: black;
+    transition: all .5s ease 0s;
+}
+
+a#username {
+    color: #f26c4f;
+}
+
+.header {
+    background: url(http://4.bp.blogspot.com/-JBEjo6pEufs/U0uTJAXc62I/AAAAAAAAATY/tkrZ5Fk2H4Y/s1600/headerbg.jpg) no-repeat center center #444;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    height: 100px;
+    border-bottom: 5px solid #999;
+    color: #fff;
+    position: relative;
+    width: 100%;
+    padding: 0px;
+    z-index: 500;
+    margin-bottom: 30px;
 }

@@ -55,18 +55,25 @@ export class AuthService {
   }
 
   verify(): Observable<Object> {
+    console.log("in verify");
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let token = (currentUser && currentUser["token"]) ? currentUser.token : this.token;
-    // if (token){
-    //   console.log("if token", token);
-    //   let httpOptions = {
-    //     headers: new HttpHeaders({ "x-access-token": token })
-    //   };
-    //   console.log("httpOptions", httpOptions);
-    // }
-    return this.http.get(`${this.baseUrl}/checkstate`, {
-      headers: new HttpHeaders({ "x-access-token": token })
-    });
+    if (currentUser) {
+      console.log("currentUser");
+      let token = currentUser["token"] ? currentUser.token : this.token;
+      console.log("token", token);
+      // if (token){
+      //   console.log("if token", token);
+      //   let httpOptions = {
+      //     headers: new HttpHeaders({ "x-access-token": token })
+      //   };
+      //   console.log("httpOptions", httpOptions);
+      // }
+      return this.http.get(`${this.baseUrl}/checkstate`, {
+        headers: new HttpHeaders({ "x-access-token": token })
+      });
+    } else {
+      return this.http.get(`${this.baseUrl}/checkstate`, httpOptions);
+    }
   }
 
   logout(): void {

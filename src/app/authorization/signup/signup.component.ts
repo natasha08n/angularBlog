@@ -23,11 +23,9 @@ export class SignupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private authService: AuthService
   ) { 
-    console.log("constructorSignupComponent");
   }
 
   ngOnInit() {
-    console.log("ngOnInitSignupComponent");
   }
 
   onNoClickSignUp(): void {
