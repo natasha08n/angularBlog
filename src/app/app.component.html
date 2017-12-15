@@ -27,13 +27,17 @@
 
           </ul>
           <div id="appMenu">
-              <ng-template [ngIf]="!user" [ngIfElse]="signedin" class="nav navbar-nav navbar-right new-nav">
-                  <li><button mat-raised-button (click)="openDialogSignIn()">Sign in</button></li>
-                  <li><button mat-raised-button (click)="openDialogSignUp()">Sign up</button></li>
+              <ng-template [ngIf]="!user" [ngIfElse]="signedin">
+                <ul class="nav navbar-nav navbar-right new-nav">
+                  <li><a class="hidden-sm nav-main-greeting" (click)="openDialogSignIn()">Sign in</a></li>
+                  <li><a class="hidden-sm nav-secondary" (click)="openDialogSignUp()">Sign up</a></li>
+                </ul>
               </ng-template>
               <ng-template #signedin class="nav navbar-nav navbar-right new-nav">
-                  <li><h1>Hello, {{user.name}}</h1></li>
-                  <li><button mat-raised-button (click)="logout()">Logout</button></li>
+                <ul class="nav navbar-nav navbar-right new-nav">
+                  <li><a class="hidden-sm nav-main-greeting">Hello, {{user.name}}</a></li>
+                  <li><a class="hidden-sm nav-secondary" (click)="logout()">Logout</a></li>
+                </ul>
               </ng-template>
           </div>
       </div>

@@ -38,16 +38,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openDialogSignIn(): void {
-    console.log("openDialogSignIn");
-    let dialogRef = this.dialog.open(LoginComponent, {
+    let dialogRefLogin = this.dialog.open(LoginComponent, {
       width: '500px',
       data: { email: "", password: "" }
     });
   }
 
   openDialogSignUp(): void{
-    console.log("openDialogSignUp");
-    let dialogRef = this.dialog.open(SignupComponent, {
+    let dialogRefSignUp = this.dialog.open(SignupComponent, {
       width: '500px',
       data: { email: "", name: "", surname: "", password: "", passwordConfirm: "" }
     });

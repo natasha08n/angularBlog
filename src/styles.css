@@ -13,13 +13,15 @@ body {
     position: relative;
 }
 
-ul.new-nav li a:hover {
-    cursor: pointer;
-}
+/* Header menu */
 
 .navbar-inverse {
     background: url(http://1.bp.blogspot.com/-B6zsM4f1UM4/U0uTJb_7yiI/AAAAAAAAATg/PsZGk9FUBfU/s1600/headertopbg.png) repeat center center #444;
     border: 0;
+}
+
+.navbar-fixed-bottom, .navbar-fixed-top {
+    z-index: 999;
 }
 
 .navbar-inverse .navbar-nav>li>a {
@@ -53,9 +55,15 @@ a#logo:focus {
     transition: all .5s ease 0s;
 }
 
-a#username {
+.navbar .navbar-right .nav-main-greeting {
     color: #f26c4f;
 }
+
+ul.new-nav li a:hover {
+    cursor: pointer;
+}
+
+/* Header image */
 
 .header {
     background: url(http://4.bp.blogspot.com/-JBEjo6pEufs/U0uTJAXc62I/AAAAAAAAATY/tkrZ5Fk2H4Y/s1600/headerbg.jpg) no-repeat center center #444;
