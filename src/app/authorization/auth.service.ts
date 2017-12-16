@@ -8,22 +8,22 @@ import { User }                    from './../models/user';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json'
   })
 };
 
 @Injectable()
 export class AuthService {
 
-  private baseUrl = "http://localhost:3000/users";
+  private baseUrl = 'http://localhost:3000/users';
   token: string;
   private userSource = new Subject<User>();
   user$ = this.userSource.asObservable();
 
   constructor(
     private http: HttpClient
-  ) { 
-    console.log("constructorAuthService");
+  ) {
+    console.log('constructorAuthService');
   }
 
   signIn(data: Object): Observable<Object> {
@@ -40,10 +40,10 @@ export class AuthService {
   }
 
   setToken(answer): Object {
-    let userInfo = answer.user;
-    if (answer["success"] === true) {
+    const userInfo = answer.user;
+    if (answer['success'] === true) {
       this.token = answer.token;
-      localStorage.setItem("currentUser", JSON.stringify({
+      localStorage.setItem('currentUser', JSON.stringify({
         id: userInfo.id,
         email: userInfo.email,
         name: userInfo.name,
@@ -55,21 +55,21 @@ export class AuthService {
   }
 
   verify(): Observable<Object> {
-    console.log("in verify");
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    console.log('in verify');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
-      console.log("currentUser");
-      let token = currentUser["token"] ? currentUser.token : this.token;
-      console.log("token", token);
+      console.log('currentUser');
+      const token = currentUser['token'] ? currentUser.token : this.token;
+      console.log('token', token);
       // if (token){
-      //   console.log("if token", token);
+      //   console.log('if token', token);
       //   let httpOptions = {
-      //     headers: new HttpHeaders({ "x-access-token": token })
+      //     headers: new HttpHeaders({ 'x-access-token': token })
       //   };
-      //   console.log("httpOptions", httpOptions);
+      //   console.log('httpOptions', httpOptions);
       // }
       return this.http.get(`${this.baseUrl}/checkstate`, {
-        headers: new HttpHeaders({ "x-access-token": token })
+        headers: new HttpHeaders({ 'x-access-token': token })
       });
     } else {
       return this.http.get(`${this.baseUrl}/checkstate`, httpOptions);
@@ -78,6 +78,6 @@ export class AuthService {
 
   logout(): void {
     this.token = null;
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem('currentUser');
   }
 }

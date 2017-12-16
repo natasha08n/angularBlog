@@ -3,18 +3,23 @@ import { CommonModule }        from '@angular/common';
 import { RouterModule }        from '@angular/router';
 import { Routes }              from '@angular/router';
 
-import { LoginComponent }      from './authorization/login/login.component';
-import { SignupComponent }     from './authorization/signup/signup.component';
-import { PostCreateComponent } from './post/post-create.component';
+import { PostsListComponent }  from './post/posts-list.component';
+import { PostPreviewComponent } from './post/post-preview.component';
 
 const appRoutes: Routes = [
-  //{ path: 'post/:id', component: 'PostDetailComponent' },
-  { path: 'post/create', component: 'PostCreateComponent' }
-]
+  { path: 'users', component: PostPreviewComponent },
+  { path: 'posts', component: PostsListComponent }
+];
 
 @NgModule({
   imports: [
-    CommonModule
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: false }
+    )
+  ],
+  exports: [
+    RouterModule
   ],
   declarations: []
 })

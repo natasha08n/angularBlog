@@ -17,22 +17,27 @@ import { AppComponent }            from './app.component';
 import { AuthModule }              from './authorization/auth.module';
 import { AuthService }             from './authorization/auth.service';
 import { LoginComponent }          from './authorization/login/login.component';
+import { PostModule }              from './post/post.module';
+import { PostService }             from './post/post.service';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     AuthModule,
+    PostModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    PostService
   ],
   bootstrap: [
     AppComponent

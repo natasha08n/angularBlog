@@ -23,49 +23,48 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    public dialog: MatDialog    
+    public dialog: MatDialog
   ) {
-    console.log("constructorAppComponent");
     this.subscription = authService.user$.subscribe(
      (user) => this.user = user
-    )
+    );
   }
-  
+
   logout() {
     this.authService.logout();
     this.user = null;
-    this.message = "Current user has been successfully logout";
+    this.message = 'Current user has been successfully logout';
   }
 
   openDialogSignIn(): void {
-    let dialogRefLogin = this.dialog.open(LoginComponent, {
+    const dialogRefLogin = this.dialog.open(LoginComponent, {
       width: '500px',
-      data: { email: "", password: "" }
+      data: { email: '', password: '' }
     });
   }
 
-  openDialogSignUp(): void{
-    let dialogRefSignUp = this.dialog.open(SignupComponent, {
+  openDialogSignUp(): void {
+    const dialogRefSignUp = this.dialog.open(SignupComponent, {
       width: '500px',
-      data: { email: "", name: "", surname: "", password: "", passwordConfirm: "" }
+      data: { email: '', name: '', surname: '', password: '', passwordConfirm: '' }
     });
   }
 
 
   ngOnInit() {
-    console.log("ngOnInitAppComponent");
-    this.user = JSON.parse(localStorage.getItem("currentUser"));
-    console.log("before verify");
+    console.log('ngOnInitAppComponent');
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('before verify');
     this.authService.verify().subscribe(
      (answer) => {
        console.log(answer);
-       this.message = answer["message"];
+       this.message = answer['message'];
      }
     );
   }
 
    ngOnDestroy() {
-    console.log("ngOnDestroyAppComponent");
+    console.log('ngOnDestroyAppComponent');
      this.subscription.unsubscribe();
    }
 }

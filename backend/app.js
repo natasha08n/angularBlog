@@ -1,8 +1,8 @@
 var express    = require('express');
 var path       = require('path');
-var favicon    = require('serve-favicon');
 var logger     = require('morgan');
 var users      = require('./http/controllers/users');
+var entities   = require('./http/controllers/entities');
 var port       = process.env.PORT || 3000;
 var app        = express();
 var bodyParser = require('body-parser');
@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var cors = require('cors');
 app.use(cors());
 app.use('/users', users);
+app.use('/entities', entities);
 app.use(logger('dev'));
 
 app.use(function (req, res, next) {
