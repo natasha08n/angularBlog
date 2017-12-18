@@ -23,7 +23,6 @@ router.get('/checkstate', auth, (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
-    console.log("signup-----------------------------------------");
     var data = req.body;
     if (Object.keys(data).length === 0) {
         let answer = getAnswer(false, "Please, enter information");
@@ -84,7 +83,6 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-    console.log('-------------------------function-signin');
     var data = req.body;
     if (!data) {
         let answer = getAnswer(false, "Please, enter information");

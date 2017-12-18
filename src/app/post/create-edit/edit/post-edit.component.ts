@@ -12,6 +12,5 @@ export class PostEditComponent {
 
     constructor () {
         this.post = new Post(5, 'Title', 'Subtitle', 'textext textext textext textext textext textext textext textext textext textext textext', ['first', 'second', 'third']);
-        console.log('edit', this.post);
     }
 }

@@ -33,30 +33,29 @@ export class SignupComponent implements OnInit {
   }
 
   getErrorEmailMessage() {
-    return this.email.hasError("required") ? "You must enter a value" : this.email.hasError("email") ? "Not a valid email" : "";
+    return this.email.hasError('required') ? 'You must enter a value' : this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   getErrorNameMessage() {
-    return this.surname.hasError("required") ? "Name is required" : this.name.hasError("maxlength") ? "Max length is 80 characters" : this.name.hasError("minlength") ? "Min length is 3 characters" : "";
+    return this.surname.hasError('required') ? 'Name is required' : this.name.hasError('maxlength') ? 'Max length is 80 characters' : this.name.hasError('minlength') ? 'Min length is 3 characters' : '';
   }
 
   getErrorSurnameMessage() {
-    return this.surname.hasError("required") ? "Surname is required" : this.surname.hasError("maxlength") ? "Max length is 80 characters" : this.surname.hasError("minlength") ? "Min length is 3 characters" : "";
+    return this.surname.hasError('required') ? 'Surname is required' : this.surname.hasError('maxlength') ? 'Max length is 80 characters' : this.surname.hasError('minlength') ? 'Min length is 3 characters' : '';
   }
 
   getErrorPasswordMessage() {
-    return this.password.hasError("required") ? "Password is required" : this.password.hasError("maxlength") ? "Max length is 80 characters" : this.password.hasError("minlength") ? "Min length is 6 characters" : "";
+    return this.password.hasError('required') ? 'Password is required' : this.password.hasError('maxlength') ? 'Max length is 80 characters' : this.password.hasError('minlength') ? 'Min length is 6 characters' : '';
   }
 
   getErrorPasswordConfirmMessage() {
-    return this.passwordConfirm.hasError("required") ? "Confirm password, please" : this.passwordConfirm.hasError("maxlength") ? "Max length is 80 characters" : this.passwordConfirm.hasError("minlength") ? "Min length is 6 characters" : "";
+    return this.passwordConfirm.hasError('required') ? 'Confirm password, please' : this.passwordConfirm.hasError('maxlength') ? 'Max length is 80 characters' : this.passwordConfirm.hasError('minlength') ? 'Min length is 6 characters' : '';
   }
 
   signUp(data: Object) {
-    console.log(data);
     this.dialogRef.close();
     this.authService.signUp(data).subscribe(answer => {
-      console.log("subscribe is working in the signUp-method", answer);
+      console.log('subscribe is working in the signUp-method', answer);
     });
   }
 }

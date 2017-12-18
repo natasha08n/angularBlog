@@ -12,6 +12,6 @@ export class PostCreateComponent {
 
     constructor () {
         this.post = new Post();
-        console.log("create", this.post);
+        console.log('create', this.post);
     }
 }

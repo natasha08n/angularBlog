@@ -21,8 +21,8 @@ export class PostFormComponent {
     separatorKeysCodes = [ENTER, COMMA];
 
     add(event: MatChipInputEvent): void {
-        let input = event.input;
-        let value = event.value;
+        const input = event.input;
+        const value = event.value;
 
         if ((value || '').trim()) {
             this.post.tags.push(value.trim());
@@ -34,7 +34,7 @@ export class PostFormComponent {
     }
 
     remove(tag: any): void {
-        let index = this.post.tags.indexOf(tag);
+        const index = this.post.tags.indexOf(tag);
 
         if (index >= 0) {
             this.post.tags.splice(index, 1);

@@ -22,9 +22,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) {
-    console.log('constructorAuthService');
-  }
+  ) {}
 
   signIn(data: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}/signin`, data, httpOptions)
@@ -55,12 +53,9 @@ export class AuthService {
   }
 
   verify(): Observable<Object> {
-    console.log('in verify');
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
-      console.log('currentUser');
-      const token = currentUser['token'] ? currentUser.token : this.token;
-      console.log('token', token);
+      const token = currentUser.token || this.token;
       // if (token){
       //   console.log('if token', token);
       //   let httpOptions = {
