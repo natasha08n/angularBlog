@@ -7,7 +7,7 @@ var dbconfig   = require('../../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);
-console.log('conn-admin', dbconfig.database);
+console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', function(req, res) {
     console.log("function-posts");
