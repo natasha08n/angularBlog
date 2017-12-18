@@ -22,4 +22,9 @@ export class PostService {
         const url = `${this.baseUrl}/posts`;
         return this.http.get<Post[]>(url);
     }
+
+    createPost(post: Post) {
+        const url = `${this.baseUrl}/post`;
+        return this.http.post(url, post, httpOptions);
+    }
 }

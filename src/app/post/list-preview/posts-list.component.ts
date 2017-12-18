@@ -12,9 +12,7 @@ import { PostPreviewComponent } from './post-preview.component';
 export class PostsListComponent {
     posts: Post[];
 
-    constructor(
-        private postService: PostService
-    ) {
+    constructor(private postService: PostService) {
         this.postService.getAllPosts()
             .subscribe(posts => {
                 this.posts = posts;

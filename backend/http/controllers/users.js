@@ -87,24 +87,20 @@ router.post('/signin', (req, res) => {
     if (!data) {
         let answer = getAnswer(false, 'Please, enter information');
         res.send(answer);
-        return;
     }
     let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     console.log('query', querySignIn);
     connection.query(querySignIn, function (err, rows) {
         if (err) {
             res.send(err);
-            return;
         }
-        if (rows.length === 0) {
+        if (!rows.length) {
             let answer = getAnswer(false, "Such user doesn't exit. Please, sign up first.");
             res.send(answer);
-            return;
         }
         if (!bcrypt.compareSync(data.password, rows[0].passwordHash)) {
             let answer = getAnswer(false, 'Incorrect password');
             res.send(answer);
-            return;
         }
         let registeredUser = rows[0];
         let token = jwt.sign(registeredUser, config.secret, {
@@ -117,12 +113,11 @@ router.post('/signin', (req, res) => {
             token: token
         };
         res.send(answer);
-        return;
     })
 })
 
 function getAnswer(status, message) {
-    if (message.length === 0){
+    if (!message.length) {
         return {status, message : 'unknown reasons'};
     }
     return { status, message };

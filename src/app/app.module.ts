@@ -29,9 +29,9 @@ import { PostFormComponent }             from './post/create-edit/common-form/po
     AppComponent,
     PostsListComponent,
     PostPreviewComponent,
-    PostFormComponent,
     PostCreateComponent,
-    PostEditComponent
+    PostEditComponent,
+    PostFormComponent
   ],
   imports: [
     AppRoutingModule,

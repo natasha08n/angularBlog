@@ -18,11 +18,7 @@ export class SignupComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
   passwordConfirm = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
 
-  constructor(
-    public dialogRef: MatDialogRef<SignupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private authService: AuthService
-  ) { 
+  constructor(public dialogRef: MatDialogRef<SignupComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) { 
   }
 
   ngOnInit() {
@@ -33,7 +29,12 @@ export class SignupComponent implements OnInit {
   }
 
   getErrorEmailMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' : this.email.hasError('email') ? 'Not a valid email' : '';
+    const hasError = this.email.hasError('required');
+    const hasEmail = this.email.hasError('email');
+    if(hasError) {
+        return hasEmail ? 'Not a valid email' : '';
+    } 
+    return 'You must enter a value'
   }
 
   getErrorNameMessage() {

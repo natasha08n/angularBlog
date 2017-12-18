@@ -1,8 +1,12 @@
 import { Component, Input }  from '@angular/core';
+import { EventEmitter }      from '@angular/core';
+import { Output }            from '@angular/core';
 import { MatChipInputEvent } from '@angular/material';
 import { ENTER, COMMA }      from '@angular/cdk/keycodes';
 
 import { Post }             from './../../../models/post';
+
+
 
 @Component({
     selector: 'app-post-form',
@@ -12,6 +16,8 @@ import { Post }             from './../../../models/post';
 
 export class PostFormComponent {
     @Input() post: Post;
+    @Input() isCreated: boolean;
+    @Output() createPost = new EventEmitter();
 
     visible: boolean = true;
     selectable: boolean = true;
@@ -39,5 +45,10 @@ export class PostFormComponent {
         if (index >= 0) {
             this.post.tags.splice(index, 1);
         }
+    }
+
+    create(post: any) {
+        console.log("get", post);
+        this.createPost.emit(post);
     }
 }

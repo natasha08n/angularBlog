@@ -8,7 +8,7 @@ import { PostService }             from './post.service';
 
 const schemas: any[] = [];
 schemas.push(CUSTOM_ELEMENTS_SCHEMA);
-
+//TODO must be deleted!!!!
 @NgModule({
     imports: [
         CommonModule,
