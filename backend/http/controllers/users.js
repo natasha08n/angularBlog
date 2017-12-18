@@ -25,31 +25,31 @@ router.get('/checkstate', auth, (req, res) => {
 router.post('/signup', (req, res) => {
     var data = req.body;
     if (Object.keys(data).length === 0) {
-        let answer = getAnswer(false, "Please, enter information");
+        let answer = getAnswer(false, 'Please, enter information');
         res.send(answer);
         return;
     }
     else if (data.name.length < 3 || data.name.length > 80){
-        let answer = getAnswer(false, "Name is not valid. It should be between 3 and 80 characters long.");
+        let answer = getAnswer(false, 'Name is not valid. It should be between 3 and 80 characters long.');
         res.send(answer);
         return;
     }
     else if (data.surname.length < 3 || data.surname.length > 80){
-        let answer = getAnswer(false, "Surname is not valid. It should be between 3 and 80 characters long.");
+        let answer = getAnswer(false, 'Surname is not valid. It should be between 3 and 80 characters long.');
         res.send(answer);
         return;
     }
     else if (data.password.length < 6 || data.password.length > 80){
-        let answer = getAnswer(false, "Password is not valid. It should be between 6 and 80 charachters long.")
+        let answer = getAnswer(false, 'Password is not valid. It should be between 6 and 80 charachters long.')
     }
-    let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
+    let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     connection.query(querySignUp, function(err, rows){
         if (err) {
             res.send(err);
             return;
         }
         if (rows.length) {
-            let answer = getAnswer(false, "Such user already exists");
+            let answer = getAnswer(false, 'Such user already exists');
             res.send(answer);
             return;
         } else {
@@ -59,7 +59,7 @@ router.post('/signup', (req, res) => {
                 surname: data.surname,
                 passwordHash: bcrypt.hashSync(data.password)
             };
-            let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ("${newUser.email}", "${newUser.name}", "${newUser.surname}", "${newUser.passwordHash}")`;
+            let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ('${newUser.email}', '${newUser.name}', '${newUser.surname}', '${newUser.passwordHash}')`;
             connection.query(queryInsertNewUser, function(err, rows){
                 if (err) {
                     res.send(err);
@@ -71,10 +71,10 @@ router.post('/signup', (req, res) => {
                 let answer = {
                     user: newUser,
                     success: true,
-                    message: "New user has been successfully created",
+                    message: 'New user has been successfully created',
                     token: token
                 };
-                console.log("answer", answer);
+                console.log('answer', answer);
                 res.send(answer);
                 return;
             }) 
@@ -85,12 +85,12 @@ router.post('/signup', (req, res) => {
 router.post('/signin', (req, res) => {
     var data = req.body;
     if (!data) {
-        let answer = getAnswer(false, "Please, enter information");
+        let answer = getAnswer(false, 'Please, enter information');
         res.send(answer);
         return;
     }
-    let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = "${data.email}"`;
-    console.log("query", querySignIn);
+    let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
+    console.log('query', querySignIn);
     connection.query(querySignIn, function (err, rows) {
         if (err) {
             res.send(err);
@@ -102,7 +102,7 @@ router.post('/signin', (req, res) => {
             return;
         }
         if (!bcrypt.compareSync(data.password, rows[0].passwordHash)) {
-            let answer = getAnswer(false, "Incorrect password");
+            let answer = getAnswer(false, 'Incorrect password');
             res.send(answer);
             return;
         }
@@ -113,7 +113,7 @@ router.post('/signin', (req, res) => {
         let answer = {
             user: registeredUser,
             success: true,
-            message: "User has already logged in",
+            message: 'User has already logged in',
             token: token
         };
         res.send(answer);
@@ -123,7 +123,7 @@ router.post('/signin', (req, res) => {
 
 function getAnswer(status, message) {
     if (message.length === 0){
-        return {status, message : "unknown reasons"};
+        return {status, message : 'unknown reasons'};
     }
     return { status, message };
 } 
