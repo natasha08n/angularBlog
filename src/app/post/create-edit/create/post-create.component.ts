@@ -12,7 +12,7 @@ import { PostService }              from './../../post.service';
 export class PostCreateComponent implements OnInit {
     private post: Post;
     private isCreated: boolean = true;
-    private currentDate: number = Date.now();
+    private currentDate: number;
 
     constructor (private postService: PostService, private datePipe: DatePipe) {
     }
@@ -22,15 +22,15 @@ export class PostCreateComponent implements OnInit {
     }
 
     createPost(post: Post) {
-        post.dateCreate = this.transform(this.currentDate);
-        post.dateUpdate = post.dateCreate;
+        post.dateCreate = Date.now();
+        post.dateUpdate = Date.now();
         this.postService.createPost(post)
             .subscribe(post => {
                 console.log('work event emiiter, new post created successfully', post);
             });
     }
 
-    transform(date: number): string {
-        return this.datePipe.transform(date, "yyyy-MM-dd");
-    }
+    // transform(date: number): string {
+    //     return this.datePipe.transform(date, "yyyy-MM-dd");
+    // }
 }

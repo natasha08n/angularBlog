@@ -42,7 +42,7 @@ router.post('/signup', (req, res) => {
     else if (data.password.length < 6 || data.password.length > 80){
         let answer = getAnswer(false, 'Password is not valid. It should be between 6 and 80 charachters long.')
     }
-    let querySignUp = `SELECT users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
+    let querySignUp = `SELECT users.id, users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     connection.query(querySignUp, function(err, rows){
         if (err) {
             res.send(err);
@@ -88,7 +88,7 @@ router.post('/signin', (req, res) => {
         let answer = getAnswer(false, 'Please, enter information');
         res.send(answer);
     }
-    let querySignIn = `SELECT users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
+    let querySignIn = `SELECT users.id, users.email, users.name, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     console.log('query', querySignIn);
     connection.query(querySignIn, function (err, rows) {
         if (err) {

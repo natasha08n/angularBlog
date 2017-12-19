@@ -52,9 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    console.log('ngOnInitAppComponent');
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('before verify');
     this.authService.verify().subscribe(
      (answer) => {
        console.log(answer);
@@ -64,7 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
    ngOnDestroy() {
-    console.log('ngOnDestroyAppComponent');
-     this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
    }
 }

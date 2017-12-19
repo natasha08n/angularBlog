@@ -6,6 +6,7 @@ import { ENTER, COMMA }            from '@angular/cdk/keycodes';
 import { FormControl, Validators } from '@angular/forms';
 
 import { Post }                    from './../../../models/post';
+import { AuthService }             from './../../../authorization/auth.service';
 
 @Component({
     selector: 'app-post-form',
@@ -18,6 +19,8 @@ export class PostFormComponent {
     @Input() isCreated: boolean;
     @Output() createPost = new EventEmitter();
 
+    constructor(private authService: AuthService) { }
+
     private visible: boolean = true;
     private selectable: boolean = true;
     private removable: boolean = true;
@@ -29,11 +32,14 @@ export class PostFormComponent {
         const input = event.input;
         const value = event.value;
 
-        if ((value || '').trim()) {
-            this.post.tags.push(value.trim());
+        if((value || '').trim()) {
+            if(this.post.tags.length === 0 || this.post.tags.indexOf(value.trim()) === -1) {
+                console.log(value, this.post.tags, this.post.tags.indexOf(value.trim()));
+                this.post.tags.push(value.trim());
+            }
         }
 
-        if (input) {
+        if(input) {
             input.value = '';
         }
     }
@@ -47,7 +53,42 @@ export class PostFormComponent {
     }
 
     create(post: any) {
-        console.log("get", post);
-        this.createPost.emit(post);
+        const user = this.authService.getUser();
+        if(user && user.id) {
+            post.userId = user.id;
+            console.log(post);
+            this.createPost.emit(post);
+        } else {
+            alert('Oh, something was wrong... Please, try again!');
+        }
+    }
+
+    private title = new FormControl('', [Validators.required]);
+    private subtitle = new FormControl('', [Validators.required]);
+    private text = new FormControl('', [Validators.required]);
+    private tags = [];
+
+    getErrorTitleMessage() {
+        if(this.title.hasError('required')){
+            return 'You must enter a title';
+        }
+    }
+
+    getErrorSubtitleMessage() {
+        if(this.subtitle.hasError('required')){
+            return 'You must enter a subtitle';
+        }
+    }
+
+    getErrorTextMessage() {
+        if(this.title.hasError('required')){
+            return 'You must enter a text';
+        }
+    }
+
+    getErrorTagsMessage() {
+        if(!this.tags.length){
+            return 'You must enter one tag at least';
+        }
     }
 }

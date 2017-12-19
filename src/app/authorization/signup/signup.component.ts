@@ -13,11 +13,11 @@ import { AuthService }                              from './../auth.service';
 
 export class SignupComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  name = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
-  surname = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
-  password = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
-  passwordConfirm = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
+  private email = new FormControl('', [Validators.required, Validators.email]);
+  private name = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
+  private surname = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
+  private password = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
+  private passwordConfirm = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
 
   constructor(public dialogRef: MatDialogRef<SignupComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) { 
   }

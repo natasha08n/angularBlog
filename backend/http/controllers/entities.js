@@ -22,13 +22,26 @@ router.get('/posts', function(req, res) {
 
 router.post('/post', function(req, res) {
     const postInsert = req.body;
-    const query = `INSERT INTO posts (title, subtitle, text) values ('${postInsert.title}', '${postInsert.subtitle}', '${postInsert.text}')`;
-    console.log("query", query);
-    connection.query(query, function(err, rows){
+    const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId) values ('${postInsert.title}', '${postInsert.subtitle}', '${postInsert.text}', ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId})`;
+    connection.query(query, (err, rows) => {
         if (err) {
-            return;
+            console.log('err', err);
+            res.status(500).json(err);
+        } else {
+            let tagsQuery = 'INSERT IGNORE INTO tags (name) VALUES';
+            postInsert.tags.forEach(element => {
+                tagsQuery += ` ('${element}'),`;
+            });
+            tagsQuery = tagsQuery.substr(0, tagsQuery.length - 1);
+            connection.query(tagsQuery, (err, rows) => {
+                if(err) {
+                    console.log('err tags', err);
+                    res.status(500).json(err);
+                } else {
+                    console.log('success', rows);
+                }
+            })
         }
-        console.log("rows", rows);
     })
 })
 

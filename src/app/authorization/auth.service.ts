@@ -19,7 +19,7 @@ export class AuthService {
   private baseUrl = 'http://localhost:3000/users';
   private token: string;
   private userSource = new Subject<User>();
-  private user$ = this.userSource.asObservable();
+  public user$ = this.userSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -39,6 +39,10 @@ export class AuthService {
     this.userSource.next(user);
   }
 
+  getUser(): User {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
   setToken(answer): Object {
     const userInfo = answer.user;
     if (answer['success'] === true) {
@@ -47,17 +51,16 @@ export class AuthService {
         id: userInfo.id,
         email: userInfo.email,
         name: userInfo.name,
-        surname: userInfo.surname,
-        token: this.token
+        surname: userInfo.surname
       }));
+      localStorage.setItem('currentToken', JSON.stringify({token: this.token}));
     }
     return answer;
   }
 
   verify(): Observable<Object> {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
-      const token = currentUser.token || this.token;
+    const currentToken = JSON.parse(localStorage.getItem('currentToken'));
+    if (currentToken) {
       // if (token){
       //   console.log('if token', token);
       //   let httpOptions = {
@@ -66,7 +69,7 @@ export class AuthService {
       //   console.log('httpOptions', httpOptions);
       // }
       return this.http.get(`${this.baseUrl}/checkstate`, {
-        headers: new HttpHeaders({ 'x-access-token': token })
+        headers: new HttpHeaders({ 'x-access-token': currentToken })
       });
     } else {
       return this.http.get(`${this.baseUrl}/checkstate`, httpOptions);
@@ -76,6 +79,6 @@ export class AuthService {
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
-    this.router.navigateByUrl('');
+    localStorage.removeItem('currentToken');
   }
 }
