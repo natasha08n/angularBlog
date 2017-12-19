@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DatePipe }                 from '@angular/common';
 
-import { Post }             from './../../../models/post';
-import { PostService }      from './../../post.service';
+import { Post }                     from './../../../models/post';
+import { PostService }              from './../../post.service';
 
 @Component({
     selector: 'app-post-create',
@@ -11,8 +12,9 @@ import { PostService }      from './../../post.service';
 export class PostCreateComponent implements OnInit {
     private post: Post;
     private isCreated: boolean = true;
+    private currentDate: number = Date.now();
 
-    constructor (private postService: PostService) {
+    constructor (private postService: PostService, private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -20,9 +22,15 @@ export class PostCreateComponent implements OnInit {
     }
 
     createPost(post: Post) {
+        post.dateCreate = this.transform(this.currentDate);
+        post.dateUpdate = post.dateCreate;
         this.postService.createPost(post)
             .subscribe(post => {
                 console.log('work event emiiter, new post created successfully', post);
             });
+    }
+
+    transform(date: number): string {
+        return this.datePipe.transform(date, "yyyy-MM-dd");
     }
 }

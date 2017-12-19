@@ -11,7 +11,7 @@ connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', function(req, res) {
-    connection.query('SELECT id, title, subtitle, dateCreate from posts', function(err, rows){
+    connection.query('SELECT id, title, subtitle, dateCreate, text from posts', function(err, rows){
         if (err) {
             res.status(500).json(err);
         } else if (rows.length) {

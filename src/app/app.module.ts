@@ -11,6 +11,7 @@ import { MatDialogModule }               from '@angular/material/dialog';
 import { platformBrowserDynamic }        from '@angular/platform-browser-dynamic';
 import { MatInputModule }                from '@angular/material';
 import { MatIconModule, MatChipsModule } from '@angular/material';
+import { DatePipe }                      from '@angular/common';
 
 import { AppRoutingModule }              from './app-routing.module';
 import { AppComponent }                  from './app.component';
@@ -46,7 +47,8 @@ import { PostFormComponent }             from './post/create-edit/common-form/po
   ],
   providers: [
     AuthService,
-    PostService
+    PostService,
+    DatePipe
   ],
   bootstrap: [
     AppComponent

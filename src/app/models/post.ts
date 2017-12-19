@@ -3,6 +3,8 @@ export class Post {
     title: string;
     subtitle: string;
     text: string;
+    dateCreate: string;
+    dateUpdate: string;
     tags: string[];
 
     constructor (id: number = 0, title: string = '', subtitle: string = '', text: string = '', tags: string[] = []){
