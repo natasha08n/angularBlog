@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-div.editPost {
+.edit-post {
     background-color: white;
     border: 1px solid #ddd;
     padding: 30px;
