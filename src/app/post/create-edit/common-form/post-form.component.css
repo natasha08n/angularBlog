@@ -12,3 +12,9 @@
     padding: 30px;
     margin-bottom: 50px;
 }
+
+.edit-post h2 {
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
