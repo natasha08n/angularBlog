@@ -6,7 +6,7 @@ body {
     font-size: 14px;
     line-height: 24px;
     font-weight: 400;
-    color: #333;
+    color: #333333;
     margin: 0px;
     padding: 0px;
     background: url(http://2.bp.blogspot.com/-iFvxg9CkLPo/U0uTIS8ieWI/AAAAAAAAATE/BFuBsdCrfqI/s1600/background.png) repeat #fff;
@@ -25,7 +25,7 @@ body {
 }
 
 .navbar-inverse .navbar-nav>li>a {
-    color: white;
+    color: #ffffff;
     transition: all .5s ease 0s;
 }
 
@@ -37,19 +37,16 @@ body {
     padding: 15px 80px;
 }
 
-a#logo.navbar-brand {
+.navbar-header .logo {
     font-family: "Helvetica", "Arial", sans-serif;
     font-size: 16px;
-}
-
-a#logo {
-    color: white;
+    color: #ffffff;
     background-color: #f26c4f;
     transition: all .5s ease 0s;
 }
 
-a#logo:hover,
-a#logo:focus {
+.navbar-header .logo:hover,
+.navbar-header .logo:focus {
     background-color: #f26c4f;
     color: black;
     transition: all .5s ease 0s;
@@ -59,7 +56,7 @@ a#logo:focus {
     color: #f26c4f;
 }
 
-ul.new-nav li a:hover {
+.new-nav li a:hover {
     cursor: pointer;
 }
 
@@ -72,8 +69,8 @@ ul.new-nav li a:hover {
     -webkit-background-size: cover;
     background-size: cover;
     height: 100px;
-    border-bottom: 5px solid #999;
-    color: #fff;
+    border-bottom: 5px solid #999999;
+    color: #ffffff;
     position: relative;
     width: 100%;
     padding: 0px;
@@ -81,13 +78,13 @@ ul.new-nav li a:hover {
     margin-bottom: 30px;
 }
 
-/* footer */
+/* Footer */
 
 footer {
     margin-top: 70px;
     background-color: #343434;
     padding: 50px 0 120px 0;
-    color: white;
+    color: #ffffff;
 }
 
 footer p {
@@ -104,7 +101,7 @@ footer p {
 
 .btn-foo:hover {
     background-color: #e06147;
-    color: white;
+    color: #ffffff;
     border: 1px solid #f27255;
     box-shadow: 1px 1px 0px rgba(202, 60, 32, .4);
     transition: all 1s ease;
@@ -112,9 +109,7 @@ footer p {
 
 /* social icons */
 
-/*social networks*/
-
-ul.social-links {
+.social-links {
     padding-left: 0;
 }
 
@@ -125,7 +120,7 @@ ul.social-links {
 }
 
 .social-links li a {
-    color: white;
+    color: #ffffff;
     background-color: #f26c4f;
     text-decoration: none;
     font-size: 18px;
@@ -139,11 +134,11 @@ ul.social-links {
 }
 
 .social-links li a:hover {
-    background-color: #666;
+    background-color: #666666;
     transition: all .3s linear;
 }
 
-ul.social-links:after {
+.social-links:after {
     content: "";
     display: block;
     clear: both;
@@ -160,9 +155,9 @@ ul.social-links:after {
 .form-control:focus,
 .form-control:active {
     outline: none;
-    box-shadow: none;
     -webkit-box-shadow: none;
-    border: 1px solid #ccc;
+    box-shadow: none;
+    border: 1px solid #cccccc;
 }
 
 .join,
@@ -171,10 +166,9 @@ ul.social-links:after {
     border-left: 0;
     border-right: 0;
     outline: none;
-    box-shadow: none;
     -webkit-box-shadow: none;
-    padding-right: 25px;
-    padding-left: 25px;
+    box-shadow: none;
+    padding: 25px 0;
 }
 
 .btn-join {
@@ -196,6 +190,6 @@ ul.social-links:after {
 }
 
 .input-group-addon {
-    background-color: white;
+    background-color: #ffffff;
     border: 0;
 }

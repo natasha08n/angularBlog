@@ -1,3 +1,11 @@
-<h1>{{post.id}} - {{post.title}}</h1>
-<h2>{{post.subtitle}}</h2>
-<h3>{{post.text}}</h3>
+<div class="post-img">
+    <img class="img-responsive center-block" src="http://via.placeholder.com/850x450">
+</div>
+
+<div class="description">
+    <div class="angle"></div>
+    <h2 class="description-post-title">{{ post.title }}</h2>
+    <!-- <p class="description-post-date">{{ post.dateUpdate }}</p> -->
+    <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
+    <p class="description-post-text">{{ post.text }}</p>
+</div>

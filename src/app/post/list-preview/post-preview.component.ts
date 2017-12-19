@@ -4,7 +4,8 @@ import { Post }             from './../../models/post';
 
 @Component({
     selector: 'app-post-preview',
-    templateUrl: './post-preview.component.html'
+    templateUrl: './post-preview.component.html',
+    styleUrls: ['./post-preview.component.css']
 })
 
 export class PostPreviewComponent {

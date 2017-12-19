@@ -1,2 +1,7 @@
-<h1>ALL POSTS</h1>
-<app-post-preview *ngFor="let post of posts" [post]="post"></app-post-preview>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <app-post-preview *ngFor="let post of posts" [post]="post"></app-post-preview>
+        </div>
+    </div>
+</div>
