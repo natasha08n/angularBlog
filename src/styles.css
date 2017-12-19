@@ -80,3 +80,122 @@ ul.new-nav li a:hover {
     z-index: 500;
     margin-bottom: 30px;
 }
+
+/* footer */
+
+footer {
+    margin-top: 70px;
+    background-color: #343434;
+    padding: 50px 0 120px 0;
+    color: white;
+}
+
+footer p {
+    color: rgba(255, 255, 255, .8);
+}
+
+.btn-foo {
+    background-color: #f27255;
+    color: #ca3c20;
+    border: 1px solid #f27255;
+    box-shadow: 1px 1px 0px rgba(202, 60, 32, .2);
+    transition: all 1s ease;
+}
+
+.btn-foo:hover {
+    background-color: #e06147;
+    color: white;
+    border: 1px solid #f27255;
+    box-shadow: 1px 1px 0px rgba(202, 60, 32, .4);
+    transition: all 1s ease;
+}
+
+/* social icons */
+
+/*social networks*/
+
+ul.social-links {
+    padding-left: 0;
+}
+
+.social-links li {
+    list-style-type: none;
+    float: left;
+    padding-right: 7px;
+}
+
+.social-links li a {
+    color: white;
+    background-color: #f26c4f;
+    text-decoration: none;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s linear;
+}
+
+.social-links li a:hover {
+    background-color: #666;
+    transition: all .3s linear;
+}
+
+ul.social-links:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* button join */
+
+.form-control {
+    width: 100%;
+    padding: 25px 5px;
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-control:active {
+    outline: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.join,
+.join:focus,
+.join:active {
+    border-left: 0;
+    border-right: 0;
+    outline: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.btn-join {
+    background: #f26c4f;
+    outline: none;
+    transition: background .4s linear;
+    margin: 0px;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.btn-join:hover {
+    background: #d3d1d1;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .4) !important;
+}
+
+.btn-icon {
+    opacity: .3;
+}
+
+.input-group-addon {
+    background-color: white;
+    border: 0;
+}
