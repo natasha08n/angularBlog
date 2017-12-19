@@ -11,13 +11,14 @@
                         <h2>Create Post</h2>
                     </ng-template>
                     <mat-form-field class="form-input-short">
-                        <input matInput tabindex="1" placeholder="Post Title" [value]="post.title" [(ngModel)]="post.title" name="post.title">
+                        <input matInput tabindex="1" placeholder="Post Title" [value]="post.title" [(ngModel)]="post.title" name="post.title" required>
+                        <mat-error *ngIf="post.title.invalid">{{getErrorTitleMessage()}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="form-input-short">
-                        <input matInput tabindex="2" placeholder="Post Subtitle" [value]="post.subtitle" [(ngModel)]="post.subtitle" name="post.subtitle">
+                        <input matInput tabindex="2" placeholder="Post Subtitle" [value]="post.subtitle" [(ngModel)]="post.subtitle" name="post.subtitle" required>
                     </mat-form-field>
                     <mat-form-field class="form-input-long">
-                        <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50" tabindex="3" placeholder="Post Text" [value]="post.text" [(ngModel)]="post.text" name="post.text"></textarea>
+                        <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50" tabindex="3" placeholder="Post Text" [value]="post.text" [(ngModel)]="post.text" name="post.text" required></textarea>
                     </mat-form-field>
                     <mat-form-field class="form-input-long">
                         <mat-chip-list #chipList>
@@ -32,7 +33,8 @@
                                     [matChipInputFor]="chipList"
                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     [matChipInputAddOnBlur]="addOnBlur"
-                                    (matChipInputTokenEnd)="add($event)">
+                                    (matChipInputTokenEnd)="add($event)"
+                                    required>
                         </mat-chip-list>
                     </mat-form-field>
                     <div mat-dialog-actions>

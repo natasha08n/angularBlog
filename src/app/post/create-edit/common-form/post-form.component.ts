@@ -1,12 +1,11 @@
-import { Component, Input }  from '@angular/core';
-import { EventEmitter }      from '@angular/core';
-import { Output }            from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
-import { ENTER, COMMA }      from '@angular/cdk/keycodes';
+import { Component, Input }        from '@angular/core';
+import { EventEmitter }            from '@angular/core';
+import { Output }                  from '@angular/core';
+import { MatChipInputEvent }       from '@angular/material';
+import { ENTER, COMMA }            from '@angular/cdk/keycodes';
+import { FormControl, Validators } from '@angular/forms';
 
-import { Post }             from './../../../models/post';
-
-
+import { Post }                    from './../../../models/post';
 
 @Component({
     selector: 'app-post-form',
@@ -19,12 +18,12 @@ export class PostFormComponent {
     @Input() isCreated: boolean;
     @Output() createPost = new EventEmitter();
 
-    visible: boolean = true;
-    selectable: boolean = true;
-    removable: boolean = true;
-    addOnBlur: boolean = true;
+    private visible: boolean = true;
+    private selectable: boolean = true;
+    private removable: boolean = true;
+    private addOnBlur: boolean = true;
 
-    separatorKeysCodes = [ENTER, COMMA];
+    private separatorKeysCodes = [ENTER, COMMA];
 
     add(event: MatChipInputEvent): void {
         const input = event.input;

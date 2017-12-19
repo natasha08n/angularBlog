@@ -10,6 +10,7 @@ import { AuthService }                              from './../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
 export class SignupComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -32,9 +33,11 @@ export class SignupComponent implements OnInit {
     const hasError = this.email.hasError('required');
     const hasEmail = this.email.hasError('email');
     if(hasError) {
-        return hasEmail ? 'Not a valid email' : '';
-    } 
-    return 'You must enter a value'
+      return 'You must enter a value';
+    }
+    if(hasEmail) {
+      return 'Not a valid email';
+    }
   }
 
   getErrorNameMessage() {

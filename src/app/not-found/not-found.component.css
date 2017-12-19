@@ -1,0 +1,14 @@
+.error {
+    text-align: center;
+    font-weight: bold;
+    padding: 50px;
+    background-color: url(http://2.bp.blogspot.com/-iFvxg9CkLPo/U0uTIS8ieWI/AAAAAAAAATE/BFuBsdCrfqI/s1600/background.png) repeat;
+}
+
+.error-code {
+    font-size: 80px;
+}
+
+.error-description {
+    font-size: 50px;
+}

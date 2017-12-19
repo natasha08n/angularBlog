@@ -2,6 +2,7 @@ import { Injectable }              from '@angular/core';
 import { Observable }              from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject }                 from 'rxjs/Subject';
+import { Router }                  from '@angular/router';
 import 'rxjs/add/operator/map';
 
 import { User }                    from './../models/user';
@@ -16,12 +17,13 @@ const httpOptions = {
 export class AuthService {
 
   private baseUrl = 'http://localhost:3000/users';
-  token: string;
+  private token: string;
   private userSource = new Subject<User>();
-  user$ = this.userSource.asObservable();
+  private user$ = this.userSource.asObservable();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   signIn(data: Object): Observable<Object> {
@@ -74,5 +76,6 @@ export class AuthService {
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('');
   }
 }

@@ -6,11 +6,16 @@ import { Routes }              from '@angular/router';
 import { PostsListComponent }  from './post/list-preview/posts-list.component';
 import { PostCreateComponent } from './post/create-edit/create/post-create.component';
 import { PostEditComponent }   from './post/create-edit/edit/post-edit.component';
+import { NotFoundComponent }   from './not-found/not-found.component';
+import { NotLoginGuard }       from './guards/not-login.guard';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full' , component: PostsListComponent },
-  { path: 'post/create', component: PostCreateComponent },
-  { path: 'post/edit', component: PostEditComponent }
+  { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
+  { path: 'post/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
+
+  { path: '404', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
