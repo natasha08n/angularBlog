@@ -58,8 +58,13 @@ export class SignupComponent implements OnInit {
 
   signUp(data: Object) {
     this.dialogRef.close();
-    this.authService.signUp(data).subscribe(answer => {
-      console.log('subscribe is working in the signUp-method', answer);
-    });
+    this.authService.signUp(data)
+      .subscribe(answer => {
+        if (answer['success'] === true) {
+          this.authService.setUser(answer['user']);
+        } else {
+          console.log(answer['message']);
+        }
+      });
   }
 }

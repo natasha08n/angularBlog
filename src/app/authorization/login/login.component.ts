@@ -36,12 +36,13 @@ export class LoginComponent{
 
   signIn(data: Object) {
     this.dialogRef.close();
-    this.authService.signIn(data).subscribe(answer => {
-      if (answer['success'] === true) {
-        this.authService.setUser(answer['user']);
-      } else {
-        console.log(answer['message']);
-      }
-    });
+    this.authService.signIn(data)
+      .subscribe(answer => {
+        if (answer['success'] === true) {
+          this.authService.setUser(answer['user']);
+        } else {
+          console.log(answer['message']);
+        }
+      });
   }
 }
