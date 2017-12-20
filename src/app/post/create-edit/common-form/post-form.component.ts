@@ -26,6 +26,8 @@ export class PostFormComponent {
     private removable: boolean = true;
     private addOnBlur: boolean = true;
 
+    private excerptLength: number = 80;
+
     private separatorKeysCodes = [ENTER, COMMA];
 
     add(event: MatChipInputEvent): void {
@@ -56,6 +58,7 @@ export class PostFormComponent {
         const user = this.authService.getUser();
         if(user && user.id) {
             post.userId = user.id;
+            post.excerpt = post.text.split(/\s+/).slice(0, this.excerptLength).join(' ');
             console.log(post);
             this.createPost.emit(post);
         } else {

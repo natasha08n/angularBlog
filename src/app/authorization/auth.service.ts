@@ -60,7 +60,7 @@ export class AuthService {
 
   verify(): Observable<Object> {
     const currentToken = JSON.parse(localStorage.getItem('currentToken'));
-    if (currentToken) {
+    if (currentToken.token) {
       // if (token){
       //   console.log('if token', token);
       //   let httpOptions = {
@@ -69,7 +69,7 @@ export class AuthService {
       //   console.log('httpOptions', httpOptions);
       // }
       return this.http.get(`${this.baseUrl}/checkstate`, {
-        headers: new HttpHeaders({ 'x-access-token': currentToken })
+        headers: new HttpHeaders({ 'x-access-token': currentToken.token })
       });
     } else {
       return this.http.get(`${this.baseUrl}/checkstate`, httpOptions);
