@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <div class="one-post">
+                    <img class="img-responsive center-block" src="http://via.placeholder.com/1200x600">
+                    <div class="title">
+                        <p class="text-center">{{ post.title }}</p>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p class="description-post-info">{{ post.dateCreate | date: 'd MMMM yyyy'}} by {{post.authorName}} {{post.authorSurname}}</p>
+                    <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
+                    <p class="description-post-text">{{ post.text }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

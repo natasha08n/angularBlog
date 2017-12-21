@@ -20,11 +20,16 @@ export class PostService {
 
     getAllPosts(): Observable<Post[]> {
         const url = `${this.baseUrl}/posts`;
-        return this.http.get<Post[]>(url);
+        return this.http.get<Post[]>(url, httpOptions);
     }
 
     createPost(post: Post) {
         const url = `${this.baseUrl}/post`;
         return this.http.post(url, post, httpOptions);
+    }
+
+    getPost(id: number): Observable<Post> {
+        const url = `${this.baseUrl}/post/${id}`;
+        return this.http.get<Post>(url, httpOptions);
     }
 }

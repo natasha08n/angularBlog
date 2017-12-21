@@ -7,8 +7,10 @@ export class Post {
     dateUpdate: number;
     tags: string[];
     excerpt: string;
+    authorName: string;
+    authorSurname: string;
 
-    constructor (id: number = 0, title: string = '', subtitle: string = '', text: string = '', tags: string[] = []){
+    constructor (id: number = 0, title: string = '', subtitle: string = '', text: string = '', tags: string[] = [], authorName = '', authorSurname =''){
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
