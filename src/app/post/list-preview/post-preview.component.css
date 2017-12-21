@@ -1,3 +1,16 @@
+/* post img */
+
+.post-img {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 7px;
+    min-height: 200px;
+}
+
+.post-img img {
+    border: 1px solid #ccc;
+}
+
 /*style for a post title*/
 
 .description .description-post-title {
@@ -33,16 +46,6 @@
 }
 
 /*div with a ladder*/
-.post-img {
-    background-color: white;
-    border: 1px solid #cccccc;
-    padding: 7px;
-    min-height: 200px;
-}
-
-.post-img img {
-    border: 1px solid #cccccc;
-}
 
 .description {
     border: 1px solid #cccccc;
