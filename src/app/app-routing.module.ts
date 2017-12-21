@@ -13,7 +13,7 @@ import { PostViewComponent }   from './post/post-view/post-view.component';
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full' , component: PostsListComponent },
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
-  { path: 'post/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
+  { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id', component: PostViewComponent },
 
   { path: '404', component: NotFoundComponent },

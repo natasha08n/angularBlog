@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Post }             from './../../../models/post';
 
 @Component({
     selector: 'app-edit-delete',
@@ -7,5 +9,5 @@ import { Component } from '@angular/core';
 })
 
 export class EditDeleteComponent {
-    
+    @Input() post: Post;
 }
