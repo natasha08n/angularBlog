@@ -60,7 +60,7 @@ export class AuthService {
 
   verify(): Observable<Object> {
     const currentToken = JSON.parse(localStorage.getItem('currentToken'));
-    if (currentToken.token) {
+    if (currentToken) {
       // if (token){
       //   console.log('if token', token);
       //   let httpOptions = {
