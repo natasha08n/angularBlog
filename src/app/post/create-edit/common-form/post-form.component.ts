@@ -18,6 +18,7 @@ export class PostFormComponent {
     @Input() post: Post;
     @Input() isCreated: boolean;
     @Output() createPost = new EventEmitter();
+    @Output() editPost = new EventEmitter();
 
     constructor(private authService: AuthService) { }
 
@@ -59,10 +60,22 @@ export class PostFormComponent {
         if(user && user.id) {
             post.userId = user.id;
             post.excerpt = post.text.split(/\s+/).slice(0, this.excerptLength).join(' ');
-            console.log(post);
             this.createPost.emit(post);
         } else {
             alert('Oh, something was wrong... Please, try again!');
+        }
+    }
+
+    edit(post: any) {
+        console.log('EDIT');
+        const user = this.authService.getUser();
+        if(user && user.id) {
+            post.userId = user.id;
+            post.excerpt = post.text.split(/\s+/).slice(0, this.excerptLength).join(' ');
+            console.log('try emit');
+            this.editPost.emit(post);
+        } else {
+            alert('Oh, something was wrong... Please, try again!')
         }
     }
 

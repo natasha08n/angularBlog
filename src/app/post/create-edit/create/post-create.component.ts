@@ -12,9 +12,10 @@ import { PostService }              from './../../post.service';
 export class PostCreateComponent implements OnInit {
     private post: Post;
     private isCreated: boolean = true;
-    private currentDate: number;
 
-    constructor (private postService: PostService, private datePipe: DatePipe) {
+    constructor (
+        private postService: PostService,
+        private datePipe: DatePipe) {
     }
 
     ngOnInit() {

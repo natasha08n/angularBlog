@@ -26,11 +26,9 @@ router.post('/post', (req, res) => {
     VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, '${postInsert.excerpt}')`;
     connection.query(query, (err, rows) => {
         if (err) {
-            console.log('err', err);
             res.status(500).json(err);
         } else {
             let postId = rows.insertId;
-            console.log('postId', postId);
             let tagsIds = [];
             let tags = postInsert.tags;
             tags.forEach(element => {
@@ -40,7 +38,6 @@ router.post('/post', (req, res) => {
                     if(err) {
                         connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
                             if(err) {
-                                console.log('err', err);
                                 res.status(500).json(err);
                             }
                             tagsIds.push(rows[0].id);
@@ -100,6 +97,23 @@ router.get('/post/:id', (req, res) => {
         }
     });
 });
+
+router.put('/post/:id', (req, res) => {
+    const post = req.body;
+    const postQuery = `UPDATE posts
+    SET title = ${post.title}, subtitle = ${post.subtitle}, text = ${post.text}, dateUpdate = ${post.dateUpdate}, excerpt = ${post.excerpt}
+    WHERE id = ${post.id}`;
+    connection.query(postQuery, (err, rows) => {
+        if(err) {
+            res.status.json(500);
+        }
+        else {
+            console.log('PUT');
+            console.log('ROWS', rows);
+            res.status(200);
+        }
+    })
+})
 
 function addTags(tagsIds, postId) {
     let insertTagsForPost = `INSERT INTO tagsinpost(tagId, postId) VALUES`;

@@ -23,13 +23,18 @@ export class PostService {
         return this.http.get<Post[]>(url, httpOptions);
     }
 
-    createPost(post: Post) {
+    createPost(post: Post): Observable<Post> {
         const url = `${this.baseUrl}/post`;
-        return this.http.post(url, post, httpOptions);
+        return this.http.post<Post>(url, post, httpOptions);
     }
 
     getPost(id: number): Observable<Post> {
         const url = `${this.baseUrl}/post/${id}`;
         return this.http.get<Post>(url, httpOptions);
+    }
+
+    editPost(post: Post): Observable<Post> {
+        const url = `${this.baseUrl}/post/${post.id}`;
+        return this.http.put<Post>(url, post, httpOptions);
     }
 }

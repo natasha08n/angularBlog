@@ -9,5 +9,5 @@ import { Post }             from './../../../models/post';
 })
 
 export class EditDeleteComponent {
-    @Input() post: Post;
+    @Input() postId: Number;
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute }           from '@angular/router';
+import { ActivatedRoute, Router }   from '@angular/router';
 
 import { Post }                     from './../../../models/post';
 import { PostService }              from './../../post.service';
@@ -14,7 +14,8 @@ export class PostEditComponent implements OnInit {
 
     constructor(
         private postService: PostService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -25,5 +26,14 @@ export class PostEditComponent implements OnInit {
         const id = +this.route.snapshot.paramMap.get('id');
         this.postService.getPost(id)
             .subscribe(post => this.post = post);
+    }
+
+    editpost(post: Post) {
+        console.log('EDIT POST');
+        post.dateUpdate = Date.now();
+        this.postService.editPost(post)
+            .subscribe(post => {
+                this.router.navigate(['/post', post.id])
+            });
     }
 }
