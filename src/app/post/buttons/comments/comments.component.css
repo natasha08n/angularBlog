@@ -1,0 +1,12 @@
+.count-comments {
+    display: inline-block;
+    position: relative;
+    right: 20px;
+    bottom: 20px;
+    padding: 5px 20px;
+    background-color: #f26c4f;
+    color: white;
+    border-radius: 4px;
+    cursor: default;
+    z-index: 100;
+}

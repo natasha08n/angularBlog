@@ -22,6 +22,7 @@ import { PostService }                   from './post/post.service';
 import { PostsListComponent }            from './post/list-preview/posts-list.component';
 import { PostPreviewComponent }          from './post/list-preview/post-preview.component';
 import { SocialComponent }               from './post/buttons/social/social.component';
+import { CommentsComponent }             from './post/buttons/comments/comments.component';
 import { PostCreateComponent }           from './post/create-edit/create/post-create.component';
 import { PostEditComponent }             from './post/create-edit/edit/post-edit.component';
 import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
@@ -36,6 +37,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostsListComponent,
     PostPreviewComponent,
     SocialComponent,
+    CommentsComponent,
     PostCreateComponent,
     PostEditComponent,
     PostFormComponent,
