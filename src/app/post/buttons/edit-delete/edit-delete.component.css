@@ -1,0 +1,23 @@
+ul.icons-post-for li{
+    list-style-type: none;
+    margin-bottom: 7px;
+    cursor: pointer;
+}
+
+ul.icons-post-for li:last-child{
+    margin-bottom: 0;
+}
+
+ul.icons-post-for li a{
+    font-size: 16px;
+    background-color: #f27255;
+    border-radius: 50%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all .7s ease;
+}

@@ -23,6 +23,7 @@ import { PostsListComponent }            from './post/list-preview/posts-list.co
 import { PostPreviewComponent }          from './post/list-preview/post-preview.component';
 import { SocialComponent }               from './post/buttons/social/social.component';
 import { CommentsComponent }             from './post/buttons/comments/comments.component';
+import { EditDeleteComponent }            from './post/buttons/edit-delete/edit-delete.component';
 import { PostCreateComponent }           from './post/create-edit/create/post-create.component';
 import { PostEditComponent }             from './post/create-edit/edit/post-edit.component';
 import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
@@ -38,6 +39,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostPreviewComponent,
     SocialComponent,
     CommentsComponent,
+    EditDeleteComponent,
     PostCreateComponent,
     PostEditComponent,
     PostFormComponent,
