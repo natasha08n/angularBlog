@@ -61,28 +61,42 @@ router.post('/post', (req, res) => {
 });
 
 router.get('/post/:id', (req, res) => {
-    console.log('in the get function');
     const postQuery = `SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, users.name, users.surname
     FROM posts
     INNER JOIN users ON posts.userId = users.id WHERE posts.id = ${req.params.id}`;
-    console.log('postQuery', postQuery);
+    let tagsArray = [];
     connection.query(postQuery, (err, rows) => {
-        console.log('in the function');
         if(err) {
             res.status(500).json(err);
         }
-        if(rows.length){
-            let answer = {
-                id: rows[0].id,
-                title: rows[0].title,
-                subtitle: rows[0].subtitle,
-                dateCreate: rows[0].dateCreate,
-                text: rows[0].text,
-                authorName: rows[0].name,
-                authorSurname: rows[0].surname
-            }
-            console.log(answer);
-            res.status(200).send(answer);
+        if(rows.length) {
+            const tagQuery = `SELECT tags.name
+            FROM tags
+            INNER JOIN tagsinpost ON tags.id = tagsinpost.tagId
+            INNER JOIN posts ON posts.id = tagsinpost.postId
+            WHERE posts.id = ${req.params.id}`;
+            connection.query(tagQuery, (err, tagRows) => {
+                if(err) {
+                    res.status(500).json(err);
+                }
+                if(tagRows.length) {
+                    tagRows.forEach(element => {
+                        tagsArray.push(element.name);
+                    });
+                    let answer = {
+                        id: rows[0].id,
+                        title: rows[0].title,
+                        subtitle: rows[0].subtitle,
+                        dateCreate: rows[0].dateCreate,
+                        text: rows[0].text,
+                        tags: tagsArray,
+                        authorName: rows[0].name,
+                        authorSurname: rows[0].surname
+                    }
+                    res.status(200).send(answer);
+                }
+            })
+            
         }
     });
 });
