@@ -14,7 +14,6 @@ connection.query('USE ' + dbconfig.database);
 console.log('conn', dbconfig.database);
 
 router.get('/checkstate', auth, (req, res) => {
-    console.log('callback');
     let answer = {
         success: true,
         message: 'Successfully logged in'

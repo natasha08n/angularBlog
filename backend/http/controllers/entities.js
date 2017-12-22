@@ -14,9 +14,8 @@ router.get('/posts', (req, res) => {
     connection.query('SELECT id, title, subtitle, dateCreate, text, excerpt FROM posts', (err, rows) => {
         if (err) {
             res.status(500).json(err);
-        } else if (rows.length) {
-            res.status(200).json(rows);
         }
+        res.status(200).json(rows);
     })
 });
 
@@ -27,34 +26,37 @@ router.post('/post', (req, res) => {
     connection.query(query, (err, rows) => {
         if (err) {
             res.status(500).json(err);
-        } else {
-            let postId = rows.insertId;
-            let tagsIds = [];
-            let tags = postInsert.tags;
-            tags.forEach(element => {
-                let tag = element;
-                let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
-                connection.query(tagQuery, (err, rows) => {
-                    if(err) {
-                        connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
-                            if(err) {
-                                res.status(500).json(err);
-                            }
-                            tagsIds.push(rows[0].id);
-                            if (tagsIds.length === tags.length) {
-                                addTags(tagsIds, postId);
-                            }
-                        });
-                    } else {
-                        tagsIds.push(rows.insertId);
-                        if (tagsIds.length === tags.length) {
-                            addTags(tagsIds, postId);
-                        }
-                    }
-                });
-            });
         }
-    });    
+        let postId = rows.insertId;
+        let tagsIds = [];
+        let tags = postInsert.tags;
+        let isSuccess = false;
+        tags.forEach(element => {
+            let tag = element;
+            let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
+            isSuccess = connection.query(tagQuery, (err, rows) => {
+                if(err) {
+                    connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
+                        if(err) {
+                            res.status(500).json(err);
+                        }
+                        tagsIds.push(rows[0].id);
+                        if (tagsIds.length === tags.length) {
+                            return addTags(tagsIds, postId);
+                        }
+                    });
+                } else {
+                    tagsIds.push(rows.insertId);
+                    if (tagsIds.length === tags.length) {
+                        return addTags(tagsIds, postId);
+                    }
+                }
+            });
+        });
+        if(isSuccess) {
+            return res.status(200).send((postId).toString());
+        }
+    });
 });
 
 router.get('/post/:id', (req, res) => {
@@ -121,11 +123,13 @@ function addTags(tagsIds, postId) {
         insertTagsForPost += ` (${id}, ${postId}),`;
     });
     insertTagsForPost = insertTagsForPost.slice(0, insertTagsForPost.length - 1);
-    connection.query(insertTagsForPost, (err, rows) => {
+    let isSuccess = connection.query(insertTagsForPost, (err, rows) => {
         if(err) {
             res.status(500).json(err);
         }
+        return true;
     });
+    return isSuccess;
 }
 
 module.exports = router;
