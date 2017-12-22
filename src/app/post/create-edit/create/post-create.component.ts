@@ -30,7 +30,7 @@ export class PostCreateComponent implements OnInit {
         post.dateUpdate = Date.now();
         this.postService.createPost(post)
             .subscribe(id => {
-                console.log('work event emiiter, new post created successfully', id);
+                console.log('work event emiiter, new post created successfully', post);
                 this.router.navigate(['/post', id]);
             });
     }

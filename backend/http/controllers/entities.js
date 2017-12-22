@@ -27,37 +27,17 @@ router.post('/post', (req, res) => {
         if (err) {
             res.status(500).json(err);
         }
-        let postId = rows.insertId;
-        let tagsIds = [];
-        let tags = postInsert.tags;
-        let isSuccess = false;
-        tags.forEach(element => {
-            let tag = element;
-            let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
-            isSuccess = connection.query(tagQuery, (err, rows) => {
-                if(err) {
-                    connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
-                        if(err) {
-                            res.status(500).json(err);
-                        }
-                        tagsIds.push(rows[0].id);
-                        if (tagsIds.length === tags.length) {
-                            return addTags(tagsIds, postId);
-                        }
-                    });
-                } else {
-                    tagsIds.push(rows.insertId);
-                    if (tagsIds.length === tags.length) {
-                        return addTags(tagsIds, postId);
-                    }
-                }
-            });
-        });
-        if(isSuccess) {
-            return res.status(200).send((postId).toString());
+        if(rows) {
+            let tags = postInsert.tags;
+            for(let i = 0; i < tags.length; i++) {
+                addTag(tags[i], postInsert.id, (idTag) => {  
+                    addPostTag(idTag, rows.insertId);                
+                })
+            }
+            res.status(200).send((rows.insertId).toString());
         }
     });
-});
+}/*, addTags*/);
 
 router.get('/post/:id', (req, res) => {
     const postQuery = `SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, users.name, users.surname
@@ -100,38 +80,77 @@ router.get('/post/:id', (req, res) => {
     });
 });
 
-router.put('/post/:id', (req, res) => {
+router.put('/post/:id', (req, res, ) => {
     const post = req.body;
-    console.log('post', post);
     const postQuery = `UPDATE posts
     SET title = "${post.title}", subtitle = "${post.subtitle}", text = "${post.text}", dateUpdate = ${post.dateUpdate}, excerpt = "${post.excerpt}"
     WHERE id = ${post.id}`;
-    console.log('query', postQuery);
     connection.query(postQuery, (err, rows) => {
         if(err) {
             res.status(500).json(err);
         }
-        else {
-            console.log('PUT');
-            console.log('ROWS', rows);
-            res.status(200).send((post.id).toString());
-        }
+        deleteOldTags(post.tags, post.id, () => {
+            let tags = post.tags;
+            for(let i = 0; i < tags.length; i++) {
+                addTag(tags[i], post.id, (idTag) => {  
+                    addPostTag(idTag, post.id);                
+                })
+            }
+        });
+        res.status(200).send((post.id).toString());
     })
 });
 
-function addTags(tagsIds, postId) {
-    let insertTagsForPost = `INSERT INTO tagsinpost(tagId, postId) VALUES`;
-    tagsIds.forEach(id => {
-        insertTagsForPost += ` (${id}, ${postId}),`;
-    });
-    insertTagsForPost = insertTagsForPost.slice(0, insertTagsForPost.length - 1);
-    let isSuccess = connection.query(insertTagsForPost, (err, rows) => {
+function addTag(tag, postId, callback) {
+    let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
+    let resultId = 0;
+    connection.query(tagQuery, (err, rows) => {
         if(err) {
-            res.status(500).json(err);
+            connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
+                if(err) {
+                    res.status(500).json(err);
+                }
+                if(rows) {
+                    // console.log('rows[0].id', rows[0].id);
+                    resultId = rows[0].id;
+
+                    callback(resultId);
+                }
+            });
         }
-        return true;
+        if(rows) {
+            // console.log('rows.insertId', rows.insertId);
+            resultId = rows.insertId;
+            callback(resultId);
+        }
     });
-    return isSuccess;
+}
+
+function addPostTag(idTag, postId) {
+    console.log('in post tags CURRENT ID', idTag, 'postId', postId);
+    let insertTagPost = `INSERT INTO tagsinpost(tagId, postId) VALUES (${idTag}, ${postId})`;
+    connection.query(insertTagPost, (err, rows) => {
+        if(err) {
+            console.log(err);
+            return err;
+        }
+        if(rows) {
+            console.log('addPosttags', rows);
+            return rows;
+        }
+    });
+}
+
+function deleteOldTags(tags, postId, callback) {
+    let deleteTagsQuery = `DELETE from tagsinpost WHERE postId = ${postId}`;
+    connection.query(deleteTagsQuery, (err, rows) => {
+        if(err) {
+            return err;
+        }
+        if(rows.affectedRows) {
+            callback();
+        }
+    });
 }
 
 module.exports = router;

@@ -35,7 +35,6 @@ export class PostService {
 
     editPost(post: Post){
         const url = `${this.baseUrl}/post/${post.id}`;
-        console.log('post', post);
         return this.http.put(url, post, httpOptions);
     }
 }

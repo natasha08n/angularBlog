@@ -38,7 +38,7 @@ export class LoginComponent{
     this.dialogRef.close();
     this.authService.signIn(data)
       .subscribe(answer => {
-        if (answer['success'] === true) {
+        if (answer['success']) {
           this.authService.setUser(answer['user']);
         } else {
           console.log(answer['message']);
