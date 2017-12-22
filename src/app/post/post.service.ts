@@ -33,8 +33,9 @@ export class PostService {
         return this.http.get<Post>(url, httpOptions);
     }
 
-    editPost(post: Post): Observable<Post> {
+    editPost(post: Post){
         const url = `${this.baseUrl}/post/${post.id}`;
-        return this.http.put<Post>(url, post, httpOptions);
+        console.log('post', post);
+        return this.http.put(url, post, httpOptions);
     }
 }

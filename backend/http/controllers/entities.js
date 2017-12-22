@@ -102,20 +102,22 @@ router.get('/post/:id', (req, res) => {
 
 router.put('/post/:id', (req, res) => {
     const post = req.body;
+    console.log('post', post);
     const postQuery = `UPDATE posts
-    SET title = ${post.title}, subtitle = ${post.subtitle}, text = ${post.text}, dateUpdate = ${post.dateUpdate}, excerpt = ${post.excerpt}
+    SET title = "${post.title}", subtitle = "${post.subtitle}", text = "${post.text}", dateUpdate = ${post.dateUpdate}, excerpt = "${post.excerpt}"
     WHERE id = ${post.id}`;
+    console.log('query', postQuery);
     connection.query(postQuery, (err, rows) => {
         if(err) {
-            res.status.json(500);
+            res.status(500).json(err);
         }
         else {
             console.log('PUT');
             console.log('ROWS', rows);
-            res.status(200);
+            res.status(200).send((post.id).toString());
         }
     })
-})
+});
 
 function addTags(tagsIds, postId) {
     let insertTagsForPost = `INSERT INTO tagsinpost(tagId, postId) VALUES`;

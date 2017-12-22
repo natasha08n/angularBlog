@@ -32,8 +32,8 @@ export class PostEditComponent implements OnInit {
         console.log('try edit');
         post.dateUpdate = Date.now();
         this.postService.editPost(post)
-            .subscribe(post => {
-                this.router.navigate(['/post', post.id])
+            .subscribe(id => {
+                this.router.navigate(['/post', id])
             });
     }
 }
