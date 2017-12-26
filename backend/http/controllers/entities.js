@@ -11,7 +11,7 @@ connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', (req, res) => {
-    connection.query('SELECT id, title, subtitle, dateCreate, text, excerpt FROM posts', (err, rows) => {
+    connection.query('SELECT id, title, subtitle, dateCreate, text, excerpt, userId FROM posts', (err, rows) => {
         if (err) {
             res.status(500).json(err);
         }
@@ -22,7 +22,8 @@ router.get('/posts', (req, res) => {
 router.post('/post', (req, res) => {
     const postInsert = req.body;
     const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId, excerpt)
-    VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, '${postInsert.excerpt}')`;
+    VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
+    console.log('query', query);
     connection.query(query, (err, rows) => {
         if (err) {
             res.status(500).json(err);
@@ -37,7 +38,7 @@ router.post('/post', (req, res) => {
             res.status(200).send((rows.insertId).toString());
         }
     });
-}/*, addTags*/);
+});
 
 router.get('/post/:id', (req, res) => {
     const postQuery = `SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, users.name, users.surname
@@ -80,7 +81,7 @@ router.get('/post/:id', (req, res) => {
     });
 });
 
-router.put('/post/:id', (req, res, ) => {
+router.put('/post/:id', (req, res) => {
     const post = req.body;
     const postQuery = `UPDATE posts
     SET title = "${post.title}", subtitle = "${post.subtitle}", text = "${post.text}", dateUpdate = ${post.dateUpdate}, excerpt = "${post.excerpt}"
@@ -100,6 +101,25 @@ router.put('/post/:id', (req, res, ) => {
         res.status(200).send((post.id).toString());
     })
 });
+
+router.delete('/post/:id', (req, res) => {
+    console.log('delete');
+    const id = req.params.id;
+    console.log('id', id);
+    const queryDelete = `DELETE FROM posts WHERE id = ${id}`;
+    console.log('queryDelete', queryDelete);
+    connection.query(queryDelete, (err, rows) => {
+        if(err) {
+            res.status(500).json(err);
+        }
+        if(rows) {
+            const message = {
+                status: 'success'
+            }
+            res.send(message);
+        }
+    })
+})
 
 function addTag(tag, postId, callback) {
     let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;

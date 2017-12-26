@@ -1,6 +1,5 @@
-<h1 mat-dialog-title>Delete the post</h1>
-<div mat-dialog-content>
-    <mat-form-field>
-        <input tabindex="1" matInput >
-    </mat-form-field>
+<h1 mat-dialog-title>Are you sure to delete the post {{postId}}?</h1>
+<div mat-dialog-actions class="action-buttons">
+    <button mat-button (click)="deletePost(data.id)">Yes</button>
+    <button mat-button (click)="onNoClick()">No</button>
 </div>

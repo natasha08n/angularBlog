@@ -28,7 +28,7 @@ export class PostEditComponent implements OnInit {
             .subscribe(post => this.post = post);
     }
 
-    editPost(post: Post) {
+    editPost(post: Post): void {
         console.log('try edit');
         post.dateUpdate = Date.now();
         this.postService.editPost(post)

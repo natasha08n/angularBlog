@@ -28,6 +28,7 @@ import { PostCreateComponent }           from './post/create-edit/create/post-cr
 import { PostEditComponent }             from './post/create-edit/edit/post-edit.component';
 import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
 import { PostViewComponent}              from './post/post-view/post-view.component';
+import { DeleteComponent }               from './post/delete-dialog/delete.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 import { NotLoginGuard }                 from './guards/not-login.guard';
 
@@ -43,7 +44,11 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostCreateComponent,
     PostEditComponent,
     PostFormComponent,
-    PostViewComponent
+    PostViewComponent,
+    DeleteComponent
+  ],
+  entryComponents: [
+    DeleteComponent
   ],
   imports: [
     AppRoutingModule,

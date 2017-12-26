@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog }        from '@angular/material';
 
 import { Post }             from './../../../models/post';
+import { DeleteComponent }  from './../../delete-dialog/delete.component';
 
 @Component({
     selector: 'app-edit-delete',
@@ -10,4 +12,13 @@ import { Post }             from './../../../models/post';
 
 export class EditDeleteComponent {
     @Input() postId: Number;
+
+    constructor(public dialog: MatDialog) { }
+
+    openDialogDelete(postId: number): void {
+        const dialogRefDelete = this.dialog.open(DeleteComponent, {
+            width: '350px',
+            data: { id: postId }
+        });
+    }
 }

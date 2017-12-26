@@ -1,6 +1,7 @@
 import { Injectable }              from '@angular/core';
 import { Observable }              from 'rxjs/observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject }                 from 'rxjs/Subject';
 
 import { Post }                    from './../models/post';
 
@@ -14,13 +15,26 @@ const httpOptions = {
 export class PostService {
     private baseUrl = 'http://localhost:3000/entities';
 
+    // private postsChange = new Subject<Post>();
+    // public user$ = this.userSource.asObservable();
+
+    // posts: Post[];
+    // postsChange: Subject<Post[]> = new Subject<Post[]>();
+
+    private posts = new Subject<Post[]>();=
+    public posts$ = this.posts.asObservable();
+
     constructor(
         private http: HttpClient
-    ) {}
+    ) {    }
 
     getAllPosts(): Observable<Post[]> {
         const url = `${this.baseUrl}/posts`;
-        return this.http.get<Post[]>(url, httpOptions);
+        this.http.get<Post[]>(url, httpOptions)
+            .subscribe(posts => {
+                this.posts.next(posts);
+            });
+        return this.posts;
     }
 
     createPost(post: Post): Observable<Post> {
@@ -33,8 +47,13 @@ export class PostService {
         return this.http.get<Post>(url, httpOptions);
     }
 
-    editPost(post: Post){
+    editPost(post: Post) {
         const url = `${this.baseUrl}/post/${post.id}`;
         return this.http.put(url, post, httpOptions);
+    }
+
+    deletePost(id: number) {
+        const url = `${this.baseUrl}/post/${id}`;
+        return this.http.delete(url, httpOptions);
     }
 }
