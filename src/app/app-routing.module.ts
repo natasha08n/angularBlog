@@ -9,9 +9,10 @@ import { PostEditComponent }   from './post/create-edit/edit/post-edit.component
 import { NotFoundComponent }   from './not-found/not-found.component';
 import { NotLoginGuard }       from './guards/not-login.guard';
 import { PostViewComponent }   from './post/post-view/post-view.component';
+import { LayoutComponent }     from './layout/layout.component';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full' , component: PostsListComponent },
+  { path: '', pathMatch: 'full' , component: LayoutComponent },
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id', component: PostViewComponent },
