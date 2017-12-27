@@ -4,9 +4,12 @@ import { Output }                  from '@angular/core';
 import { MatChipInputEvent }       from '@angular/material';
 import { ENTER, COMMA }            from '@angular/cdk/keycodes';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog }               from '@angular/material';
+import { Location }                from '@angular/common';
 
 import { Post }                    from './../../../models/post';
 import { AuthService }             from './../../../authorization/auth.service';
+import { DeleteComponent }         from './../../delete-dialog/delete.component';
 
 @Component({
     selector: 'app-post-form',
@@ -20,7 +23,11 @@ export class PostFormComponent {
     @Output() createPost = new EventEmitter();
     @Output() editPost = new EventEmitter();
 
-    constructor(private authService: AuthService) { }
+    constructor(
+        private authService: AuthService,
+        public dialog: MatDialog,
+        private location: Location
+    ) { }
 
     private visible: boolean = true;
     private selectable: boolean = true;
@@ -78,6 +85,10 @@ export class PostFormComponent {
         }
     }
 
+    back() {
+        this.location.back();
+    }
+
     private title = new FormControl('', [Validators.required]);
     private subtitle = new FormControl('', [Validators.required]);
     private text = new FormControl('', [Validators.required]);
@@ -105,5 +116,12 @@ export class PostFormComponent {
         if(!this.tags.length){
             return 'You must enter one tag at least';
         }
+    }
+
+    openDialogDelete(postId: number): void {
+        const dialogRefDelete = this.dialog.open(DeleteComponent, {
+            width: '350px',
+            data: { id: postId }
+        });
     }
 }
