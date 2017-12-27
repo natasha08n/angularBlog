@@ -30,6 +30,7 @@ import { PostFormComponent }             from './post/create-edit/common-form/po
 import { PostViewComponent}              from './post/post-view/post-view.component';
 import { DeleteComponent }               from './post/delete-dialog/delete.component';
 import { LayoutComponent }               from './layout/layout.component';
+import { PopularTagsComponent }          from './popular-tags/popular-tags.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 import { NotLoginGuard }                 from './guards/not-login.guard';
 
@@ -46,6 +47,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostEditComponent,
     PostFormComponent,
     LayoutComponent,
+    PopularTagsComponent,
     PostViewComponent,
     DeleteComponent
   ],

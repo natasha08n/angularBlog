@@ -121,6 +121,25 @@ router.delete('/post/:id', (req, res) => {
     })
 })
 
+router.get('/tags', (req, res) => {
+    const queryTags = `SELECT tags.name, COUNT(tagsinpost.tagId) AS countTagsId
+    FROM tagsinpost INNER JOIN tags ON tags.id = tagsinpost.tagId
+    GROUP BY tagId
+    ORDER By countTagsId DESC
+    LIMIT 10`;
+    connection.query(queryTags, (err, rows) => {
+        if (err) {
+            const message = {
+                success: false
+            };
+            res.send(message);
+        }
+        if (rows) {
+            res.send(rows);
+        }
+    })
+})
+
 function addTag(tag, postId, callback) {
     let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
     let resultId = 0;

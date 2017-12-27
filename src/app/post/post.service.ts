@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject }                 from 'rxjs/Subject';
 
 import { Post }                    from './../models/post';
+import { Tag }                     from './../models/tag';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -55,5 +56,10 @@ export class PostService {
     deletePost(id: number) {
         const url = `${this.baseUrl}/post/${id}`;
         return this.http.delete(url, httpOptions);
+    }
+
+    getPopularTags(): Observable<Tag[]> {
+        const url = `${this.baseUrl}/tags`;
+        return this.http.get<Tag[]>(url, httpOptions);
     }
 }
