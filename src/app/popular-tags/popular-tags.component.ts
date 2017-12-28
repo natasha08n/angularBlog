@@ -7,7 +7,8 @@ import { PostService } from './../post/post.service';
 
 @Component({
     selector: 'app-popular-tags',
-    templateUrl: './popular-tags.component.html'
+    templateUrl: './popular-tags.component.html',
+    styleUrls: ['./popular-tags.component.css']
 })
 
 export class PopularTagsComponent implements OnInit {
