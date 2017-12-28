@@ -15,6 +15,7 @@ const appRoutes: Routes = [
   { path: '', pathMatch: 'full' , component: LayoutComponent },
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
+  { path: 'tag/:tag', component: LayoutComponent },
   { path: 'post/:id', component: PostViewComponent },
 
   { path: '404', component: NotFoundComponent },

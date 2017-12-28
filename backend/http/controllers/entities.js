@@ -140,6 +140,35 @@ router.get('/tags', (req, res) => {
     })
 })
 
+router.get('/tag/:tag', (req, res) => {
+    const tag = req.params.tag;
+    const queryPostTag = `SELECT 
+                        posts.id,
+                        posts.title,
+                        posts.subtitle,
+                        posts.text,
+                        posts.dateCreate,
+                        posts.dateUpdate,
+                        posts.userId,
+                        posts.excerpt,
+                        tagsinpost.tagId
+                    FROM
+                        posts INNER JOIN tagsinpost ON posts.id = tagsinpost.postId
+                    WHERE
+                        tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')`;
+    connection.query(queryPostTag, (err, rows) => {
+        if (err) {
+            const message = {
+                'success': false
+            };
+            res.send(message);
+        }
+        if (rows) {
+            res.send(rows);
+        }
+    })
+})
+
 function addTag(tag, postId, callback) {
     let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
     let resultId = 0;

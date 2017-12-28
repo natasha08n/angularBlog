@@ -22,7 +22,7 @@ export class PostService {
     // posts: Post[];
     // postsChange: Subject<Post[]> = new Subject<Post[]>();
 
-    private posts = new Subject<Post[]>();=
+    private posts = new Subject<Post[]>();
     public posts$ = this.posts.asObservable();
 
     constructor(
@@ -61,5 +61,14 @@ export class PostService {
     getPopularTags(): Observable<Tag[]> {
         const url = `${this.baseUrl}/tags`;
         return this.http.get<Tag[]>(url, httpOptions);
+    }
+
+    getPostsByTag(tagname: string): Observable<Post[]> {
+        const url = `${this.baseUrl}/tag/${tagname}`;
+        this.http.get<Post[]>(url, httpOptions)
+            .subscribe(posts => {
+                this.posts.next(posts);
+            });
+        return this.posts;
     }
 }
