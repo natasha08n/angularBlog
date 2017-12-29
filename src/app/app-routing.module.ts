@@ -10,9 +10,15 @@ import { NotFoundComponent }   from './not-found/not-found.component';
 import { NotLoginGuard }       from './guards/not-login.guard';
 import { PostViewComponent }   from './post/post-view/post-view.component';
 import { LayoutComponent }     from './layout/layout.component';
+import { MainPageComponent }   from './layout/main-page/main-page.component';
+import { TagPageComponent }    from './layout/tag-page/tag-page.component';
 
 const appRoutes: Routes = [
-  { path: '', component: LayoutComponent },
+  { path: '', component: LayoutComponent, children: [
+        { path: '', component: MainPageComponent },
+        { path: 'tag/:tag', component: TagPageComponent }
+    ]
+  },
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id', component: PostViewComponent },

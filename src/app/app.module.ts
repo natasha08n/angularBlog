@@ -14,22 +14,29 @@ import { MatIconModule, MatChipsModule } from '@angular/material';
 import { DatePipe }                      from '@angular/common';
 
 import { AppRoutingModule }              from './app-routing.module';
-import { LayoutModule }                  from './layout/layout.module';
-import { AuthModule }                    from './authorization/auth.module';
 
 import { AuthService }                   from './authorization/auth.service';
 import { PostService }                   from './post/post.service';
 
+import { AuthModule }                    from './authorization/auth.module';
+
 import { AppComponent }                  from './app.component';
 import { LoginComponent }                from './authorization/login/login.component';
+
+import { PostsListComponent }            from './post/list-preview/posts-list.component';
+import { PostPreviewComponent }          from './post/list-preview/post-preview.component';
 import { SocialComponent }               from './post/buttons/social/social.component';
 import { CommentsComponent }             from './post/buttons/comments/comments.component';
-import { EditDeleteComponent }            from './post/buttons/edit-delete/edit-delete.component';
+import { EditDeleteComponent }           from './post/buttons/edit-delete/edit-delete.component';
 import { PostCreateComponent }           from './post/create-edit/create/post-create.component';
 import { PostEditComponent }             from './post/create-edit/edit/post-edit.component';
 import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
 import { PostViewComponent}              from './post/post-view/post-view.component';
 import { DeleteComponent }               from './post/delete-dialog/delete.component';
+import { PopularTagsComponent }          from './popular-tags/popular-tags.component';
+import { LayoutComponent }               from './layout/layout.component';
+import { TagPageComponent }              from './layout/tag-page/tag-page.component';
+import { MainPageComponent }             from './layout/main-page/main-page.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
@@ -37,21 +44,26 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
-    // SocialComponent,
-    // CommentsComponent,
-    // EditDeleteComponent,
+    PostsListComponent,
+    PostPreviewComponent,
+    PostViewComponent,
+    SocialComponent,
+    CommentsComponent,
+    EditDeleteComponent,
     PostCreateComponent,
     PostEditComponent,
+    DeleteComponent,
     PostFormComponent,
-    PostViewComponent,
-    DeleteComponent
+    LayoutComponent,
+    PopularTagsComponent,
+    TagPageComponent,
+    MainPageComponent,
+    NotFoundComponent
   ],
   entryComponents: [
     DeleteComponent
   ],
   imports: [
-    LayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
