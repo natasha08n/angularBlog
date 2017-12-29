@@ -5,6 +5,7 @@ import { Subject }                 from 'rxjs/Subject';
 
 import { Post }                    from './../models/post';
 import { Tag }                     from './../models/tag';
+import { Comment }                 from './../models/comment';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -70,5 +71,10 @@ export class PostService {
                 this.posts.next(posts);
             });
         return this.posts;
+    }
+
+    createComment(comment: Comment): Observable<Comment> {
+        const url = `${this.baseUrl}/comment`;
+        return this.http.post<Comment>(url, comment, httpOptions);
     }
 }

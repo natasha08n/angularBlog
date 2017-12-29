@@ -19,7 +19,7 @@
 
                 <div class="create-comment" *ngIf="user">
                     <h2>Create Comment</h2>
-                    <app-comment-create></app-comment-create>
+                    <app-comment-create [userId]="user.id" [postId]="post.id"></app-comment-create>
                 </div>
             </div>
         </div>
