@@ -16,6 +16,11 @@
                     <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
                     <p class="description-post-text">{{ post.text }}</p>
                 </div>
+
+                <div class="create-comment" *ngIf="user">
+                    <h2>Create Comment</h2>
+                    <app-comment-create></app-comment-create>
+                </div>
             </div>
         </div>
     </div>
