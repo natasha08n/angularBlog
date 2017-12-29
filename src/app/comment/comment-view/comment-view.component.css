@@ -1,0 +1,19 @@
+.comment .comment-author {
+    color: #f26c4f;
+    font-weight: 600;
+}
+
+.comment .comment-date {
+    font-style: italic;
+}
+
+.img-user {
+    float: left;
+	margin: 10px;
+}
+
+.comment:after {
+    content: "";
+    display: block;
+    clear: both;
+}

@@ -102,14 +102,15 @@ app-social {
     z-index: 100;
 }
 
-.create-comment {
-    background-color: white;
+.comment {
+    background: url(http://1.bp.blogspot.com/-gvBDWFzrKms/U0uTJu1FpCI/AAAAAAAAAUA/JbNUwz4Ahgo/s1600/postbg.png) repeat #fff;
     border: 1px solid #ccc;
     padding: 15px;
     padding-bottom: 35px;
+    margin-top: 20px;
 }
 
-.create-comment h2 {
+.comment h2 {
     font-family: inherit;
     font-weight: 600;
 }
