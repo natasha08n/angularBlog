@@ -37,6 +37,7 @@ import { PopularTagsComponent }          from './popular-tags/popular-tags.compo
 import { LayoutComponent }               from './layout/layout.component';
 import { TagPageComponent }              from './layout/tag-page/tag-page.component';
 import { MainPageComponent }             from './layout/main-page/main-page.component';
+import { CommentCreateComponent }        from './comment/comment-create/comment-create.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
@@ -58,6 +59,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PopularTagsComponent,
     TagPageComponent,
     MainPageComponent,
+    CommentCreateComponent,
     NotFoundComponent
   ],
   entryComponents: [
