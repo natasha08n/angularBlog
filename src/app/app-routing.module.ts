@@ -12,10 +12,9 @@ import { PostViewComponent }   from './post/post-view/post-view.component';
 import { LayoutComponent }     from './layout/layout.component';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full' , component: LayoutComponent },
+  { path: '', component: LayoutComponent },
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
-  { path: 'tag/:tag', component: LayoutComponent },
   { path: 'post/:id', component: PostViewComponent },
 
   { path: '404', component: NotFoundComponent },
@@ -34,4 +33,5 @@ const appRoutes: Routes = [
   ],
   declarations: []
 })
+
 export class AppRoutingModule { }

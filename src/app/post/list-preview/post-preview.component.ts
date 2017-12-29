@@ -12,8 +12,6 @@ import { AuthService }      from '../../authorization/auth.service';
 
 export class PostPreviewComponent {
     @Input() post: Post;
-
-    
     
     public user: User;
 

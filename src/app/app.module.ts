@@ -14,13 +14,14 @@ import { MatIconModule, MatChipsModule } from '@angular/material';
 import { DatePipe }                      from '@angular/common';
 
 import { AppRoutingModule }              from './app-routing.module';
-import { AppComponent }                  from './app.component';
+import { LayoutModule }                  from './layout/layout.module';
 import { AuthModule }                    from './authorization/auth.module';
+
 import { AuthService }                   from './authorization/auth.service';
-import { LoginComponent }                from './authorization/login/login.component';
 import { PostService }                   from './post/post.service';
-import { PostsListComponent }            from './post/list-preview/posts-list.component';
-import { PostPreviewComponent }          from './post/list-preview/post-preview.component';
+
+import { AppComponent }                  from './app.component';
+import { LoginComponent }                from './authorization/login/login.component';
 import { SocialComponent }               from './post/buttons/social/social.component';
 import { CommentsComponent }             from './post/buttons/comments/comments.component';
 import { EditDeleteComponent }            from './post/buttons/edit-delete/edit-delete.component';
@@ -29,25 +30,20 @@ import { PostEditComponent }             from './post/create-edit/edit/post-edit
 import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
 import { PostViewComponent}              from './post/post-view/post-view.component';
 import { DeleteComponent }               from './post/delete-dialog/delete.component';
-import { LayoutComponent }               from './layout/layout.component';
-import { PopularTagsComponent }          from './popular-tags/popular-tags.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
+
 import { NotLoginGuard }                 from './guards/not-login.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
-    PostsListComponent,
-    PostPreviewComponent,
-    SocialComponent,
-    CommentsComponent,
-    EditDeleteComponent,
+    // SocialComponent,
+    // CommentsComponent,
+    // EditDeleteComponent,
     PostCreateComponent,
     PostEditComponent,
     PostFormComponent,
-    LayoutComponent,
-    PopularTagsComponent,
     PostViewComponent,
     DeleteComponent
   ],
@@ -55,6 +51,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     DeleteComponent
   ],
   imports: [
+    LayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <app-posts-list></app-posts-list>
+            <router-outlet></router-outlet>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -33,11 +33,6 @@
                 <div id="appRecentPosts">
                     <h3 class="description-title">Recent Posts</h3>
                     <ul class="recentPost">
-                        <!-- <li v-on:click="custom_alert(index)" v-for="(item, index) in items">
-                            <a class="postText">{{ item.text }}</a>
-                            <br>
-                            <small>{{ item.datePostUpdate }}</small>
-                        </li> -->
                     </ul>
                 </div>
                 <div id="appTags">

@@ -1,5 +1,4 @@
 import { Component }   from '@angular/core';
-import { OnInit }      from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { Tag }         from './../models/tag';
 import { PostService } from './../post/post.service';
@@ -11,14 +10,12 @@ import { PostService } from './../post/post.service';
     styleUrls: ['./popular-tags.component.css']
 })
 
-export class PopularTagsComponent implements OnInit {
+export class PopularTagsComponent {
     public tags: Tag[];
 
     constructor(
         private postService: PostService
-    ) { }
-
-    ngOnInit() {
+    ) {
         this.getPopularTags();
     }
 
