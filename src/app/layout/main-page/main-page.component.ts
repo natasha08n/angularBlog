@@ -11,7 +11,7 @@ import { PostService }  from './../../post/post.service';
 
 export class MainPageComponent { 
     public posts: Post[];
-    subscription: Subscription;
+    private subscription: Subscription;
   
     constructor(
         private postService: PostService

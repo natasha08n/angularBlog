@@ -11,7 +11,7 @@ import { DeleteComponent }  from './../../delete-dialog/delete.component';
 })
 
 export class EditDeleteComponent {
-    // @Input() postId: Number;
+    @Input() postId: Number;
 
     constructor(public dialog: MatDialog) { }
 
