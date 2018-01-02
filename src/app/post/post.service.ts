@@ -23,9 +23,7 @@ export class PostService {
     private comments = new Subject<Comment[]>();
     public comments$ = this.comments.asObservable();
 
-    constructor(
-        private http: HttpClient
-    ) {    }
+    constructor(private http: HttpClient) { }
 
     getAllPosts(): Observable<Post[]> {
         const url = `${this.baseUrl}/posts`;

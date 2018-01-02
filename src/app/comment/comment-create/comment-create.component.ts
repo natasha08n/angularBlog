@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { EventEmitter }             from 'events';
+import { ActivatedRoute }           from '@angular/router';
 
-import { PostService }      from './../../post/post.service';
-import { Comment }          from './../../models/comment';
+import { PostService }              from './../../post/post.service';
+import { Comment }                  from './../../models/comment';
 
 @Component({
     selector: 'app-comment-create',
@@ -13,8 +15,11 @@ export class CommentCreateComponent {
     @Input() userId: number;
     @Input() postId: number;
 
+    @Output() getComments = new EventEmitter();
+
     constructor(
-        private postService: PostService
+        private postService: PostService,
+        private route: ActivatedRoute
     ) { }
 
     createComment(text: string, previous: number) {
@@ -34,8 +39,9 @@ export class CommentCreateComponent {
             children: []
         }
         this.postService.createComment(comment)
-            .subscribe(() => {
-                console.log('comment has been added');
+            .subscribe( () => {
+                const postId = +this.route.snapshot.paramMap.get('id');
+                this.postService.getCommentsPost(postId);
             })
     }
  }

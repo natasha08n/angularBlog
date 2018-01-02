@@ -31,6 +31,7 @@ export class CommentsListsComponent {
     }
 
     getComments(postId: number): void {
+        console.log('getComments');
         this.postService.getCommentsPost(postId)
             .subscribe((comments) => {
                 if(comments.length) {
