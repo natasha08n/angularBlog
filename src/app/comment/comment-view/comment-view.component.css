@@ -17,3 +17,11 @@
     display: block;
     clear: both;
 }
+
+.comment-info {
+    padding-top: 10px;
+}
+
+.mclass {
+    margin-left: 50px;
+}

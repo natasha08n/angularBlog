@@ -39,6 +39,7 @@ import { TagPageComponent }              from './layout/tag-page/tag-page.compon
 import { MainPageComponent }             from './layout/main-page/main-page.component';
 import { CommentCreateComponent }        from './comment/comment-create/comment-create.component';
 import { CommentViewComponent }          from './comment/comment-view/comment-view.component';
+import { CommentsListsComponent }        from './comment/comments-list/comments-list.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
@@ -62,6 +63,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     MainPageComponent,
     CommentCreateComponent,
     CommentViewComponent,
+    CommentsListsComponent,
     NotFoundComponent
   ],
   entryComponents: [

@@ -15,7 +15,6 @@ import { PostService }         from './../post.service';
 })
 
 export class PostViewComponent implements OnInit, OnDestroy {
-
     public post: Post;
     public user: User;
     private subscription: Subscription;

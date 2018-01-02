@@ -171,10 +171,29 @@ router.get('/tag/:tag', (req, res) => {
 
 router.post('/comment', (req, res) => {
     const comment = req.body;
-    console.log('comment', comment);
     const queryComment = `INSERT INTO creative.comments(text, dateCreate, dateUpdate, postId, userId, previousId) VALUES ("${comment.text}", ${comment.dateCreate}, ${comment.dateUpdate}, ${comment.postId}, ${comment.userId}, ${comment.previousId});`
-    console.log('queryComment', queryComment);
     connection.query(queryComment, (err, rows) => {
+        if(err) {
+            const message = {
+                success: false
+            };
+            res.send(message);
+        }
+        if(rows) {
+            res.send(rows);
+        }
+    })
+})
+
+router.get('/:id/comments', (req, res) => {
+    const postId = req.params.id;
+    console.log('postId', postId);
+    const queryComments = `SELECT comments.id, comments.text, comments.dateUpdate, users.name as 'author', comments.previousId
+    FROM comments
+    INNER JOIN users ON comments.userId = users.id
+    INNER JOIN posts ON comments.postId = posts.id
+    WHERE postId = ${postId}`;
+    connection.query(queryComments, (err, rows) => {
         if(err) {
             const message = {
                 success: false

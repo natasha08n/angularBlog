@@ -1,4 +1,4 @@
-import { Component, OnInit }                        from '@angular/core';
+import { Component }                                from '@angular/core';
 import { Inject }                                   from '@angular/core';
 import { FormControl, Validators }                  from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -11,7 +11,7 @@ import { AuthService }                              from './../auth.service';
   styleUrls: ['./signup.component.css']
 })
 
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   private email = new FormControl('', [Validators.required, Validators.email]);
   private name = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
@@ -20,9 +20,6 @@ export class SignupComponent implements OnInit {
   private passwordConfirm = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
 
   constructor(public dialogRef: MatDialogRef<SignupComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) { 
-  }
-
-  ngOnInit() {
   }
 
   onNoClickSignUp(): void {

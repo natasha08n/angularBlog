@@ -13,9 +13,7 @@ export class MainPageComponent {
     public posts: Post[];
     private subscription: Subscription;
   
-    constructor(
-        private postService: PostService
-    ) {
+    constructor(private postService: PostService) {
         this.subscription = postService.posts$.subscribe(
             (posts) => this.posts = posts
         );

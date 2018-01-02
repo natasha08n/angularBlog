@@ -23,12 +23,15 @@ export class CommentCreateComponent {
             previous = 0;
         }
         const comment = {
+            id: 0,
             userId: this.userId,
             postId: this.postId,
             text: text,
             dateCreate: date,
             dateUpdate: date,
-            previousId: previous
+            previousId: previous,
+            prevAuthor: '',
+            children: []
         }
         this.postService.createComment(comment)
             .subscribe(() => {
