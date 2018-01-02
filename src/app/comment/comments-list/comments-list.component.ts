@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component }        from '@angular/core';
 import { Subscription }     from 'rxjs/Subscription';
+import { ActivatedRoute }   from '@angular/router';
 
 import { Comment }          from './../../models/comment';
 import { PostService }      from '../../post/post.service';
@@ -11,31 +12,34 @@ import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 })
 
 export class CommentsListsComponent {
-    @Input() postId: number;
-
     public comments: Comment[];
     private subscription: Subscription;
+    public hasAnyComments: Boolean = false;
 
-    constructor(private postService: PostService) {
+    constructor(
+        private postService: PostService,
+        private route: ActivatedRoute
+    ) {
         this.subscription = postService.comments$.subscribe(
             (comments) => {
                 this.comments = comments;
             }
         );
-        console.log('in the constructor', this.postId);
-        this.getComments(this.postId);
-
         
+        const postId = +this.route.snapshot.paramMap.get('id');
+        this.getComments(postId);
     }
 
     getComments(postId: number): void {
-        console.log('in the comments list', postId);
         this.postService.getCommentsPost(postId)
             .subscribe((comments) => {
-                comments.forEach((comment) => {
-                    comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
-                });
-                this.comments = this.buildHierarchy(comments);
+                if(comments.length) {
+                    this.hasAnyComments = true;
+                    comments.forEach((comment) => {
+                        comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
+                    });
+                    this.comments = this.buildHierarchy(comments);
+                }
             });
     }
 

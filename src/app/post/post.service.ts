@@ -76,7 +76,7 @@ export class PostService {
     }
 
     getCommentsPost(postId: number): Observable<Comment[]> {
-        const url = `${this.baseUrl}/192/comments`;
+        const url = `${this.baseUrl}/${postId}/comments`;
         console.log('in the post service', postId);
         this.http.get<Comment[]>(url, httpOptions)
             .subscribe(comments => {
