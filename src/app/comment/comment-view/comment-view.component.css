@@ -1,3 +1,13 @@
+.comment {
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.comment li {
+    list-style-type: none;
+
+}
+
 .comment .comment-author {
     color: #f26c4f;
     font-weight: 600;
@@ -9,7 +19,7 @@
 
 .img-user {
     float: left;
-	margin: 10px;
+	margin: 10px 10px 10px 0;
 }
 
 .comment:after {
@@ -19,9 +29,5 @@
 }
 
 .comment-info {
-    padding-top: 10px;
-}
-
-.mclass {
-    margin-left: 50px;
+    padding-top: 5px;
 }

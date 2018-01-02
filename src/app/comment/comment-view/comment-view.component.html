@@ -1,18 +1,3 @@
-<!-- <div class="comment">
-    <div class="text-justify">
-        <div [ngClass]="{'mclass': comment.previousId}">
-            <img src="http://via.placeholder.com/60x60" alt="user" class="img-responsive img-user">
-            <div class="comment-info">
-                <span class="comment-author">{{comment.author}}</span>
-                <span *ngIf="comment.previousId">to</span>
-                <span *ngIf="comment.previousId" class="comment-author">{{comment.prevAuthor}}</span>
-                <span class="comment-date">{{comment.dateUpdate | date: 'd MMMM yyyy'}}</span>
-                <p>{{comment.text}}</p>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <ul class="comment">
     <li class="text-justify">
         <img src="http://via.placeholder.com/60x60" alt="user" class="img-responsive img-user">
@@ -28,34 +13,3 @@
         </ul>
     </li>
 </ul>
-
-<!-- <ul class="comment">
-    <li class="text-justify">
-        <img src="http://via.placeholder.com/60x60" alt="user" class="img-responsive img-user">
-        <div class="comment-info">
-            <span class="comment-author">{{comment.author}}</span>
-            <span *ngIf="comment.previousId">to</span>
-            <span *ngIf="comment.previousId" class="comment-author">{{comment.prevAuthor}}</span>
-            <span class="comment-date">{{comment.dateUpdate | date: 'd MMMM yyyy'}}</span>
-            <p>{{comment.text}}</p>
-        </div>
-        <ul *ngIf="comment.children">
-            <app-comment-view *ngFor="let comment of comment.children" [comment]="comment.children"></app-comment-view>
-        </ul>
-    </li>
-</ul> -->
-
-<!-- <ul>
-    <li>a
-        <ul>
-            <li>b
-                <ul>
-                    <li>d</li>
-                    <li>e</li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li>c</li>
-    <li>f</li>
-</ul> -->
