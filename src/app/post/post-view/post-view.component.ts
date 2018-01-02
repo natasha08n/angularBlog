@@ -1,4 +1,5 @@
 import { Component, OnInit }   from '@angular/core';
+import { OnDestroy }           from '@angular/core/src/metadata/lifecycle_hooks';
 import { ActivatedRoute }      from '@angular/router';
 import { Subscription }        from 'rxjs/Subscription';
 
@@ -13,7 +14,7 @@ import { PostService }         from './../post.service';
     styleUrls: ['./post-view.component.css']
 })
 
-export class PostViewComponent implements OnInit {
+export class PostViewComponent implements OnInit, OnDestroy {
 
     public post: Post;
     public user: User;
@@ -38,5 +39,9 @@ export class PostViewComponent implements OnInit {
         const id = +this.route.snapshot.paramMap.get('id');
         this.postService.getPost(id)
             .subscribe(post => this.post = post);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
