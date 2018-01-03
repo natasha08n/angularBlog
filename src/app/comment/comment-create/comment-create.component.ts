@@ -42,6 +42,6 @@ export class CommentCreateComponent {
             .subscribe( () => {
                 const postId = +this.route.snapshot.paramMap.get('id');
                 this.postService.getCommentsPost(postId);
-            })
+            });
     }
  }
