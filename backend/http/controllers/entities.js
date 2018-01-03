@@ -23,7 +23,6 @@ router.post('/post', (req, res) => {
     const postInsert = req.body;
     const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId, excerpt)
     VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
-    console.log('query', query);
     connection.query(query, (err, rows) => {
         if (err) {
             res.status(500).json(err);
@@ -103,11 +102,8 @@ router.put('/post/:id', (req, res) => {
 });
 
 router.delete('/post/:id', (req, res) => {
-    console.log('delete');
     const id = req.params.id;
-    console.log('id', id);
     const queryDelete = `DELETE FROM posts WHERE id = ${id}`;
-    console.log('queryDelete', queryDelete);
     connection.query(queryDelete, (err, rows) => {
         if(err) {
             res.status(500).json(err);
@@ -187,7 +183,6 @@ router.post('/comment', (req, res) => {
 
 router.get('/:id/comments', (req, res) => {
     const postId = req.params.id;
-    console.log('postId', postId);
     const queryComments = `SELECT comments.id, comments.text, comments.dateUpdate, users.name as 'author', comments.previousId
     FROM comments
     INNER JOIN users ON comments.userId = users.id
@@ -216,7 +211,6 @@ function addTag(tag, postId, callback) {
                     res.status(500).json(err);
                 }
                 if(rows) {
-                    // console.log('rows[0].id', rows[0].id);
                     resultId = rows[0].id;
 
                     callback(resultId);
@@ -224,7 +218,6 @@ function addTag(tag, postId, callback) {
             });
         }
         if(rows) {
-            // console.log('rows.insertId', rows.insertId);
             resultId = rows.insertId;
             callback(resultId);
         }
@@ -232,15 +225,12 @@ function addTag(tag, postId, callback) {
 }
 
 function addPostTag(idTag, postId) {
-    console.log('in post tags CURRENT ID', idTag, 'postId', postId);
     let insertTagPost = `INSERT INTO tagsinpost(tagId, postId) VALUES (${idTag}, ${postId})`;
     connection.query(insertTagPost, (err, rows) => {
         if(err) {
-            console.log(err);
             return err;
         }
         if(rows) {
-            console.log('addPosttags', rows);
             return rows;
         }
     });
