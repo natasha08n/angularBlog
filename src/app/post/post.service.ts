@@ -5,7 +5,6 @@ import { Subject }                 from 'rxjs/Subject';
 
 import { Post }                    from './../models/post';
 import { Tag }                     from './../models/tag';
-import { Comment }                 from './../models/comment';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -19,9 +18,6 @@ export class PostService {
 
     private posts = new Subject<Post[]>();
     public posts$ = this.posts.asObservable();
-
-    private comments = new Subject<Comment[]>();
-    public comments$ = this.comments.asObservable();
 
     constructor(private http: HttpClient) { }
 
@@ -66,24 +62,5 @@ export class PostService {
                 this.posts.next(posts);
             });
         return this.posts;
-    }
-
-    createComment(comment: Comment): Observable<Comment> {
-        const url = `${this.baseUrl}/comment`;
-        return this.http.post<Comment>(url, comment, httpOptions);
-    }
-
-    getCommentsPost(postId: number): Observable<Comment[]> {
-        const url = `${this.baseUrl}/${postId}/comments`;
-        this.http.get<Comment[]>(url, httpOptions)
-            .subscribe(comments => {
-                this.comments.next(comments);
-            });
-        return this.comments;
-    }
-
-    deleteComment(commentId: number)  {
-        const url = `${this.baseUrl}/comment/${commentId}`;
-        return this.http.delete<Comment>(url, httpOptions);
     }
 }

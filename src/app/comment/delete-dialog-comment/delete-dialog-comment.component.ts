@@ -2,7 +2,7 @@ import { Component, Inject, Output }       from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef }   from '@angular/material';
 import { EventEmitter }                    from 'events';
 
-import { PostService }                     from '../../post/post.service';
+import { CommentService }                  from './../comments.service';
 
 @Component({
     selector: 'app-delete-dialog-comment',
@@ -16,12 +16,12 @@ export class DeleteDialogCommentComponent {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: Object,
         public dialogRefDelete: MatDialogRef<DeleteDialogCommentComponent>,
-        private postService: PostService
+        private commentService: CommentService
     ) { }
 
     deleteComment(commentId: number, postId: number) {
         console.log('postId', postId);
-        this.postService.deleteComment(commentId)
+        this.commentService.deleteComment(commentId)
             .subscribe((res) => {
                 if(res['status'] === 'success') {
                     this.onNoClick();

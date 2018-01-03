@@ -17,6 +17,7 @@ import { AppRoutingModule }              from './app-routing.module';
 
 import { AuthService }                   from './authorization/auth.service';
 import { PostService }                   from './post/post.service';
+import { CommentService }                from './comment/comments.service';
 
 import { AuthModule }                    from './authorization/auth.module';
 
@@ -86,6 +87,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
   providers: [
     AuthService,
     PostService,
+    CommentService,
     NotLoginGuard,
     DatePipe
   ],

@@ -2,7 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { EventEmitter }             from 'events';
 import { ActivatedRoute }           from '@angular/router';
 
-import { PostService }              from './../../post/post.service';
+import { CommentService }           from './../comments.service';
 import { Comment }                  from './../../models/comment';
 
 @Component({
@@ -18,7 +18,7 @@ export class CommentCreateComponent {
     @Output() getComments = new EventEmitter();
 
     constructor(
-        private postService: PostService,
+        private commentService: CommentService,
         private route: ActivatedRoute
     ) { }
 
@@ -38,10 +38,10 @@ export class CommentCreateComponent {
             prevAuthor: '',
             children: []
         };
-        this.postService.createComment(comment)
+        this.commentService.createComment(comment)
             .subscribe( () => {
                 const postId = +this.route.snapshot.paramMap.get('id');
-                this.postService.getCommentsPost(postId);
+                this.commentService.getCommentsPost(postId);
             });
     }
  }
