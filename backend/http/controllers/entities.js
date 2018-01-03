@@ -11,7 +11,9 @@ connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', (req, res) => {
-    connection.query('SELECT id, title, subtitle, dateCreate, text, excerpt, userId FROM posts', (err, rows) => {
+    connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
+    (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
+    FROM posts`, (err, rows) => {
         if (err) {
             res.status(500).json(err);
         }
