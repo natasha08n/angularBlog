@@ -18,7 +18,7 @@ export class DeleteComponent {
     constructor(
         private postService: PostService,
         public dialogRefDelete: MatDialogRef<DeleteComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any
+        @Inject(MAT_DIALOG_DATA) public data: Object
     ) {}
 
     onNoClick(): void {
@@ -26,7 +26,6 @@ export class DeleteComponent {
     }
 
     deletePost(id: number) {
-
         this.postService.deletePost(id)
             .subscribe(res => {
                 if(res['status'] === 'success') {

@@ -1,2 +1,3 @@
-<app-comment-view *ngFor="let comment of comments" [comment]="comment" (getComments)="getComments($event)"></app-comment-view>
+<app-comment-view *ngFor="let comment of comments" [comment]="comment" [userId]="userId" (getComments)="geComments($event)"></app-comment-view>
+
 <h3 *ngIf="!hasAnyComments">There are no comments. Be first!</h3>

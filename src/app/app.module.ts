@@ -40,6 +40,7 @@ import { MainPageComponent }             from './layout/main-page/main-page.comp
 import { CommentCreateComponent }        from './comment/comment-create/comment-create.component';
 import { CommentViewComponent }          from './comment/comment-view/comment-view.component';
 import { CommentsListsComponent }        from './comment/comments-list/comments-list.component';
+import { DeleteDialogCommentComponent }  from './comment/delete-dialog-comment/delete-dialog-comment.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
@@ -64,10 +65,12 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     CommentCreateComponent,
     CommentViewComponent,
     CommentsListsComponent,
+    DeleteDialogCommentComponent,
     NotFoundComponent
   ],
   entryComponents: [
-    DeleteComponent
+    DeleteComponent,
+    DeleteDialogCommentComponent
   ],
   imports: [
     AppRoutingModule,

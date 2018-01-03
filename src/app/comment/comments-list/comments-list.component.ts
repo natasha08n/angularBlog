@@ -1,4 +1,4 @@
-import { Component }        from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subscription }     from 'rxjs/Subscription';
 import { ActivatedRoute }   from '@angular/router';
 
@@ -12,6 +12,8 @@ import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 })
 
 export class CommentsListsComponent {
+    @Input() userId: number;
+
     public comments: Comment[];
     private subscription: Subscription;
     public hasAnyComments: Boolean = false;
@@ -23,6 +25,7 @@ export class CommentsListsComponent {
         this.subscription = postService.comments$.subscribe(
             (comments) => {
                 this.comments = comments;
+                console.log('this comments', this.comments);
             }
         );
         
@@ -31,7 +34,6 @@ export class CommentsListsComponent {
     }
 
     getComments(postId: number): void {
-        console.log('getComments');
         this.postService.getCommentsPost(postId)
             .subscribe((comments) => {
                 if(comments.length) {
