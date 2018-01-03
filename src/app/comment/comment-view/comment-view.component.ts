@@ -2,6 +2,8 @@ import { Component, Input }             from '@angular/core';
 import { MatDialog }                    from '@angular/material';
 
 import { DeleteDialogCommentComponent } from './../delete-dialog-comment/delete-dialog-comment.component';
+import { CommentService }               from '../comments.service';
+
 
 @Component({
     selector: 'app-comment-view',
@@ -13,7 +15,12 @@ export class CommentViewComponent {
     @Input() comment: Comment;
     @Input() userId: number;
 
-    constructor(public dialog: MatDialog) { }
+    private dialogRefDelete;
+
+    constructor(
+        public dialog: MatDialog,
+        private commentService: CommentService
+    ) { }
 
     openDialogDelete(commentId: number, postId: number): void {
         const dialogRefDelete = this.dialog.open(DeleteDialogCommentComponent, {
@@ -23,6 +30,16 @@ export class CommentViewComponent {
                 postId: postId
             }
         });
+
+        dialogRefDelete.afterClosed().subscribe(result => {
+            if(result) {
+                this.commentService.deleteComment(commentId)
+                    .subscribe((res) => {
+                        if(res['status'] === 'success') {
+                            this.commentService.getCommentsPost(postId);
+                        }
+                });
+            }
+        });
     }
-    
 }

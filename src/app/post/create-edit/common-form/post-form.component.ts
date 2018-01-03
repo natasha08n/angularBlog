@@ -6,9 +6,11 @@ import { ENTER, COMMA }            from '@angular/cdk/keycodes';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog }               from '@angular/material';
 import { Location }                from '@angular/common';
+import { Router }                  from '@angular/router';
 
-import { Post }                    from './../../../models/post';
 import { AuthService }             from './../../../authorization/auth.service';
+import { PostService }             from '../../post.service';
+import { Post }                    from './../../../models/post';
 import { DeleteComponent }         from './../../delete-dialog/delete.component';
 
 @Component({
@@ -25,8 +27,10 @@ export class PostFormComponent {
 
     constructor(
         private authService: AuthService,
+        private postService: PostService,
         public dialog: MatDialog,
-        private location: Location
+        private location: Location,
+        private router: Router
     ) { }
 
     private visible: boolean = true;
@@ -118,10 +122,22 @@ export class PostFormComponent {
         }
     }
 
-    openDialogDelete(postId: number): void {
+    openDialogDelete(postId): void {
         const dialogRefDelete = this.dialog.open(DeleteComponent, {
             width: '350px',
             data: { id: postId }
         });
+
+        dialogRefDelete.afterClosed().subscribe(result => {
+            console.log('i am here');
+            if(result) {
+                this.postService.deletePost(postId)
+                    .subscribe(res => {
+                        if(res['status'] === 'success') {
+                            this.router.navigateByUrl('');
+                        }
+                    });
+            }
+        })
     }
 }

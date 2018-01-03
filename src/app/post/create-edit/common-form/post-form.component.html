@@ -45,7 +45,7 @@
                             <button mat-button *ngIf="isCreated !== true" tabindex="5" (click)="post.title && post.subtitle && post.text && post.tags.length && edit(post)">Save changes</button>
                             <button mat-button *ngIf="isCreated == true" tabindex="5" (click)="post.title && post.subtitle && post.text && post.tags.length && create(post)">Create</button>
                             <button mat-button tabindex="6" (click)="back()">Cancel</button>
-                            <button mat-button *ngIf="isCreated !== true" tabindex="7" (click)="openDialogDelete(postId)">Delete</button>
+                            <button mat-button *ngIf="isCreated !== true" tabindex="7" (click)="openDialogDelete(post.id)">Delete</button>
                         </div>
                     </div>
                 </form>

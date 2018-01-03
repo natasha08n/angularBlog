@@ -1,7 +1,7 @@
 <div class="delete-dialog">
     <h1 mat-dialog-title>Are you sure to delete the post?</h1>
     <div mat-dialog-actions>
-        <button mat-button (click)="deletePost(data.id)">Yes</button>
-        <button mat-button (click)="onNoClick()">No</button>
+        <button mat-raised-button [mat-dialog-close]="true">Yes</button>
+        <button mat-raised-button mat-dialog-close>No</button>
     </div>
 </div>
