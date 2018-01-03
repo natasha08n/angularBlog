@@ -37,7 +37,7 @@ export class CommentCreateComponent {
             previousId: previous,
             prevAuthor: '',
             children: []
-        }
+        };
         this.postService.createComment(comment)
             .subscribe( () => {
                 const postId = +this.route.snapshot.paramMap.get('id');

@@ -31,3 +31,16 @@
 .comment-info {
     padding-top: 5px;
 }
+
+.comment-remove {
+    float: right;
+    position: relative;
+    top: 5px;
+    color: rgba(78, 0, 0, 0);
+    transition: all .3s ease-in;
+}
+
+.comment:hover .comment-remove{
+    color: rgba(78, 0, 0, 1);
+    transition: all .3s ease-in;
+}
