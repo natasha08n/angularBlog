@@ -42,9 +42,10 @@ router.post('/post', (req, res) => {
 });
 
 router.get('/post/:id', (req, res) => {
-    const postQuery = `SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, users.name, users.surname
+    const postQuery = `SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.userId, users.name, users.surname
     FROM posts
-    INNER JOIN users ON posts.userId = users.id WHERE posts.id = ${req.params.id}`;
+    INNER JOIN users ON posts.userId = users.id
+    WHERE posts.id = ${req.params.id}`;
     let tagsArray = [];
     connection.query(postQuery, (err, rows) => {
         if(err) {
@@ -72,7 +73,8 @@ router.get('/post/:id', (req, res) => {
                         text: rows[0].text,
                         tags: tagsArray,
                         authorName: rows[0].name,
-                        authorSurname: rows[0].surname
+                        authorSurname: rows[0].surname,
+                        userId: rows[0].userId
                     }
                     res.status(200).send(answer);
                 }
