@@ -17,9 +17,9 @@
                     <p class="description-post-text">{{ post.text }}</p>
                 </div>
 
-                <div class="comment" *ngIf="user" id="comment">
+                <div class="comment" *ngIf="user">
                     <h2>Create Comment</h2>
-                    <app-comment-create [userId]="user.id" [postId]="post.id" (replyTo)="replyTo($event)"></app-comment-create>
+                    <app-comment-create [userId]="user.id" [postId]="post.id"></app-comment-create>
                 </div>
 
                 <div class="comment">

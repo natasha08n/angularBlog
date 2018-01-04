@@ -45,11 +45,4 @@ export class CommentsListsComponent {
                 }
             });
     }
-
-    public toWhom: string = 'smb';
-
-    reply(toWhom: string): void {
-        this.toWhom = toWhom;
-        this.replyToSmb.emit(toWhom);
-    }
 }

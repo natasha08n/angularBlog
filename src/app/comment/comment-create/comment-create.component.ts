@@ -14,19 +14,18 @@ import { Comment }                  from './../../models/comment';
 export class CommentCreateComponent {
     @Input() userId: number;
     @Input() postId: number;
+    @Input() previousCommentId: number = 0;
 
-    public toWhom: string = 'smb';
+    public comment: string = '';
 
     constructor(
         private commentService: CommentService,
         private route: ActivatedRoute
     ) { }
 
-    createComment(text: string, previous: number) {
+    createComment(text: string) {
+        this.comment = '';
         const date = Date.now();
-        if(!previous) {
-            previous = 0;
-        }
         const comment = {
             id: 0,
             userId: this.userId,
@@ -34,7 +33,7 @@ export class CommentCreateComponent {
             text: text,
             dateCreate: date,
             dateUpdate: date,
-            previousId: previous,
+            previousId: Number(this.previousCommentId),
             prevAuthor: '',
             children: []
         };
@@ -43,11 +42,5 @@ export class CommentCreateComponent {
                 const postId = +this.route.snapshot.paramMap.get('id');
                 this.commentService.getCommentsPost(postId);
             });
-    }
-
-    replyTo(event): void {
-        alert('create');
-        console.log('create');
-        this.toWhom = event;
     }
  }

@@ -32,6 +32,7 @@ export class CommentService {
                 comments.forEach((comment) => {
                     comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
                 });
+                console.log('comments', comments);
                 comments = this.buildHierarchy(comments);
                 this.comments.next(comments);
             });
@@ -52,36 +53,43 @@ export class CommentService {
         return '';
     }
 
-    buildHierarchy(comments: Comment[]) {
-        let roots = [];
-        let children = {};
+    buildHierarchy(arry: Comment[]) {
+        var roots = [],
+        children = {};
 
         // find the top level nodes and hash the children based on parent
-        for (let i = 0; i < comments.length; i++) {
-            let prevId = comments[i].previousId;
-            let target = [];
-            if(!prevId) {
-                target = roots;
-            } else {
-                children[prevId] = [];
-                target = children[prevId];
-            }
-            target.push(comments[i]);
+        for (var i = 0, len = arry.length; i < len; ++i) {
+            var item = arry[i],
+                p = item.previousId,
+                target = !p ? roots : (children[p] || (children[p] = []));
+
+            target.push(item);
         }
 
         // function to recursively build the tree
-        let findChildren = function (parent) {
+        var findChildren = function (parent) {
             if (children[parent.id]) {
                 parent.children = children[parent.id];
-                for (let i = 0; i < parent.children.length; i++) {
+                for (var i = 0, len = parent.children.length; i < len; ++i) {
                     findChildren(parent.children[i]);
                 }
             }
         };
 
-        for (let i = 0; i < roots.length; i++) {
+        // enumerate through to handle the case where there are multiple roots
+        for (var i = 0, len = roots.length; i < len; ++i) {
             findChildren(roots[i]);
         }
+
+        roots = roots.sort((a, b) => {
+            if(a.dateUpdate > b.dateUpdate) {
+                return 1;
+            } else if (a.dateUpdate < a.dateUpdate) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
 
         return roots;
     }

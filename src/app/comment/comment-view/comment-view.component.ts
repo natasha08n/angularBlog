@@ -1,9 +1,9 @@
-import { Component, Input, Output }     from '@angular/core';
+import { Component, Input }             from '@angular/core';
 import { MatDialog }                    from '@angular/material';
-import { EventEmitter }                 from '@angular/core';
 
 import { DeleteDialogCommentComponent } from './../delete-dialog-comment/delete-dialog-comment.component';
 import { CommentService }               from '../comments.service';
+import { CommentCreateComponent } from '../comment-create/comment-create.component';
 
 @Component({
     selector: 'app-comment-view',
@@ -14,10 +14,10 @@ import { CommentService }               from '../comments.service';
 export class CommentViewComponent {
     @Input() comment: Comment;
     @Input() userId: number;
-   
-    @Output() reply = new EventEmitter();
 
     private dialogRefDelete;
+    public isShown: boolean = false;
+    public countClicks: number = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -45,7 +45,12 @@ export class CommentViewComponent {
         });
     }
 
-    replyTo(author: string) {
-        this.reply.emit(author);
+    showFormComment() {
+        if(this.countClicks%2 === 0) {
+            this.isShown = false;
+        } else {
+            this.isShown = true;
+        }
+        this.countClicks++;
     }
 }

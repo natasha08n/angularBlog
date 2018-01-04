@@ -37,6 +37,17 @@
     padding-top: 5px;
 }
 
+.comment-info p {
+    margin-bottom: 0;
+}
+
+.comment-reply {
+    color: #c2c2c2;
+    text-decoration: underline;
+    font-style: italic;
+    font-style: 0.5em;
+}
+
 .comment-remove {
     float: right;
     position: relative;

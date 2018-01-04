@@ -172,6 +172,7 @@ router.get('/tag/:tag', (req, res) => {
 
 router.post('/comment', (req, res) => {
     const comment = req.body;
+    console.log('comment', comment);
     const queryComment = `INSERT INTO creative.comments(text, dateCreate, dateUpdate, postId, userId, previousId) VALUES ("${comment.text}", ${comment.dateCreate}, ${comment.dateUpdate}, ${comment.postId}, ${comment.userId}, ${comment.previousId});`
     connection.query(queryComment, (err, rows) => {
         if(err) {
