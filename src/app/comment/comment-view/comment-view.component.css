@@ -28,6 +28,11 @@
     clear: both;
 }
 
+.comment-body {
+    text-decoration: none;
+    color: #000000;
+}
+
 .comment-info {
     padding-top: 5px;
 }

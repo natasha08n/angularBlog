@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { Subscription }     from 'rxjs/Subscription';
-import { ActivatedRoute }   from '@angular/router';
+import { Component, Input }     from '@angular/core';
+import { Subscription }         from 'rxjs/Subscription';
+import { ActivatedRoute }       from '@angular/router';
+import { Output, EventEmitter } from '@angular/core'
 
-import { Comment }          from './../../models/comment';
-import { CommentService }   from '../../comment/comments.service';
-import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
+import { Comment }              from './../../models/comment';
+import { CommentService }       from '../../comment/comments.service';
+import { PACKAGE_ROOT_URL }     from '@angular/core/src/application_tokens';
 
 @Component({
     selector: 'app-comments-list',
@@ -13,6 +14,8 @@ import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 export class CommentsListsComponent {
     @Input() userId: number;
+
+    @Output() replyToSmb = new EventEmitter();
 
     public comments: Comment[];
     private subscription: Subscription;
@@ -41,5 +44,12 @@ export class CommentsListsComponent {
                     this.comments = comments;
                 }
             });
+    }
+
+    public toWhom: string = 'smb';
+
+    reply(toWhom: string): void {
+        this.toWhom = toWhom;
+        this.replyToSmb.emit(toWhom);
     }
 }

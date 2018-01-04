@@ -15,7 +15,7 @@ export class CommentCreateComponent {
     @Input() userId: number;
     @Input() postId: number;
 
-    @Output() getComments = new EventEmitter();
+    public toWhom: string = 'smb';
 
     constructor(
         private commentService: CommentService,
@@ -43,5 +43,11 @@ export class CommentCreateComponent {
                 const postId = +this.route.snapshot.paramMap.get('id');
                 this.commentService.getCommentsPost(postId);
             });
+    }
+
+    replyTo(event): void {
+        alert('create');
+        console.log('create');
+        this.toWhom = event;
     }
  }
