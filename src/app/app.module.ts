@@ -47,6 +47,9 @@ import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
 
+import { RelativeDatePipe }              from './pipes/relative-date.pipe';
+import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +72,8 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     CommentViewComponent,
     CommentsListsComponent,
     DeleteDialogCommentComponent,
+    RelativeDatePipe,
+    DateSuffixPipe,
     NotFoundComponent
   ],
   entryComponents: [
@@ -91,7 +96,9 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostService,
     CommentService,
     NotLoginGuard,
-    DatePipe
+    DatePipe,
+    RelativeDatePipe,
+    DateSuffixPipe
   ],
   bootstrap: [
     AppComponent

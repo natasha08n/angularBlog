@@ -2,6 +2,6 @@
     <li *ngFor="let post of posts" routerLink="/post/{{post.id}}">
         <a class="post-text">{{ post.excerpt }}...</a>
         <br>
-        <small>{{ post.dateCreate }}</small>
+        <small>{{ post.dateCreate | dateSuffix }}</small>
     </li>
 </ul>

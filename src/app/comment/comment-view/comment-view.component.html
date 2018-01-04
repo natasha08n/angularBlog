@@ -6,7 +6,7 @@
             <span class="comment-author">{{comment.author}}</span>
             <span *ngIf="comment.previousId">to </span>
             <span *ngIf="comment.previousId" class="comment-author">{{comment.prevAuthor}}</span>
-            <span class="comment-date">{{comment.dateUpdate | date: 'd MMMM yyyy'}}</span>
+            <span class="comment-date">{{comment.dateUpdate | relativeDate}}</span>
             <p>{{comment.text}}</p>
         </div>
         <ul *ngIf="comment.children">

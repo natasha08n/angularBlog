@@ -8,7 +8,7 @@
 <div class="description">
     <div class="angle"></div>
     <h2 class="description-post-title" routerLink="/post/{{post.id}}">{{ post.title }}</h2>
-    <p class="description-post-date">{{ post.dateCreate | date: 'd' }}<span>th</span> {{ post.dateCreate | date: 'MMMM yyyy' }}</p>
+    <p class="description-post-date">{{ post.dateCreate | dateSuffix }}</p>
     <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
     <p class="description-post-text">{{ post.excerpt }}...</p>
 </div>
