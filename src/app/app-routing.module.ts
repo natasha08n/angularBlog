@@ -13,6 +13,7 @@ import { PostViewComponent }   from './post/post-view/post-view.component';
 import { LayoutComponent }     from './layout/layout.component';
 import { MainPageComponent }   from './layout/main-page/main-page.component';
 import { TagPageComponent }    from './layout/tag-page/tag-page.component';
+import { ProfileComponent }    from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '', component: LayoutComponent, children: [
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
   { path: 'post/:id', component: PostViewComponent },
+  { path: 'profile', component: ProfileComponent },
 
   { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }

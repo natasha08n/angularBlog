@@ -43,6 +43,7 @@ import { CommentCreateComponent }        from './comment/comment-create/comment-
 import { CommentViewComponent }          from './comment/comment-view/comment-view.component';
 import { CommentsListsComponent }        from './comment/comments-list/comments-list.component';
 import { DeleteDialogCommentComponent }  from './comment/delete-dialog-comment/delete-dialog-comment.component';
+import { ProfileComponent }              from './profile/profile.component';
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
@@ -75,6 +76,7 @@ import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
     DeleteDialogCommentComponent,
     RelativeDatePipe,
     DateSuffixPipe,
+    ProfileComponent,
     NotFoundComponent
   ],
   entryComponents: [

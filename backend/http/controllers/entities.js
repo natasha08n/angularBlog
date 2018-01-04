@@ -11,6 +11,7 @@ connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', (req, res) => {
+    console.log('posts');
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
     FROM posts`, (err, rows) => {
@@ -18,7 +19,7 @@ router.get('/posts', (req, res) => {
             res.status(500).json(err);
         }
         res.status(200).json(rows);
-    })
+    });
 });
 
 router.post('/post', (req, res) => {
@@ -125,7 +126,7 @@ router.get('/tags', (req, res) => {
     const queryTags = `SELECT tags.name, COUNT(tagsinpost.tagId) AS countTagsId
     FROM tagsinpost INNER JOIN tags ON tags.id = tagsinpost.tagId
     GROUP BY tagId
-    ORDER By countTagsId DESC
+    ORDER BY countTagsId DESC
     LIMIT 10`;
     connection.query(queryTags, (err, rows) => {
         if (err) {
