@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
   { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
   { path: 'post/:id', component: PostViewComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [NotLoginGuard] },
 
   { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
