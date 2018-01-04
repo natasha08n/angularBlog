@@ -29,7 +29,7 @@
               </ng-template>
               <ng-template #signedin class="nav navbar-nav navbar-right new-nav">
                 <ul class="nav navbar-nav navbar-right new-nav">
-                  <li><a class="hidden-sm nav-main-greeting">Hello, {{user.name}}</a></li>
+                  <li><a class="hidden-sm nav-main-greeting" routerLink="/profile">Hello, {{user.name}}</a></li>
                   <li><a class="hidden-sm nav-secondary" (click)="logout()">Logout</a></li>
                 </ul>
               </ng-template>

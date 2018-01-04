@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DatePipe }                 from '@angular/common';
 import { Router }                   from '@angular/router';
+import { Observable }               from 'rxjs/observable';
 
 import { Post }                     from './../../../models/post';
 import { PostService }              from './../../post.service';
+import { ComponentCanDeactivate }   from './../../../guards/save-data.guard';
 
 @Component({
     selector: 'app-post-create',
@@ -13,6 +15,7 @@ import { PostService }              from './../../post.service';
 export class PostCreateComponent implements OnInit {
     private post: Post;
     private isCreated: boolean = true;
+    private isDataSaved: boolean = false;
 
     constructor (
         private postService: PostService,
@@ -24,7 +27,17 @@ export class PostCreateComponent implements OnInit {
         this.post = new Post();
     }
 
+    canDeactivate(): boolean | Observable<boolean> {
+        if (this.isDataSaved === false) {
+          return confirm("Are you sure to leave this page? Some data haven't been saved yet.");
+        }
+        else {
+          return true;
+        }
+    }
+
     createPost(post: Post) {
+        this.isDataSaved = true;
         post.dateCreate = Date.now();
         post.dateUpdate = post.dateCreate;
         this.postService.createPost(post)
@@ -32,8 +45,4 @@ export class PostCreateComponent implements OnInit {
                 this.router.navigate(['/post', id]);
             });
     }
-
-    // transform(date: number): string {
-    //     return this.datePipe.transform(date, "yyyy-MM-dd");
-    // }
 }

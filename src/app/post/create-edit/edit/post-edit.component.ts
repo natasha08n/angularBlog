@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router }   from '@angular/router';
+import { Observable }               from 'rxjs/observable';
 
 import { Post }                     from './../../../models/post';
 import { PostService }              from './../../post.service';
+import { ComponentCanDeactivate }   from './../../../guards/save-data.guard';
 
 @Component({
     selector: 'app-post-edit',
@@ -10,7 +12,8 @@ import { PostService }              from './../../post.service';
 })
 
 export class PostEditComponent implements OnInit {
-    post: Post;
+    public post: Post;
+    private isDataSaved: boolean = false;
 
     constructor(
         private postService: PostService,
@@ -22,6 +25,15 @@ export class PostEditComponent implements OnInit {
         this.getPost();
     }
 
+    canDeactivate(): boolean | Observable<boolean> {
+        if (this.isDataSaved === false) {
+          return confirm("Are you sure to leave this page? Some data haven't been saved yet.");
+        }
+        else {
+          return true;
+        }
+    }
+
     getPost() {
         const id = +this.route.snapshot.paramMap.get('id');
         this.postService.getPost(id)
@@ -29,7 +41,7 @@ export class PostEditComponent implements OnInit {
     }
 
     editPost(post: Post): void {
-        console.log('try edit');
+        this.isDataSaved = true;
         post.dateUpdate = Date.now();
         this.postService.editPost(post)
             .subscribe(res => {

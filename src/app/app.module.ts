@@ -46,6 +46,7 @@ import { DeleteDialogCommentComponent }  from './comment/delete-dialog-comment/d
 import { NotFoundComponent }             from './not-found/not-found.component';
 
 import { NotLoginGuard }                 from './guards/not-login.guard';
+import { SaveDataGuard }                 from './guards/save-data.guard';
 
 import { RelativeDatePipe }              from './pipes/relative-date.pipe';
 import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
@@ -96,6 +97,7 @@ import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
     PostService,
     CommentService,
     NotLoginGuard,
+    SaveDataGuard,
     DatePipe,
     RelativeDatePipe,
     DateSuffixPipe

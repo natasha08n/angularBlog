@@ -8,6 +8,7 @@ import { PostCreateComponent } from './post/create-edit/create/post-create.compo
 import { PostEditComponent }   from './post/create-edit/edit/post-edit.component';
 import { NotFoundComponent }   from './not-found/not-found.component';
 import { NotLoginGuard }       from './guards/not-login.guard';
+import { SaveDataGuard }       from './guards/save-data.guard';
 import { PostViewComponent }   from './post/post-view/post-view.component';
 import { LayoutComponent }     from './layout/layout.component';
 import { MainPageComponent }   from './layout/main-page/main-page.component';
@@ -19,8 +20,8 @@ const appRoutes: Routes = [
         { path: 'tag/:tag', component: TagPageComponent }
     ]
   },
-  { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard] },
-  { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard] },
+  { path: 'post/create', component: PostCreateComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
+  { path: 'post/:id/edit', component: PostEditComponent, canActivate: [NotLoginGuard], canDeactivate: [SaveDataGuard] },
   { path: 'post/:id', component: PostViewComponent },
 
   { path: '404', component: NotFoundComponent },

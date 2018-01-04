@@ -24,7 +24,8 @@
 
                 <div class="comment">
                     <h2>Comments</h2>
-                    <app-comments-list [userId]="user.id"></app-comments-list>
+                    <app-comments-list *ngIf="user" [userId]="user.id"></app-comments-list>
+                    <app-comments-list *ngIf="!user"></app-comments-list>
                 </div>
             </div>
         </div>
