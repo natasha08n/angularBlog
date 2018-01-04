@@ -35,6 +35,7 @@ import { PostFormComponent }             from './post/create-edit/common-form/po
 import { PostViewComponent}              from './post/post-view/post-view.component';
 import { DeleteComponent }               from './post/delete-dialog/delete.component';
 import { PopularTagsComponent }          from './popular-tags/popular-tags.component';
+import { RecentPostsComponent }          from './post/recent-posts/recent-posts.component';
 import { LayoutComponent }               from './layout/layout.component';
 import { TagPageComponent }              from './layout/tag-page/tag-page.component';
 import { MainPageComponent }             from './layout/main-page/main-page.component';
@@ -61,6 +62,7 @@ import { NotLoginGuard }                 from './guards/not-login.guard';
     PostFormComponent,
     LayoutComponent,
     PopularTagsComponent,
+    RecentPostsComponent,
     TagPageComponent,
     MainPageComponent,
     CommentCreateComponent,

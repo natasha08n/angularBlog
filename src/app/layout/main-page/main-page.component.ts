@@ -18,7 +18,6 @@ export class MainPageComponent {
             (posts) => this.posts = posts
         );
         this.getPosts();
-        console.log('in the main page');
     }
   
     getPosts(): void {
