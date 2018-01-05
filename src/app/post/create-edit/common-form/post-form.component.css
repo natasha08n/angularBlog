@@ -22,3 +22,7 @@
 .mat-form-field {
     margin-top: 10px;
 }
+
+.mat-dialog-actions {
+    margin-top: 15px;
+}

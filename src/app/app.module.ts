@@ -88,7 +88,9 @@ import { ShortenExcerptPipe }            from './pipes/shorten-excerpt.pipe';
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AuthModule,
     MatIconModule,
     MatInputModule,

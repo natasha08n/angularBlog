@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="edit-post">
-                <form>
+                <form [formGroup]="form">
                     <div *ngIf="isCreated == true; then createPost else editPost"></div>
                     <ng-template #editPost>
                         <h2>Edit Post</h2>
@@ -11,17 +11,17 @@
                         <h2>Create Post</h2>
                     </ng-template>
                     <div *ngIf="post">
-                        <mat-form-field class="form-input-short">
-                            <input matInput tabindex="1" placeholder="Post Title" [value]="post.title" [(ngModel)]="post.title" name="post.title" required>
-                            <mat-error *ngIf="!post.title">{{getErrorTitleMessage()}}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="form-input-short">
-                            <input matInput tabindex="2" placeholder="Post Subtitle" [value]="post.subtitle" [(ngModel)]="post.subtitle" name="post.subtitle" required>
-                            <mat-error *ngIf="!post.subtitle">{{getErrorSubtitleMessage()}}</mat-error>
+                        <mat-form-field class="form-input-long">
+                            <input type="text" matInput formControlName="title" placeholder="Post Title" required tabindex="1">
+                            <mat-error *ngIf="form.controls['title'].errors">Title is required.</mat-error>
                         </mat-form-field>
                         <mat-form-field class="form-input-long">
-                            <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50" tabindex="3" placeholder="Post Text" [value]="post.text" [(ngModel)]="post.text" name="post.text" required></textarea>
-                            <mat-error *ngIf="!post.text">{{getErrorTextMessage()}}</mat-error>
+                            <input type="text" matInput formControlName="subtitle" placeholder="Post Subtitle" required tabindex="2">
+                            <mat-error *ngIf="form.controls['subtitle'].errors">Subtitle is required</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="form-input-long">
+                            <textarea matInput formControlName="text" placeholder="Post Text" required tabindex="3" matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50"></textarea>
+                            <mat-error *ngIf="form.controls['text'].errors">Text is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="form-input-long">
                             <mat-chip-list #chipList>
@@ -33,19 +33,20 @@
                                 </mat-chip>
                                 <input tabindex="4"
                                         placeholder="Tags"
+                                        formControlName="tags"
                                         [matChipInputFor]="chipList"
                                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                         [matChipInputAddOnBlur]="addOnBlur"
                                         (matChipInputTokenEnd)="add($event)"
                                         required>
-                                <mat-hint *ngIf="!post.tags.length">{{getErrorTagsMessage()}}</mat-hint>
+                                <mat-hint>Please, write one tag at least.</mat-hint>
                             </mat-chip-list>
                         </mat-form-field>
                         <div mat-dialog-actions>
-                            <button mat-button *ngIf="isCreated !== true" tabindex="5" (click)="post.title && post.subtitle && post.text && post.tags.length && edit(post)">Save changes</button>
-                            <button mat-button *ngIf="isCreated == true" tabindex="5" (click)="post.title && post.subtitle && post.text && post.tags.length && create(post)">Create</button>
-                            <button mat-button tabindex="6" (click)="back()">Cancel</button>
-                            <button mat-button *ngIf="isCreated !== true" tabindex="7" (click)="openDialogDelete(post.id)">Delete</button>
+                            <button mat-raised-button *ngIf="isCreated !== true" tabindex="5" [disabled]="form.invalid" (click)="edit()">Save changes</button>
+                            <button mat-raised-button *ngIf="isCreated == true" tabindex="5" [disabled]="form.invalid" (click)="create()">Create</button>
+                            <button mat-raised-button tabindex="6" (click)="back()">Cancel</button>
+                            <button mat-raised-button *ngIf="isCreated !== true" tabindex="7" (click)="openDialogDelete(post.id)">Delete</button>
                         </div>
                     </div>
                 </form>
