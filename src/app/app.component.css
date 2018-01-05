@@ -8,3 +8,48 @@ mat-form-field {
     margin-bottom: 400px;
     background-color: url(http://2.bp.blogspot.com/-iFvxg9CkLPo/U0uTIS8ieWI/AAAAAAAAATE/BFuBsdCrfqI/s1600/background.png) repeat;
 }
+
+/* left social icons */
+
+ul.left-social {
+    position: fixed;
+    left: -40px;
+    top: 300px;
+}
+
+ul.left-social li {
+    list-style-type: none;
+}
+
+ul.left-social li a {
+    padding: 5px;
+    background-color: #f26c4f;
+    text-decoration: none;
+    font-size: 18px;
+    color: #bb341b;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s linear;
+    box-shadow: 0 0 1px #bb341b;
+}
+
+ul.left-social .social-top a {
+    border-radius: 0 4px 0 0;
+}
+
+ul.left-social .social-bottom a {
+    border-radius: 0 0 4px 0;
+}
+
+ul.left-social li a:hover {
+    background-color: #d76049;
+    transition: all .3s linear;
+    -ms-transform: scale(1.1);
+    /* IE 9 */
+    -webkit-transform: scale(1.1);
+    /* Chrome, Safari, Opera */
+    transform: scale(1.1);
+}
