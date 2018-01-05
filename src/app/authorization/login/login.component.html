@@ -1,17 +1,21 @@
 <h1 mat-dialog-title>Sign in</h1>
-<div mat-dialog-content class="signin-form">
-  <mat-form-field>
-    <input tabindex="1" type="email" [formControl]="email"  matInput [(ngModel)]="data.email" placeholder="Email" required >
-    <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-hint align="start">Max 80 characters, min 6</mat-hint>
-    <input tabindex="2" type="password" maxlength="80" [formControl]="password" matInput [(ngModel)]="data.password" placeholder="Password" required >
-    <mat-hint align="end">{{password.value?.length||0}}/80</mat-hint>
-    <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button type="submit" tabindex="3" (click)="email.valid && password.valid && signIn(data)">Login</button>
-  <button mat-raised-button (click)="onNoClickSignIn()" tabindex="-1">Cancel</button>
-</div>
+<form [formGroup]="loginForm">
+  <div mat-dialog-content class="signin-form">
+    <mat-form-field>
+      <input type="email" matInput formControlName="email" placeholder="Email" required tabindex="1">
+      <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Email is invalid.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-hint align="start">Max 80 characters, min 6</mat-hint>
+      <input type="password" matInput formControlName="password" placeholder="Password" required maxlength="80" tabindex="2">
+      <mat-hint align="end">{{loginForm.controls['password'].length||0}}/80</mat-hint>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Password is required.</mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength')">You password is too long.</mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">You password is too short.</mat-error>
+    </mat-form-field> 
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="submit" tabindex="3" [disabled]="loginForm.invalid" (click)="signIn()">Login</button>
+    <button mat-raised-button (click)="onNoClickSignIn()" tabindex="-1">Cancel</button>
+  </div>
+</form>

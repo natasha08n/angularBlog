@@ -12,7 +12,16 @@ export class Post {
     userId: number;
     comments: number;
 
-    constructor (id: number = 0, title: string = '', subtitle: string = '', text: string = '', tags: string[] = [], authorName: string = '', authorSurname: string ='', userId: number = 0, comments: number = 0){
+    constructor (
+        id: number = 0,
+        title: string = '',
+        subtitle: string = '',
+        text: string = '',
+        tags: string[] = [],
+        authorName: string = '',
+        authorSurname: string = '',
+        userId: number = 0,
+        comments: number = 0) { 
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;

@@ -1,9 +1,10 @@
 import { Component, OnInit }                          from '@angular/core';
 import { Inject }                                     from '@angular/core';
-import { FormControl, Validators }                    from '@angular/forms';
+import { FormControl, Validators, FormGroup }         from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }   from '@angular/material';
 
 import { AuthService }                                from './../auth.service';
+import { patternValidator }                           from './../../post/create-edit/common-form/pattern-validator';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,9 @@ import { AuthService }                                from './../auth.service';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent{
+export class LoginComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
+  loginForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -22,21 +22,25 @@ export class LoginComponent{
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  getErrorEmailMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' : this.email.hasError('email') ? 'Not a valid email' : '';
+  ngOnInit() {
+    this.createForm();
   }
 
-  getErrorPasswordMessage() {
-    return this.password.hasError('required') ? 'Password is required' : this.password.hasError('maxlength') ? 'Max length is 80 characters' : this.password.hasError('minlength') ? 'Min length is 6 characters' : '';
+  createForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]),
+    });
   }
 
   onNoClickSignIn(): void {
     this.dialogRef.close();
   }
 
-  signIn(data: Object) {
+  signIn() {
     this.dialogRef.close();
-    this.authService.signIn(data)
+    console.log(this.loginForm.value);
+    this.authService.signIn(this.loginForm.value)
       .subscribe(answer => {
         if (answer['success']) {
           this.authService.setUser(answer['user']);
