@@ -30,6 +30,6 @@
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="email.valid && name.valid && surname.valid && password.valid && passwordConfirm.valid && signUp(data)" tabindex="6">Sign up</button>
-    <button mat-button (click)="onNoClickSignUp()" tabindex="-1">Cancel</button>
+    <button mat-raised-button (click)="email.valid && name.valid && surname.valid && password.valid && passwordConfirm.valid && signUp(data)" tabindex="6">Sign up</button>
+    <button mat-raised-button (click)="onNoClickSignUp()" tabindex="-1">Cancel</button>
 </div>

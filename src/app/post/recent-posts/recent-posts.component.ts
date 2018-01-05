@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Post }         from './../../models/post';
 import { PostService }  from '../post.service';
-import { scheduleMicroTask } from '@angular/core/src/util';
 
 @Component({
     selector: 'app-recent-posts',
@@ -36,8 +35,5 @@ export class RecentPostsComponent {
             }
         });
         this.posts = this.posts.slice(0, 5);
-        this.posts.forEach((post) => {
-            post.excerpt = post.excerpt.split(/\s+/).slice(0, this.recentPostLength).join(' ');
-        });
     }
 }

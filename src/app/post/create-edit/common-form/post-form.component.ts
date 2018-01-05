@@ -37,7 +37,7 @@ export class PostFormComponent {
     private removable: boolean = true;
     private addOnBlur: boolean = true;
 
-    private excerptLength: number = 20;
+    private excerptLength: number = 80;
 
     private separatorKeysCodes = [ENTER, COMMA];
 

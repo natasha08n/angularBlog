@@ -9,3 +9,7 @@
 .mat-dialog-title {
     font-weight: bold;
 }
+
+.mat-dialog-actions {
+    margin-top: 10px;
+}

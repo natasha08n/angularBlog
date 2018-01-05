@@ -51,6 +51,7 @@ import { SaveDataGuard }                 from './guards/save-data.guard';
 
 import { RelativeDatePipe }              from './pipes/relative-date.pipe';
 import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
+import { ShortenExcerptPipe }            from './pipes/shorten-excerpt.pipe';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
     DeleteDialogCommentComponent,
     RelativeDatePipe,
     DateSuffixPipe,
+    ShortenExcerptPipe,
     ProfileComponent,
     NotFoundComponent
   ],
@@ -102,7 +104,8 @@ import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
     SaveDataGuard,
     DatePipe,
     RelativeDatePipe,
-    DateSuffixPipe
+    DateSuffixPipe,
+    ShortenExcerptPipe
   ],
   bootstrap: [
     AppComponent
