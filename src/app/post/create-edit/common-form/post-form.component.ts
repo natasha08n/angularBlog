@@ -92,7 +92,7 @@ export class PostFormComponent implements OnInit {
     }
 
     edit() {
-        const user = this.authService.getUser();
+        this.getPostFromForm();
         if (this.getPostAuthor()) {
             this.editPost.emit(this.post);
         } else {
