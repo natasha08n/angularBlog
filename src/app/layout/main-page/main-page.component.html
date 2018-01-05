@@ -1,1 +1,6 @@
+<mat-paginator  [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="pageEvent = getServerData($event)">
+</mat-paginator>
 <app-posts-list [posts]="posts"></app-posts-list>

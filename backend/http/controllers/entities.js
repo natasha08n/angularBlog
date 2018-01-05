@@ -11,13 +11,22 @@ connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
 router.get('/posts', (req, res) => {
-    console.log('posts');
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
     FROM posts`, (err, rows) => {
         if (err) {
             res.status(500).json(err);
         }
+        res.status(200).json(rows);
+    });
+});
+
+router.get('/posts/count', (req, res) => {
+    connection.query(`SELECT COUNT(posts.id) as count FROM posts`, (err, rows) => {
+        if (err) {
+            res.status(500).json(err);
+        }
+        console.log(rows);
         res.status(200).json(rows);
     });
 });

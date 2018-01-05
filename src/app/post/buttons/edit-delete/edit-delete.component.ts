@@ -32,7 +32,7 @@ export class EditDeleteComponent {
                 this.postService.deletePost(postId)
                     .subscribe(res => {
                         if (res['status'] === 'success') {
-                            this.postService.getAllPosts();
+                            this.postService.getPosts();
                             this.router.navigateByUrl('');
                         }
                     });

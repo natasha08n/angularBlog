@@ -19,9 +19,21 @@ export class PostService {
     private posts = new Subject<Post[]>();
     public posts$ = this.posts.asObservable();
 
+    private postsCount = new Subject<Object>();
+    public postsCount$ = this.postsCount.asObservable();
+
     constructor(private http: HttpClient) { }
 
-    getAllPosts(): Observable<Post[]> {
+    getPostsCount(): Observable<Object>  {
+        const url = `${this.baseUrl}/posts/count`;
+        this.http.get<Object>(url, httpOptions)
+            .subscribe(count => {
+                this.postsCount.next(count);
+            });
+        return this.postsCount;
+    }
+
+    getPosts(): Observable<Post[]> {
         const url = `${this.baseUrl}/posts`;
         this.http.get<Post[]>(url, httpOptions)
             .subscribe(posts => {
