@@ -28,15 +28,15 @@ export class EditDeleteComponent {
         });
 
         dialogRefDelete.afterClosed().subscribe(result => {
-            if(result) {
+            if (result) {
                 this.postService.deletePost(postId)
                     .subscribe(res => {
-                        if(res['status'] === 'success') {
+                        if (res['status'] === 'success') {
                             this.postService.getAllPosts();
                             this.router.navigateByUrl('');
                         }
                     });
             }
-        })
+        });
     }
 }

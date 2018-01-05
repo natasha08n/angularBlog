@@ -21,7 +21,7 @@ export class Post {
         authorName: string = '',
         authorSurname: string = '',
         userId: number = 0,
-        comments: number = 0) { 
+        comments: number = 0) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;

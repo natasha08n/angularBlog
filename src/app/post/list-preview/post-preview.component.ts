@@ -14,7 +14,7 @@ import { AuthService }      from '../../authorization/auth.service';
 
 export class PostPreviewComponent implements OnDestroy {
     @Input() post: Post;
-    
+
     public user: User;
     private subscription: Subscription;
 
@@ -29,5 +29,4 @@ export class PostPreviewComponent implements OnDestroy {
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
-
 }

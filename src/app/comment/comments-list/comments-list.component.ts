@@ -1,7 +1,7 @@
 import { Component, Input }     from '@angular/core';
 import { Subscription }         from 'rxjs/Subscription';
 import { ActivatedRoute }       from '@angular/router';
-import { Output, EventEmitter } from '@angular/core'
+import { Output, EventEmitter } from '@angular/core';
 
 import { Comment }              from './../../models/comment';
 import { CommentService }       from '../../comment/comments.service';
@@ -31,7 +31,7 @@ export class CommentsListsComponent {
                 console.log('this comments', this.comments);
             }
         );
-        
+
         const postId = +this.route.snapshot.paramMap.get('id');
         this.getComments(postId);
     }
@@ -39,7 +39,7 @@ export class CommentsListsComponent {
     getComments(postId: number): void {
         this.commentService.getCommentsPost(postId)
             .subscribe((comments) => {
-                if(comments.length) {
+                if (comments.length) {
                     this.hasAnyComments = true;
                     this.comments = comments;
                 }

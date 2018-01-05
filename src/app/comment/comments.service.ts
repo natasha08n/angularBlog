@@ -45,7 +45,7 @@ export class CommentService {
     }
 
     getPreviousAuthor(previousId, comments): string {
-        for(let i = 0; i < comments.length; i++) {
+        for (let i = 0; i < comments.length; i++) {
             if (comments[i].id === previousId) {
                 return comments[i].author;
             }
@@ -54,42 +54,43 @@ export class CommentService {
     }
 
     buildHierarchy(arry: Comment[]) {
-        var roots = [],
-        children = {};
+        let roots = [];
+        const children = {};
 
         // find the top level nodes and hash the children based on parent
-        for (var i = 0, len = arry.length; i < len; ++i) {
-            var item = arry[i],
-                p = item.previousId,
-                target = !p ? roots : (children[p] || (children[p] = []));
+        let len: number;
+        for (let i: number = 0, len = arry.length; i < len; ++i) {
+            const item = arry[i];
+            const p = item.previousId;
+            const target = !p ? roots : (children[p] || (children[p] = []));
 
             target.push(item);
         }
 
         // function to recursively build the tree
-        var findChildren = function (parent) {
+        const findChildren = function (parent) {
             if (children[parent.id]) {
                 parent.children = children[parent.id];
-                for (var i = 0, len = parent.children.length; i < len; ++i) {
+                for (let i: number = 0, len = parent.children.length; i < len; ++i) {
                     findChildren(parent.children[i]);
                 }
             }
         };
 
         // enumerate through to handle the case where there are multiple roots
-        for (var i = 0, len = roots.length; i < len; ++i) {
+        for (let i: number = 0, let len: number = roots.length; i < len; ++i) {
             findChildren(roots[i]);
         }
 
         roots = roots.sort((a, b) => {
-            if(a.dateUpdate > b.dateUpdate) {
+            if (a.dateUpdate > b.dateUpdate) {
                 return 1;
             } else if (a.dateUpdate < a.dateUpdate) {
                 return -1;
             } else {
                 return 0;
             }
-        })
+        });
 
         return roots;
     }

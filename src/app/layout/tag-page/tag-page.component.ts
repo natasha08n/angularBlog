@@ -1,17 +1,16 @@
 import { Component }              from '@angular/core';
 import { Subscription }           from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
-  
+
 import { Post }                   from './../../models/post';
 import { PostService }            from './../../post/post.service';
 
-  
   @Component({
     selector: 'app-tag-page',
     templateUrl: './tag-page.component.html'
   })
-  
-export class TagPageComponent{
+
+export class TagPageComponent {
   posts: Post[];
   subscription: Subscription;
 
@@ -34,4 +33,3 @@ export class TagPageComponent{
       .subscribe(posts => this.posts = posts);
   }
 }
-  

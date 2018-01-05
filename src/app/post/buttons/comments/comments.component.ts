@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-comments',
-    templateUrl: './comments.component.html',
-    styleUrls: ['./comments.component.css']
+    templateUrl: './comments.component.html'
 })
 
 export class CommentsComponent {

@@ -26,9 +26,9 @@ export class RecentPostsComponent {
 
     getRecentPosts(): void {
         this.posts.sort((a, b) => {
-            if(a.comments < b.comments) {
+            if (a.comments < b.comments) {
                 return 1;
-            } else if(a.comments > b.comments) {
+            } else if (a.comments > b.comments) {
                 return -1;
             } else {
                 return 0;

@@ -9,17 +9,17 @@ import { PostService }  from './../../post/post.service';
     templateUrl: './main-page.component.html'
 })
 
-export class MainPageComponent { 
+export class MainPageComponent {
     public posts: Post[];
     private subscription: Subscription;
-  
+
     constructor(private postService: PostService) {
         this.subscription = postService.posts$.subscribe(
             (posts) => this.posts = posts
         );
         this.getPosts();
     }
-  
+
     getPosts(): void {
       this.postService.getAllPosts()
         .subscribe(posts => this.posts = posts);

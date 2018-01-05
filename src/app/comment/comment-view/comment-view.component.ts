@@ -3,7 +3,6 @@ import { MatDialog }                    from '@angular/material';
 
 import { DeleteDialogCommentComponent } from './../delete-dialog-comment/delete-dialog-comment.component';
 import { CommentService }               from '../comments.service';
-import { CommentCreateComponent } from '../comment-create/comment-create.component';
 
 @Component({
     selector: 'app-comment-view',
@@ -34,10 +33,10 @@ export class CommentViewComponent {
         });
 
         dialogRefDelete.afterClosed().subscribe(result => {
-            if(result) {
+            if (result) {
                 this.commentService.deleteComment(commentId)
                     .subscribe((res) => {
-                        if(res['status'] === 'success') {
+                        if (res['status'] === 'success') {
                             this.commentService.getCommentsPost(postId);
                         }
                 });
@@ -46,7 +45,7 @@ export class CommentViewComponent {
     }
 
     showFormComment() {
-        if(this.countClicks%2 === 0) {
+        if (this.countClicks % 2 === 0) {
             this.isShown = false;
         } else {
             this.isShown = true;
