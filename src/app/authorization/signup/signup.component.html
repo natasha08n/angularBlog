@@ -1,35 +1,34 @@
 <h1 mat-dialog-title>Sign up</h1>
-<div mat-dialog-content>
-    <mat-form-field>
-        <input tabindex="1" [formControl]="email" [(ngModel)]="data.email" matInput placeholder="Email" required >
-        <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-hint align="start">Max 80 characters, min 3</mat-hint>
-        <input tabindex="2" type="text" maxlength="80" [formControl]="name" [(ngModel)]="data.name" matInput placeholder="Name" required >
-        <mat-hint align="end">{{name.value?.length||0}}/80</mat-hint>
-        <mat-error *ngIf="name.invalid">{{getErrorNameMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-hint align="start">Max 80 characters, min 3</mat-hint>
-        <input tabIndex="3" type="text" maxlength="80" [formControl]="surname" [(ngModel)]="data.surname" matInput placeholder="Surname" required >
-        <mat-hint align="end">{{surname.value?.length||0}}/80</mat-hint>
-        <mat-error *ngIf="surname.invalid">{{getErrorSurnameMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input tabindex="4" [type]="hide ? 'text' : 'password'" maxlength="80" [formControl]="password" [(ngModel)]="data.password" matInput placeholder="Password" required >
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        <mat-hint align="end">{{password.value?.length||0}}/80</mat-hint>
-        <mat-error *ngIf="password.invalid">{{getErrorPasswordMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input tabindex="5" [type]="hideConfirm ? 'text' : 'password'" [formControl]="passwordConfirm" maxlength="80" [(ngModel)]="data.passwordConfirm" matInput placeholder="Confirm Password" required >
-        <mat-icon matSuffix (click)="hideConfirm = !hideConfirm">{{hideConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
-        <mat-hint align="end">{{passwordConfirm.value?.length||0}}/80</mat-hint>
-        <mat-error *ngIf="passwordConfirm.invalid">{{getErrorPasswordConfirmMessage()}}</mat-error>
-    </mat-form-field>
-</div>
-<div mat-dialog-actions>
-    <button mat-raised-button (click)="email.valid && name.valid && surname.valid && password.valid && passwordConfirm.valid && signUp(data)" tabindex="6">Sign up</button>
-    <button mat-raised-button (click)="onNoClickSignUp()" tabindex="-1">Cancel</button>
-</div>
+<form [formGroup]="signupForm">
+    <div mat-dialog-content>
+        <mat-form-field>
+            <input type="email" matInput formControlName="email" placeholder="Email" required tabindex="1">
+            <mat-error *ngIf="signupForm.controls['email'].hasError('required')">Email is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-hint align="start">Max 80 characters, min 3</mat-hint>
+            <input type="text" matInput formControlName="name" maxlength="80"  placeholder="Name" required tabIndex="2">
+            <mat-error *ngIf="signupForm.controls['name'].hasError('required')">Name is required.</mat-error>
+            <mat-error *ngIf="signupForm.controls['name'].hasError('maxlength')">You name is too long.</mat-error>
+            <mat-error *ngIf="signupForm.controls['name'].hasError('minlength')">You name is too short.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-hint align="start">Max 80 characters, min 3</mat-hint>
+            <input type="text" matInput formControlName="surname" maxlength="80"  placeholder="Surname" required tabIndex="3">
+            <mat-error *ngIf="signupForm.controls['surname'].hasError('required')">Surname is required.</mat-error>
+            <mat-error *ngIf="signupForm.controls['surname'].hasError('maxlength')">You surname is too long.</mat-error>
+            <mat-error *ngIf="signupForm.controls['surname'].hasError('minlength')">You surname is too short.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-hint align="start">Max 80 characters, min 6</mat-hint>
+            <input type="password" matInput formControlName="password" placeholder="Password" required maxlength="80" tabindex="2">
+            <mat-error *ngIf="signupForm.controls['password'].hasError('required')">Password is required.</mat-error>
+            <mat-error *ngIf="signupForm.controls['password'].hasError('maxlength')">You password is too long.</mat-error>
+            <mat-error *ngIf="signupForm.controls['password'].hasError('minlength')">You password is too short.</mat-error>
+          </mat-form-field> 
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button [disabled]="signupForm.invalid" (click)="signUp()" tabindex="6">Sign up</button>
+        <button mat-raised-button (click)="onNoClickSignUp()" tabindex="-1">Cancel</button>
+    </div>
+</form>

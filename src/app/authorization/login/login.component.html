@@ -8,7 +8,6 @@
     <mat-form-field>
       <mat-hint align="start">Max 80 characters, min 6</mat-hint>
       <input type="password" matInput formControlName="password" placeholder="Password" required maxlength="80" tabindex="2">
-      <mat-hint align="end">{{loginForm.controls['password'].length||0}}/80</mat-hint>
       <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Password is required.</mat-error>
       <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength')">You password is too long.</mat-error>
       <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">You password is too short.</mat-error>

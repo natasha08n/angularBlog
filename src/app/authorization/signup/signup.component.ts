@@ -1,9 +1,10 @@
-import { Component }                                from '@angular/core';
+import { Component, OnInit }                        from '@angular/core';
 import { Inject }                                   from '@angular/core';
-import { FormControl, Validators }                  from '@angular/forms';
+import { FormControl, Validators, FormGroup }       from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { AuthService }                              from './../auth.service';
+import { patternValidator }                         from './../../post/create-edit/common-form/pattern-validator';
 
 @Component({
   selector: 'app-signup',
@@ -11,51 +12,35 @@ import { AuthService }                              from './../auth.service';
   styleUrls: ['./signup.component.css']
 })
 
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 
-  private email = new FormControl('', [Validators.required, Validators.email]);
-  private name = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
-  private surname = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]);
-  private password = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
-  private passwordConfirm = new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)]);
+  signupForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<SignupComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) { 
+  constructor(public dialogRef: MatDialogRef<SignupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private authService: AuthService) {
+  }
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.signupForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]),
+      surname: new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(3)]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(80), Validators.minLength(6)])
+    });
   }
 
   onNoClickSignUp(): void {
     this.dialogRef.close();
   }
 
-  getErrorEmailMessage() {
-    const hasError = this.email.hasError('required');
-    const hasEmail = this.email.hasError('email');
-    if(hasError) {
-      return 'You must enter a value';
-    }
-    if(hasEmail) {
-      return 'Not a valid email';
-    }
-  }
-
-  getErrorNameMessage() {
-    return this.surname.hasError('required') ? 'Name is required' : this.name.hasError('maxlength') ? 'Max length is 80 characters' : this.name.hasError('minlength') ? 'Min length is 3 characters' : '';
-  }
-
-  getErrorSurnameMessage() {
-    return this.surname.hasError('required') ? 'Surname is required' : this.surname.hasError('maxlength') ? 'Max length is 80 characters' : this.surname.hasError('minlength') ? 'Min length is 3 characters' : '';
-  }
-
-  getErrorPasswordMessage() {
-    return this.password.hasError('required') ? 'Password is required' : this.password.hasError('maxlength') ? 'Max length is 80 characters' : this.password.hasError('minlength') ? 'Min length is 6 characters' : '';
-  }
-
-  getErrorPasswordConfirmMessage() {
-    return this.passwordConfirm.hasError('required') ? 'Confirm password, please' : this.passwordConfirm.hasError('maxlength') ? 'Max length is 80 characters' : this.passwordConfirm.hasError('minlength') ? 'Min length is 6 characters' : '';
-  }
-
-  signUp(data: Object) {
+  signUp() {
     this.dialogRef.close();
-    this.authService.signUp(data)
+    this.authService.signUp(this.signupForm.value)
       .subscribe(answer => {
         if (answer['success'] === true) {
           this.authService.setUser(answer['user']);
