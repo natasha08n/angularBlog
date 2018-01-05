@@ -29,9 +29,8 @@ export class PostCreateComponent implements OnInit {
 
     canDeactivate(): boolean | Observable<boolean> {
         if (this.isDataSaved === false) {
-          return confirm("Are you sure to leave this page? Some data haven't been saved yet.");
-        }
-        else {
+          return confirm(`Are you sure to leave this page? Some data haven't been saved yet.`);
+        } else {
           return true;
         }
     }

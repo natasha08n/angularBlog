@@ -41,6 +41,10 @@
     margin-bottom: 0;
 }
 
+.comment-info .comment-info-text {
+    white-space: pre-wrap;
+}
+
 .comment-reply {
     color: #c2c2c2;
     text-decoration: underline;

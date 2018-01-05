@@ -12,15 +12,15 @@
                     </ng-template>
                     <div *ngIf="post">
                         <mat-form-field class="form-input-long">
-                            <input type="text" matInput formControlName="title" placeholder="Post Title" required tabindex="1">
+                            <input type="text" matInput formControlName="title" placeholder="Post Title" required tabindex="1" [value]="post.title">
                             <mat-error *ngIf="form.controls['title'].errors">Title is required.</mat-error>
                         </mat-form-field>
                         <mat-form-field class="form-input-long">
-                            <input type="text" matInput formControlName="subtitle" placeholder="Post Subtitle" required tabindex="2">
+                            <input type="text" matInput formControlName="subtitle" placeholder="Post Subtitle" required tabindex="2" [value]="post.subtitle">
                             <mat-error *ngIf="form.controls['subtitle'].errors">Subtitle is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="form-input-long">
-                            <textarea matInput formControlName="text" placeholder="Post Text" required tabindex="3" matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50"></textarea>
+                            <textarea matInput formControlName="text" placeholder="Post Text" required tabindex="3" matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows="50" wrap="soft" [value]="post.text"></textarea>
                             <mat-error *ngIf="form.controls['text'].errors">Text is required</mat-error>
                         </mat-form-field>
                         <mat-form-field class="form-input-long">

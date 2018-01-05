@@ -27,9 +27,8 @@ export class PostEditComponent implements OnInit {
 
     canDeactivate(): boolean | Observable<boolean> {
         if (this.isDataSaved === false) {
-          return confirm("Are you sure to leave this page? Some data haven't been saved yet.");
-        }
-        else {
+          return confirm(`Are you sure to leave this page? Some data haven't been saved yet.`);
+        } else {
           return true;
         }
     }
@@ -43,6 +42,7 @@ export class PostEditComponent implements OnInit {
     editPost(post: Post): void {
         this.isDataSaved = true;
         post.dateUpdate = Date.now();
+        console.log(post.text);
         this.postService.editPost(post)
             .subscribe(res => {
                 console.log('received message', res);

@@ -63,6 +63,10 @@
     font-size: 14px;
 }
 
+.description .description-post-text {
+    white-space: pre-wrap;
+}
+
 .description p {
     color: #989898;
 }
