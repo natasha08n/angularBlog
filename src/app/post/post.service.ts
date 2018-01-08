@@ -33,9 +33,9 @@ export class PostService {
         return this.postsCount;
     }
 
-    getPosts(): Observable<Post[]> {
+    getPosts(count: number, page: number): Observable<Post[]> {
         const url = `${this.baseUrl}/posts`;
-        this.http.get<Post[]>(url, httpOptions)
+        this.http.post<Post[]>(url, {count: count, page: page}, httpOptions)
             .subscribe(posts => {
                 this.posts.next(posts);
             });

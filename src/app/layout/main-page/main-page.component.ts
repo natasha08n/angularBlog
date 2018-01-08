@@ -14,26 +14,23 @@ export class MainPageComponent {
     public posts: Post[];
     private subscription: Subscription;
 
-    public length: number = 100;
+    public length: number = 0;
     public pageSize: number = 5;
     public pageSizeOptions: number[] = [5, 10, 25, 100];
-    //datasource: null;
-    public pageIndex: number;
+    public pageIndex: number = 0;
 
     pageEvent: PageEvent;
-
-
 
     constructor(private postService: PostService) {
         this.subscription = postService.posts$.subscribe(
             (posts) => this.posts = posts
         );
-        this.getPosts();
         this.getPostsCount();
+        this.getPosts();
     }
 
     getPosts(): void {
-      this.postService.getPosts()
+      this.postService.getPosts(this.pageSize, this.pageIndex)
         .subscribe(posts => {
             this.posts = posts;
         });
@@ -46,21 +43,9 @@ export class MainPageComponent {
             });
     }
 
-    public getServerData(event?:PageEvent){
-        console.log('event' , event);
-        /*this.postService.getPosts().subscribe(
-          response => {
-              this.datasource = response.data;
-              this.pageIndex = response.pageIndex;
-              this.pageSize = response.pageSize;
-              this.length = response.length;
-          },
-          error =>{
-            // handle error
-          }
-        );
-        return event;*/
-      }
-
-
+    public getServerData(event: PageEvent) {
+        this.pageSize = event.pageSize;
+        this.pageIndex = event.pageIndex;
+        this.getPosts();
+    }
 }

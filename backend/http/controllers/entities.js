@@ -10,11 +10,16 @@ var router    = express.Router();
 connection.query(`USE ${dbconfig.database}`);
 console.log('conn-entites', dbconfig.database);
 
-router.get('/posts', (req, res) => {
+router.post('/posts', (req, res) => {
+    const perPage = req.body.count;
+    console.log('perPage', perPage);
+    const offset = perPage * req.body.page;
+    console.log('offeset' ,offset);
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
-    FROM posts`, (err, rows) => {
+    FROM posts LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
         if (err) {
+            console.log(err);
             res.status(500).json(err);
         }
         res.status(200).json(rows);
