@@ -26,14 +26,11 @@ export class MainPageComponent {
             (posts) => this.posts = posts
         );
         this.getPostsCount();
-        this.getPosts();
+        this.getPosts(this.pageSize, this.pageIndex);
     }
 
-    getPosts(): void {
-      this.postService.getPosts(this.pageSize, this.pageIndex)
-        .subscribe(posts => {
-            this.posts = posts;
-        });
+    getPosts(pageSize: number, pageIndex: number): void {
+      this.postService.getPosts(pageSize, pageIndex);
     }
 
     getPostsCount(): void {
@@ -43,9 +40,9 @@ export class MainPageComponent {
             });
     }
 
-    public getServerData(event: PageEvent) {
+    public getPaginationInfo(event: PageEvent) {
         this.pageSize = event.pageSize;
         this.pageIndex = event.pageIndex;
-        this.getPosts();
+        this.getPosts(this.pageSize, this.pageIndex);
     }
 }

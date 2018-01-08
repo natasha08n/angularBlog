@@ -1,6 +1,6 @@
 <mat-paginator  [length]="length"
                 [pageSize]="pageSize"
                 [pageSizeOptions]="pageSizeOptions"
-                (page)="pageEvent = $event">
+                (page)="pageEvent = getPaginationInfo($event)">
 </mat-paginator>
 <app-posts-list [posts]="posts"></app-posts-list>

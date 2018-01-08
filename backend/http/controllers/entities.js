@@ -12,9 +12,7 @@ console.log('conn-entites', dbconfig.database);
 
 router.post('/posts', (req, res) => {
     const perPage = req.body.count;
-    console.log('perPage', perPage);
     const offset = perPage * req.body.page;
-    console.log('offeset' ,offset);
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
     FROM posts LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
@@ -155,8 +153,24 @@ router.get('/tags', (req, res) => {
     })
 })
 
-router.get('/tag/:tag', (req, res) => {
+router.get('/posts/:tag/count', (req, res) => {
     const tag = req.params.tag;
+    console.log('tag', tag);
+    connection.query(`SELECT COUNT(tagsinpost.tagId) as count
+    FROM posts INNER JOIN tagsinpost ON posts.id = tagsinpost.postId
+    WHERE tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')`, (err, rows) => {
+        if (err) {
+            res.status(500).json(err);
+        }
+        console.log(rows);
+        res.status(200).json(rows);
+    });
+});
+
+router.post('/tag/:tag', (req, res) => {
+    const tag = req.params.tag;
+    const perPage = req.body.count;
+    const offset = perPage * req.body.page;
     const queryPostTag = `SELECT 
                         posts.id,
                         posts.title,
@@ -166,11 +180,13 @@ router.get('/tag/:tag', (req, res) => {
                         posts.dateUpdate,
                         posts.userId,
                         posts.excerpt,
-                        tagsinpost.tagId
+                        tagsinpost.tagId,
+                        (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
                     FROM
                         posts INNER JOIN tagsinpost ON posts.id = tagsinpost.postId
                     WHERE
-                        tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')`;
+                        tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')
+                    LIMIT ${perPage} OFFSET ${offset}`;
     connection.query(queryPostTag, (err, rows) => {
         if (err) {
             const message = {

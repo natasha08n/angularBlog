@@ -67,9 +67,18 @@ export class PostService {
         return this.http.get<Tag[]>(url, httpOptions);
     }
 
-    getPostsByTag(tagname: string): Observable<Post[]> {
+    getPostsByTagCount(tagname: string): Observable<Object>  {
+        const url = `${this.baseUrl}/posts/${tagname}/count`;
+        this.http.get<Object>(url, httpOptions)
+            .subscribe(count => {
+                this.postsCount.next(count);
+            });
+        return this.postsCount;
+    }
+
+    getPostsByTag(tagname: string, pageSize: number, pageIndex: number): Observable<Post[]> {
         const url = `${this.baseUrl}/tag/${tagname}`;
-        this.http.get<Post[]>(url, httpOptions)
+        this.http.post<Post[]>(url, {count: pageSize, page: pageIndex}, httpOptions)
             .subscribe(posts => {
                 this.posts.next(posts);
             });
