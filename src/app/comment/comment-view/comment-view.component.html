@@ -10,7 +10,7 @@
                 <span class="comment-date">{{comment.dateUpdate | relativeDate}}</span>
                 <p class="comment-info-text" *ngIf="!comment.isDeleted">{{comment.text}}</p>
                 <p class="comment-info-text comment-deleted" *ngIf="comment.isDeleted">This comment has been removed by author.</p>
-                <p class="comment-reply" (click)="showFormComment()">Reply</p>
+                <p class="comment-reply" (click)="showFormComment()" *ngIf="userId">Reply</p>
                 <app-comment-create *ngIf="isShown" [previousCommentId]="comment.id" [userId]="userId" [postId]="comment.postId"></app-comment-create>
             </div>
         </a>

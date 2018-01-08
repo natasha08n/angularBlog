@@ -5,6 +5,7 @@ import { Subject }                 from 'rxjs/Subject';
 import { Router }                  from '@angular/router';
 import 'rxjs/add/operator/map';
 
+
 import { User }                    from './../models/user';
 
 const httpOptions = {
@@ -74,5 +75,9 @@ export class AuthService {
     this.userSource.next();
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentToken');
+    console.log(this.router.url, this.router.url === '/post/create');
+    if (this.router.url === '/profile' || this.router.url === '/post/:id/edit' || this.router.url === '/post/create') {
+      this.router.navigateByUrl('');
+    }
   }
 }

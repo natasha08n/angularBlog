@@ -50,6 +50,7 @@
     text-decoration: underline;
     font-style: italic;
     font-style: 0.5em;
+    cursor: pointer;
 }
 
 .comment-remove {
