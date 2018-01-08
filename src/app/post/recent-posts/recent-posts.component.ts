@@ -1,8 +1,8 @@
-import { Component }    from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription }         from 'rxjs/Subscription';
 
-import { Post }         from './../../models/post';
-import { PostService }  from '../post.service';
+import { Post }                 from './../../models/post';
+import { PostService }          from '../post.service';
 
 @Component({
     selector: 'app-recent-posts',
@@ -10,7 +10,7 @@ import { PostService }  from '../post.service';
     styleUrls: ['./recent-posts.component.css']
 })
 
-export class RecentPostsComponent {
+export class RecentPostsComponent implements OnDestroy {
     public posts: Post[];
     private subscription: Subscription;
     private recentPostLength: number = 15;
@@ -35,5 +35,9 @@ export class RecentPostsComponent {
             }
         });
         this.posts = this.posts.slice(0, 5);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

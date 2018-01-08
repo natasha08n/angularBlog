@@ -91,11 +91,14 @@ router.post('/signin', (req, res) => {
     console.log('query', querySignIn);
     connection.query(querySignIn, function (err, rows) {
         if (err) {
-            res.send(err);
+            let answer = getAnswer(false, "Such user doesn't exit. Please, sign up first.");
+            res.send(answer);
+            return;
         }
         if (!rows.length) {
             let answer = getAnswer(false, "Such user doesn't exit. Please, sign up first.");
             res.send(answer);
+            return;
         }
         if (!bcrypt.compareSync(data.password, rows[0].passwordHash)) {
             let answer = getAnswer(false, 'Incorrect password');

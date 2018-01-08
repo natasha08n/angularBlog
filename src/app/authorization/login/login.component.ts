@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         if (answer['success']) {
           this.authService.setUser(answer['user']);
         } else {
-          console.log(answer['message']);
+          alert(answer['message']);
         }
       });
   }

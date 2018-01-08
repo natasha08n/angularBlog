@@ -1,7 +1,7 @@
-import { Component }              from '@angular/core';
+import { Component, OnDestroy }   from '@angular/core';
 import { Subscription }           from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PageEvent }    from '@angular/material';
+import { PageEvent }              from '@angular/material';
 
 import { Post }                   from './../../models/post';
 import { PostService }            from './../../post/post.service';
@@ -11,16 +11,16 @@ import { PostService }            from './../../post/post.service';
     templateUrl: './tag-page.component.html'
   })
 
-export class TagPageComponent {
+export class TagPageComponent implements OnDestroy {
   posts: Post[];
   subscription: Subscription;
 
   private tagname: string;
 
-  public length: number = 0;
-  public pageSize: number = 5;
-  public pageSizeOptions: number[] = [5, 10, 25, 100];
-  public pageIndex: number = 0;
+  public length: number;
+  public pageSize: number;
+  public pageSizeOptions: number[];
+  public pageIndex: number;
 
   pageEvent: PageEvent;
 
@@ -29,9 +29,16 @@ export class TagPageComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
+
+    this.length = this.postService.length;
+    this.pageSize = this.postService.pageSize;
+    this.pageSizeOptions = this.postService.pageSizeOptions;
+    this.pageIndex = this.postService.pageIndex;
+
     this.subscription = postService.posts$.subscribe(
       (posts) => this.posts = posts
     );
+
     router.events.forEach(() => {
       this.tagname = this.route.snapshot.paramMap.get('tag');
       this.getPostsByTagCount(this.tagname);
@@ -55,5 +62,9 @@ export class TagPageComponent {
     this.pageIndex = event.pageIndex;
     this.getPostsByTagCount(this.tagname);
     this.getPostsByTag(this.tagname, this.pageSize, this.pageIndex);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -22,6 +22,11 @@ export class PostService {
     private postsCount = new Subject<Object>();
     public postsCount$ = this.postsCount.asObservable();
 
+    public length: number = 0;
+    public pageSize: number = 5;
+    public pageSizeOptions: number[] = [5, 10, 25, 100];
+    public pageIndex: number = 0;
+
     constructor(private http: HttpClient) { }
 
     getPostsCount(): Observable<Object>  {

@@ -219,7 +219,7 @@ router.post('/comment', (req, res) => {
 
 router.get('/:id/comments', (req, res) => {
     const postId = req.params.id;
-    const queryComments = `SELECT comments.id, comments.text, comments.dateUpdate, comments.userId, comments.postId, users.name as 'author', comments.previousId
+    const queryComments = `SELECT comments.id, comments.text, comments.dateUpdate, comments.userId, comments.postId, users.name as 'author', comments.previousId, comments.isDeleted
     FROM comments
     INNER JOIN users ON comments.userId = users.id
     INNER JOIN posts ON comments.postId = posts.id
@@ -239,7 +239,9 @@ router.get('/:id/comments', (req, res) => {
 
 router.delete('/comment/:id', (req, res) => {
     const commentId = req.params.id;
-    const queryDeleteComment = `DELETE FROM comments WHERE id = ${commentId}`;
+    const queryDeleteComment = `UPDATE comments
+    SET isDeleted = 1
+    WHERE id = ${commentId}`;
     connection.query(queryDeleteComment, (err, rows) => {
         if(err) {
             res.send({status: 'fail'});

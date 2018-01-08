@@ -1,18 +1,18 @@
-import { Component, Input }     from '@angular/core';
-import { Subscription }         from 'rxjs/Subscription';
-import { ActivatedRoute }       from '@angular/router';
-import { Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription }                from 'rxjs/Subscription';
+import { ActivatedRoute }              from '@angular/router';
+import { Output, EventEmitter }        from '@angular/core';
 
-import { Comment }              from './../../models/comment';
-import { CommentService }       from '../../comment/comments.service';
-import { PACKAGE_ROOT_URL }     from '@angular/core/src/application_tokens';
+import { Comment }                     from './../../models/comment';
+import { CommentService }              from '../../comment/comments.service';
+import { PACKAGE_ROOT_URL }            from '@angular/core/src/application_tokens';
 
 @Component({
     selector: 'app-comments-list',
     templateUrl: './comments-list.component.html'
 })
 
-export class CommentsListsComponent {
+export class CommentsListsComponent implements OnDestroy {
     @Input() userId: number;
 
     @Output() replyToSmb = new EventEmitter();
@@ -44,5 +44,9 @@ export class CommentsListsComponent {
                     this.comments = comments;
                 }
             });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

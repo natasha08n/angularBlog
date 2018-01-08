@@ -15,11 +15,17 @@ import { PostService }      from '../../post.service';
 export class EditDeleteComponent {
     @Input() postId: Number;
 
+    public pageSize: number;
+    public pageIndex: number;
+
     constructor(
         public dialog: MatDialog,
         private postService: PostService,
         private router: Router
-    ) { }
+    ) {
+        this.pageSize = this.postService.pageSize;
+        this.pageIndex = this.postService.pageIndex;
+    }
 
     openDialogDelete(postId: number): void {
         const dialogRefDelete = this.dialog.open(DeleteComponent, {
@@ -32,7 +38,8 @@ export class EditDeleteComponent {
                 this.postService.deletePost(postId)
                     .subscribe(res => {
                         if (res['status'] === 'success') {
-                            this.postService.getPosts(5, 0);
+                            this.postService.getPostsCount();
+                            this.postService.getPosts(this.pageSize, this.pageIndex);
                             this.router.navigateByUrl('');
                         }
                     });

@@ -14,6 +14,7 @@ import { ComponentCanDeactivate }   from './../../../guards/save-data.guard';
 export class PostEditComponent implements OnInit {
     public post: Post;
     private isDataSaved: boolean = false;
+    
 
     constructor(
         private postService: PostService,
