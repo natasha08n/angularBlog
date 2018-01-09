@@ -19,6 +19,7 @@ export class RecentPostsComponent implements OnDestroy {
         this.subscription = postService.posts$.subscribe(
             (posts) => {
                 this.posts = posts;
+                console.log('posts', this.posts);
                 this.getRecentPosts();
             }
         );

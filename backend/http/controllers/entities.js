@@ -17,20 +17,24 @@ router.post('/posts', (req, res) => {
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
     FROM posts LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
         if (err) {
-            console.log(err);
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
-        res.status(200).json(rows);
+        res.send(rows);
+        return;
     });
 });
 
 router.get('/posts/count', (req, res) => {
     connection.query(`SELECT COUNT(posts.id) as count FROM posts`, (err, rows) => {
         if (err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
-        console.log(rows);
-        res.status(200).json(rows);
+        res.send(rows);
+        return;
     });
 });
 
@@ -40,7 +44,9 @@ router.post('/post', (req, res) => {
     VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
     connection.query(query, (err, rows) => {
         if (err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows) {
             let tags = postInsert.tags;
@@ -50,6 +56,7 @@ router.post('/post', (req, res) => {
                 })
             }
             res.status(200).send((rows.insertId).toString());
+            return;
         }
     });
 });
@@ -62,7 +69,9 @@ router.get('/post/:id', (req, res) => {
     let tagsArray = [];
     connection.query(postQuery, (err, rows) => {
         if(err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows.length) {
             const tagQuery = `SELECT tags.name
@@ -72,7 +81,9 @@ router.get('/post/:id', (req, res) => {
             WHERE posts.id = ${req.params.id}`;
             connection.query(tagQuery, (err, tagRows) => {
                 if(err) {
-                    res.status(500).json(err);
+                    let answer = getAnswer(false, 500, 'Some error in the sql-query');
+                    res.send(answer);
+                    return;
                 }
                 if(tagRows.length) {
                     tagRows.forEach(element => {
@@ -104,7 +115,9 @@ router.put('/post/:id', (req, res) => {
     WHERE id = ${post.id}`;
     connection.query(postQuery, (err, rows) => {
         if(err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         deleteOldTags(post.tags, post.id, () => {
             let tags = post.tags;
@@ -123,7 +136,9 @@ router.delete('/post/:id', (req, res) => {
     const queryDelete = `DELETE FROM posts WHERE id = ${id}`;
     connection.query(queryDelete, (err, rows) => {
         if(err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows) {
             const message = {
@@ -142,10 +157,9 @@ router.get('/tags', (req, res) => {
     LIMIT 10`;
     connection.query(queryTags, (err, rows) => {
         if (err) {
-            const message = {
-                success: false
-            };
-            res.send(message);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if (rows) {
             res.send(rows);
@@ -160,7 +174,9 @@ router.get('/posts/:tag/count', (req, res) => {
     FROM posts INNER JOIN tagsinpost ON posts.id = tagsinpost.postId
     WHERE tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')`, (err, rows) => {
         if (err) {
-            res.status(500).json(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         console.log(rows);
         res.status(200).json(rows);
@@ -189,10 +205,9 @@ router.post('/tag/:tag', (req, res) => {
                     LIMIT ${perPage} OFFSET ${offset}`;
     connection.query(queryPostTag, (err, rows) => {
         if (err) {
-            const message = {
-                'success': false
-            };
-            res.send(message);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if (rows) {
             res.send(rows);
@@ -206,10 +221,9 @@ router.post('/comment', (req, res) => {
     const queryComment = `INSERT INTO creative.comments(text, dateCreate, dateUpdate, postId, userId, previousId) VALUES ("${comment.text}", ${comment.dateCreate}, ${comment.dateUpdate}, ${comment.postId}, ${comment.userId}, ${comment.previousId});`
     connection.query(queryComment, (err, rows) => {
         if(err) {
-            const message = {
-                success: false
-            };
-            res.send(message);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows) {
             res.send(rows);
@@ -226,10 +240,9 @@ router.get('/:id/comments', (req, res) => {
     WHERE postId = ${postId}`;
     connection.query(queryComments, (err, rows) => {
         if(err) {
-            const message = {
-                success: false
-            };
-            res.send(message);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows) {
             res.send(rows);
@@ -244,7 +257,9 @@ router.delete('/comment/:id', (req, res) => {
     WHERE id = ${commentId}`;
     connection.query(queryDeleteComment, (err, rows) => {
         if(err) {
-            res.send({status: 'fail'});
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows.affectedRows) {
             res.send({status: 'success'});
@@ -259,7 +274,9 @@ function addTag(tag, postId, callback) {
         if(err) {
             connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
                 if(err) {
-                    res.status(500).json(err);
+                    let answer = getAnswer(false, 500, 'Some error in the sql-query');
+                    res.send(answer);
+                    return;
                 }
                 if(rows) {
                     resultId = rows[0].id;
@@ -279,7 +296,9 @@ function addPostTag(idTag, postId) {
     let insertTagPost = `INSERT INTO tagsinpost(tagId, postId) VALUES (${idTag}, ${postId})`;
     connection.query(insertTagPost, (err, rows) => {
         if(err) {
-            return err;
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows) {
             return rows;
@@ -291,12 +310,21 @@ function deleteOldTags(tags, postId, callback) {
     let deleteTagsQuery = `DELETE from tagsinpost WHERE postId = ${postId}`;
     connection.query(deleteTagsQuery, (err, rows) => {
         if(err) {
-            return err;
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
+            return;
         }
         if(rows.affectedRows) {
             callback();
         }
     });
+}
+
+function getAnswer(status, statusCode, message) {
+    if (!message.length) {
+        return {status, statusCode, message : 'unknown reasons'};
+    }
+    return { status, statusCode, message };
 }
 
 module.exports = router;

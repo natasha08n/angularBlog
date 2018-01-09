@@ -13,7 +13,7 @@ import { MatInputModule }                from '@angular/material';
 import { MatPaginatorModule }            from '@angular/material';
 import { MatIconModule, MatChipsModule } from '@angular/material';
 import { DatePipe }                      from '@angular/common';
-import { GoTopButtonModule }             from 'ng2-go-top-button';
+// import { GoTopButtonModule }             from 'ng2-go-top-button';
 
 import { AppRoutingModule }              from './app-routing.module';
 
@@ -99,8 +99,8 @@ import { ShortenExcerptPipe }            from './pipes/shorten-excerpt.pipe';
     MatSelectModule,
     MatDialogModule,
     MatChipsModule,
-    MatPaginatorModule,
-    GoTopButtonModule
+    MatPaginatorModule/*,
+    GoTopButtonModule*/
   ],
   providers: [
     AuthService,

@@ -16,6 +16,7 @@ console.log('conn', dbconfig.database);
 router.get('/checkstate', auth, (req, res) => {
     let answer = {
         success: true,
+        statusCode: 200,
         message: 'Successfully logged in'
     };
     res.send(answer);
@@ -50,7 +51,8 @@ router.post('/signup', (req, res) => {
     let querySignUp = `SELECT users.id, users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     connection.query(querySignUp, function(err, rows){
         if (err) {
-            res.send(err);
+            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+            res.send(answer);
             return;
         }
         if (rows.length) {
@@ -67,7 +69,8 @@ router.post('/signup', (req, res) => {
             let queryInsertNewUser = `INSERT INTO users (email, name, surname, passwordHash) values ('${newUser.email}', '${newUser.name}', '${newUser.surname}', '${newUser.passwordHash}')`;
             connection.query(queryInsertNewUser, function(err, rows){
                 if (err) {
-                    res.send(err);
+                    let answer = getAnswer(false, 500, 'Some error in the sql-query');
+                    res.send(answer);
                     return;
                 }
                 let token = jwt.sign(newUser, config.secret, {
@@ -76,10 +79,10 @@ router.post('/signup', (req, res) => {
                 let answer = {
                     user: newUser,
                     success: true,
+                    statusCode: 200,
                     message: 'New user has been successfully created',
                     token: token
                 };
-                console.log('answer', answer);
                 res.send(answer);
                 return;
             }) 
@@ -117,6 +120,7 @@ router.post('/signin', (req, res) => {
         let answer = {
             user: registeredUser,
             success: true,
+            statusCode: 200,
             message: 'User has already logged in',
             token: token
         };
@@ -126,9 +130,9 @@ router.post('/signin', (req, res) => {
 
 function getAnswer(status, statusCode, message) {
     if (!message.length) {
-        return {status, code, message : 'unknown reasons'};
+        return {status, statusCode, message : 'unknown reasons'};
     }
-    return { status, code, message };
+    return { status, statusCode, message };
 }
 
 function validate(data, minValue, maxValue, message, response) {
