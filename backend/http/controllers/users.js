@@ -47,7 +47,6 @@ router.post('/signup', (req, res) => {
                 break;
         }
     });
-    console.log('something');
     let querySignUp = `SELECT users.id, users.name, users.email, users.surname, users.passwordHash FROM users WHERE users.email = '${data.email}'`;
     connection.query(querySignUp, function(err, rows){
         if (err) {

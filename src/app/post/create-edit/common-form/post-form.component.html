@@ -43,7 +43,7 @@
                             </mat-chip-list>
                         </mat-form-field>
                         <div mat-dialog-actions>
-                            <button mat-raised-button *ngIf="isCreated !== true" tabindex="5" [disabled]="form.invalid" (click)="edit()">Save changes</button>
+                            <button mat-raised-button *ngIf="isCreated !== true" tabindex="5" (click)="edit()">Save changes</button>
                             <button mat-raised-button *ngIf="isCreated == true" tabindex="5" [disabled]="form.invalid" (click)="create()">Create</button>
                             <button mat-raised-button tabindex="6" (click)="back()">Cancel</button>
                             <button mat-raised-button *ngIf="isCreated !== true" tabindex="7" (click)="openDialogDelete(post.id)">Delete</button>
