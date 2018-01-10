@@ -6,6 +6,7 @@ import 'hammerjs';
 import { FormsModule }                   from '@angular/forms';
 import { ReactiveFormsModule }           from '@angular/forms';
 import { BrowserAnimationsModule }       from '@angular/platform-browser/animations';
+import { GoTopButtonModule }                from 'ng2-go-top-button';
 import { MatSelectModule }               from '@angular/material/select';
 import { MatDialogModule }               from '@angular/material/dialog';
 import { platformBrowserDynamic }        from '@angular/platform-browser-dynamic';
@@ -13,7 +14,6 @@ import { MatInputModule }                from '@angular/material';
 import { MatPaginatorModule }            from '@angular/material';
 import { MatIconModule, MatChipsModule } from '@angular/material';
 import { DatePipe }                      from '@angular/common';
-// import { GoTopButtonModule }             from 'ng2-go-top-button';
 
 import { AppRoutingModule }              from './app-routing.module';
 
@@ -99,8 +99,8 @@ import { ShortenExcerptPipe }            from './pipes/shorten-excerpt.pipe';
     MatSelectModule,
     MatDialogModule,
     MatChipsModule,
-    MatPaginatorModule/*,
-    GoTopButtonModule*/
+    MatPaginatorModule,
+    GoTopButtonModule
   ],
   providers: [
     AuthService,

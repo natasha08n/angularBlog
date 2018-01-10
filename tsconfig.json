@@ -15,5 +15,13 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  },
+  "include": [
+    "./src/main.ts",
+    "./src/polyfills.ts",
+    "node_modules/ng2-go-top-button/src/**/*"
+  ]
 }
