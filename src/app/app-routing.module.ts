@@ -3,17 +3,17 @@ import { CommonModule }        from '@angular/common';
 import { RouterModule }        from '@angular/router';
 import { Routes }              from '@angular/router';
 
-import { PostsListComponent }  from './post/list-preview/posts-list.component';
-import { PostCreateComponent } from './post/create-edit/create/post-create.component';
-import { PostEditComponent }   from './post/create-edit/edit/post-edit.component';
-import { NotFoundComponent }   from './not-found/not-found.component';
-import { NotLoginGuard }       from './guards/not-login.guard';
-import { SaveDataGuard }       from './guards/save-data.guard';
-import { PostViewComponent }   from './post/post-view/post-view.component';
-import { LayoutComponent }     from './layout/layout.component';
-import { MainPageComponent }   from './layout/main-page/main-page.component';
-import { TagPageComponent }    from './layout/tag-page/tag-page.component';
-import { ProfileComponent }    from './profile/profile.component';
+import { PostsListComponent }  from './modules/post/list-preview/posts-lists/posts-list.component';
+import { PostCreateComponent } from './modules/post/create-edit/post-сreate/post-create.component';
+import { PostEditComponent }   from './modules/post/create-edit/post-edit/post-edit.component';
+import { PostViewComponent }   from './modules/post/post-view/post-view.component';
+import { NotFoundComponent }   from './pages/not-found/not-found.component';
+import { LayoutComponent }     from './pages/index/main/layout/layout.component';
+import { MainPageComponent }   from './pages/index/main/main-page/main-page.component';
+import { TagPageComponent }    from './pages/index/main/tag-page/tag-page.component';
+import { ProfileComponent }    from './pages/profile/profile.component';
+import { NotLoginGuard }       from './shared/guards/not-login.guard';
+import { SaveDataGuard }       from './shared/guards/save-data.guard';
 
 const appRoutes: Routes = [
   { path: '', component: LayoutComponent, children: [

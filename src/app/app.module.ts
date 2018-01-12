@@ -6,7 +6,7 @@ import 'hammerjs';
 import { FormsModule }                   from '@angular/forms';
 import { ReactiveFormsModule }           from '@angular/forms';
 import { BrowserAnimationsModule }       from '@angular/platform-browser/animations';
-import { GoTopButtonModule }                from 'ng2-go-top-button';
+import { GoTopButtonModule }             from 'ng2-go-top-button';
 import { MatSelectModule }               from '@angular/material/select';
 import { MatDialogModule }               from '@angular/material/dialog';
 import { platformBrowserDynamic }        from '@angular/platform-browser-dynamic';
@@ -17,47 +17,48 @@ import { DatePipe }                      from '@angular/common';
 
 import { AppRoutingModule }              from './app-routing.module';
 
-import { AuthService }                   from './authorization/auth.service';
-import { PostService }                   from './post/post.service';
-import { CommentService }                from './comment/comments.service';
+import { AuthService }                   from './modules/authorization/auth.service';
+import { PostService }                   from './modules/post/post.service';
+import { CommentService }                from './modules/comment/comments.service';
 
-import { AuthModule }                    from './authorization/auth.module';
+import { AuthModule }                    from './modules/authorization/auth.module';
 
 import { AppComponent }                  from './app.component';
-import { LoginComponent }                from './authorization/login/login.component';
+import { LoginComponent }                from './modules/authorization/login/login.component';
+import { PostsListComponent }            from './modules/post/list-preview/posts-lists/posts-list.component';
+import { PostPreviewComponent }          from './modules/post/list-preview/post-preview/post-preview.component';
+import { SocialComponent }               from './modules/post/buttons/social/social.component';
+import { CommentsComponent }             from './modules/post/buttons/comments/comments.component';
+import { EditDeleteComponent }           from './modules/post/buttons/edit-delete/edit-delete.component';
+import { PostCreateComponent }           from './modules/post/create-edit/post-сreate/post-create.component';
+import { PostEditComponent }             from './modules/post/create-edit/post-edit/post-edit.component';
+import { PostFormComponent }             from './modules/post/create-edit/post-form/post-form.component';
+import { PostViewComponent}              from './modules/post/post-view/post-view.component';
+import { DeleteComponent }               from './modules/post/delete/delete.component';
+import { CommentCreateComponent }        from './modules/comment/comment-create/comment-create.component';
+import { CommentViewComponent }          from './modules/comment/comment-view/comment-view.component';
+import { CommentsListsComponent }        from './modules/comment/comments-list/comments-list.component';
+import { DeleteDialogCommentComponent }  from './modules/comment/delete-dialog-comment/delete-dialog-comment.component';
+import { SidebarComponent }              from './pages/index/sidebar/sidebar.component';
+import { PopularTagsComponent }          from './pages/index/sidebar/popular-tags/popular-tags.component';
+import { RecentPostsComponent }          from './pages/index/sidebar/recent-posts/recent-posts.component';
+import { LayoutComponent }               from './pages/index/main/layout/layout.component';
+import { TagPageComponent }              from './pages/index/main/tag-page/tag-page.component';
+import { MainPageComponent }             from './pages/index/main/main-page/main-page.component';
+import { ProfileComponent }              from './pages/profile/profile.component';
+import { NotFoundComponent }             from './pages/not-found/not-found.component';
 
-import { PostsListComponent }            from './post/list-preview/posts-list.component';
-import { PostPreviewComponent }          from './post/list-preview/post-preview.component';
-import { SocialComponent }               from './post/buttons/social/social.component';
-import { CommentsComponent }             from './post/buttons/comments/comments.component';
-import { EditDeleteComponent }           from './post/buttons/edit-delete/edit-delete.component';
-import { PostCreateComponent }           from './post/create-edit/create/post-create.component';
-import { PostEditComponent }             from './post/create-edit/edit/post-edit.component';
-import { PostFormComponent }             from './post/create-edit/common-form/post-form.component';
-import { PostViewComponent}              from './post/post-view/post-view.component';
-import { DeleteComponent }               from './post/delete-dialog/delete.component';
-import { PopularTagsComponent }          from './popular-tags/popular-tags.component';
-import { RecentPostsComponent }          from './post/recent-posts/recent-posts.component';
-import { LayoutComponent }               from './layout/layout.component';
-import { TagPageComponent }              from './layout/tag-page/tag-page.component';
-import { MainPageComponent }             from './layout/main-page/main-page.component';
-import { CommentCreateComponent }        from './comment/comment-create/comment-create.component';
-import { CommentViewComponent }          from './comment/comment-view/comment-view.component';
-import { CommentsListsComponent }        from './comment/comments-list/comments-list.component';
-import { DeleteDialogCommentComponent }  from './comment/delete-dialog-comment/delete-dialog-comment.component';
-import { ProfileComponent }              from './profile/profile.component';
-import { NotFoundComponent }             from './not-found/not-found.component';
+import { NotLoginGuard }                 from './shared/guards/not-login.guard';
+import { SaveDataGuard }                 from './shared/guards/save-data.guard';
 
-import { NotLoginGuard }                 from './guards/not-login.guard';
-import { SaveDataGuard }                 from './guards/save-data.guard';
-
-import { RelativeDatePipe }              from './pipes/relative-date.pipe';
-import { DateSuffixPipe }                from './pipes/date-suffix.pipe';
-import { ShortenExcerptPipe }            from './pipes/shorten-excerpt.pipe';
+import { RelativeDatePipe }              from './shared/pipes/relative-date.pipe';
+import { DateSuffixPipe }                from './shared/pipes/date-suffix.pipe';
+import { ShortenExcerptPipe }            from './shared/pipes/shorten-excerpt.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SidebarComponent,
     PostsListComponent,
     PostPreviewComponent,
     PostViewComponent,
