@@ -4,3 +4,8 @@
                 (page)="pageEvent = getPaginationInfo($event)">
 </mat-paginator>
 <app-posts-list [posts]="posts"></app-posts-list>
+<mat-paginator  [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="pageEvent = getPaginationInfo($event)">
+</mat-paginator>
