@@ -26,7 +26,7 @@ export class RelativeDatePipe implements PipeTransform {
         }
         return {
             interval: 0,
-            epoch: 'seconds'
+            epoch: 'second'
         };
     }
 

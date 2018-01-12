@@ -24,9 +24,7 @@ export class PostViewComponent implements OnInit, OnDestroy {
         private postService: PostService,
         private route: ActivatedRoute
     ) {
-        this.subscription = authService.user$.subscribe(
-            (user) => this.user = user
-        );
+        this.subscription = authService.user$.subscribe(user => this.user = user);
         this.user = this.authService.getUser();
     }
 

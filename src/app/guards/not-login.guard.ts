@@ -12,7 +12,7 @@ export class NotLoginGuard implements CanActivate {
             return true;
         }
         console.log('here');
-        this.router.navigate(['**']);
+        this.router.navigate(['**'], { queryParams: { returnUrl: state.url }});
         return false;
     }
 }
