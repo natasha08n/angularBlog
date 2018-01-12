@@ -14,7 +14,7 @@ router.get('/posts', (req, res) => {
     console.log('get all the posts');
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
-    FROM posts`, (err, rows) => {
+    FROM posts ORDER BY posts.dateCreate DESC`, (err, rows) => {
         if (err) {
             let answer = getAnswer(false, 500, 'Some error in the sql-query');
             res.send(answer);
@@ -30,7 +30,7 @@ router.post('/posts', (req, res) => {
     const offset = perPage * req.body.page;
     connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
     (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId) AS comments
-    FROM posts LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
+    FROM posts ORDER BY posts.dateCreate DESC LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
         if (err) {
             let answer = getAnswer(false, 500, 'Some error in the sql-query');
             res.send(answer);

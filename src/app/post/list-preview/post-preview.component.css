@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
+.description .description-post-title:focus {
+    outline: 0;
+}
+
 .description .description-post-subtitle {
     font-family: inherit;
     font-weight: 600;
