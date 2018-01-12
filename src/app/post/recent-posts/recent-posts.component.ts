@@ -16,13 +16,11 @@ export class RecentPostsComponent implements OnDestroy {
     private recentPostLength: number = 15;
 
     constructor(private postService: PostService) {
-        this.subscription = postService.posts$.subscribe(
-            (posts) => {
+        this.postService.getAllPosts()
+            .subscribe((posts) => {
                 this.posts = posts;
-                console.log('posts', this.posts);
                 this.getRecentPosts();
-            }
-        );
+            });
     }
 
     getRecentPosts(): void {

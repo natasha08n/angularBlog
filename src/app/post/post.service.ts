@@ -47,6 +47,11 @@ export class PostService {
         return this.posts;
     }
 
+    getAllPosts(): Observable<Post[]> {
+        const url = `${this.baseUrl}/posts`;
+        return this.http.get<Post[]>(url, httpOptions);
+    }
+
     createPost(post: Post): Observable<Post> {
         const url = `${this.baseUrl}/post`;
         return this.http.post<Post>(url, post, httpOptions);
