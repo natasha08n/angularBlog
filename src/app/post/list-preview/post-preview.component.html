@@ -1,0 +1,14 @@
+<div class="post-img">
+    <app-comments [comments]="post.comments"></app-comments>
+    <app-edit-delete *ngIf="user && user.id === post.userId" [postId]="post.id"></app-edit-delete>
+    <app-social></app-social>
+    <img class="img-responsive center-block" src="http://via.placeholder.com/850x450" routerLink="/post/{{post.id}}">
+</div>
+
+<div class="description">
+    <div class="angle"></div>
+    <h2 class="description-post-title" routerLink="/post/{{post.id}}">{{ post.title }}</h2>
+    <p class="description-post-date">{{ post.dateCreate | dateSuffix }}</p>
+    <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
+    <p class="description-post-text">{{ post.excerpt }}...</p>
+</div>

@@ -1,0 +1,16 @@
+.delete-dialog {
+    font-family: Helvetica;
+    text-align: center;
+}
+
+.delete-dialog h1{
+    font-weight: bold;
+}
+
+.mat-dialog-actions {
+    display: block;
+}
+
+.mat-dialog-actions:last-child {
+    margin-bottom: 0;
+}

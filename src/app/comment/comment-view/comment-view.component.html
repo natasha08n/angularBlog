@@ -1,0 +1,23 @@
+<ul class="comment">
+    <li class="text-justify">
+        <div class="comment-body">
+            <img src="http://via.placeholder.com/60x60" alt="user" class="img-responsive img-user">
+            <a class="comment-remove" *ngIf="userId === comment.userId && !comment.isDeleted" (click)="openDialogDelete(comment.id, comment.postId)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            <div class="comment-info">
+                <span class="comment-author">{{comment.author}}</span>
+                <span *ngIf="comment.previousId">to </span>
+                <span *ngIf="comment.previousId" class="comment-author">{{comment.prevAuthor}}</span>
+                <span class="comment-date">{{comment.dateUpdate | relativeDate}}</span>
+                <p class="comment-info-text" *ngIf="!comment.isDeleted">{{comment.text}}</p>
+                <p class="comment-info-text comment-deleted" *ngIf="comment.isDeleted">This comment has been removed by author.</p>
+                <p class="comment-reply" (click)="showFormComment()" *ngIf="userId && !comment.isDeleted">Reply</p>
+                <app-comment-create *ngIf="isShown" [previousCommentId]="comment.id" [userId]="userId" [postId]="comment.postId"></app-comment-create>
+            </div>
+        </div>
+        <ul *ngIf="comment.children">
+            <app-comment-view *ngFor="let comment of comment.children" [userId]="userId" [comment]="comment"></app-comment-view>
+        </ul>
+    </li>
+</ul>

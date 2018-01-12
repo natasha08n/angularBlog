@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div *ngIf="post">
+                <div class="one-post">
+                    <app-edit-delete *ngIf="user && user.id === post.userId" [postId]="post.id"></app-edit-delete>
+                    <app-social></app-social>
+                    <img class="img-responsive center-block" src="http://via.placeholder.com/1200x600">
+                    <div class="title">
+                        <p class="text-center">{{ post.title }}</p>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p class="description-post-info">{{ post.dateCreate | dateSuffix }} by {{post.authorName}} {{post.authorSurname}}</p>
+                    <h3 class="description-post-subtitle">{{ post.subtitle }}</h3>
+                    <p class="description-post-text">{{ post.text }}</p>
+                </div>
+
+                <div class="comment" *ngIf="user">
+                    <h2>Create Comment</h2>
+                    <app-comment-create [userId]="user.id" [postId]="post.id"></app-comment-create>
+                </div>
+
+                <div class="comment">
+                    <h2>Comments</h2>
+                    <app-comments-list *ngIf="user" [userId]="user.id"></app-comments-list>
+                    <app-comments-list *ngIf="!user"></app-comments-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

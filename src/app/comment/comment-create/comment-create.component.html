@@ -1,0 +1,6 @@
+<mat-form-field>
+    <textarea matInput placeholder="Enter your comment" tabindex="1" [value]="comment" [(ngModel)]="comment"></textarea>
+</mat-form-field>
+<div mat-dialog-actions>
+    <button mat-raised-button type="submit" tabindex="2" (click)="comment.length !== 0 && createComment(comment)" >Add comment</button>
+</div>

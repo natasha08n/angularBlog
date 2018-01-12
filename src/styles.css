@@ -1,0 +1,202 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #333333;
+    margin: 0px;
+    padding: 0px;
+    background: url(http://2.bp.blogspot.com/-iFvxg9CkLPo/U0uTIS8ieWI/AAAAAAAAATE/BFuBsdCrfqI/s1600/background.png) repeat;
+}
+
+/* Header menu */
+
+.navbar-inverse {
+    background: url(http://1.bp.blogspot.com/-B6zsM4f1UM4/U0uTJb_7yiI/AAAAAAAAATg/PsZGk9FUBfU/s1600/headertopbg.png) repeat center center #444;
+    border: 0;
+}
+
+.navbar-fixed-bottom, .navbar-fixed-top {
+    z-index: 999;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #ffffff;
+    transition: all .5s ease 0s;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #f26c4f;
+}
+
+.navbar-brand {
+    padding: 15px 80px;
+}
+
+.navbar-header .logo {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #f26c4f;
+    transition: all .5s ease 0s;
+}
+
+.navbar-header .logo:hover,
+.navbar-header .logo:focus {
+    background-color: #f26c4f;
+    color: black;
+    transition: all .5s ease 0s;
+}
+
+.navbar .navbar-right .nav-main-greeting {
+    color: #f26c4f;
+}
+
+.new-nav li a:hover {
+    cursor: pointer;
+}
+
+/* Header image */
+
+.header {
+    background: url(http://4.bp.blogspot.com/-JBEjo6pEufs/U0uTJAXc62I/AAAAAAAAATY/tkrZ5Fk2H4Y/s1600/headerbg.jpg) no-repeat center center #444;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    height: 100px;
+    border-bottom: 5px solid #999999;
+    color: #ffffff;
+    position: relative;
+    width: 100%;
+    padding: 0px;
+    z-index: 500;
+}
+
+/* Footer */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 400px;
+    background-color: #343434;    
+    padding: 50px 0 120px 0;
+    color: #ffffff;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, .8);
+}
+
+.btn-foo {
+    background-color: #f27255;
+    color: #ca3c20;
+    border: 1px solid #f27255;
+    box-shadow: 1px 1px 0px rgba(202, 60, 32, .2);
+    transition: all 1s ease;
+}
+
+.btn-foo:hover {
+    background-color: #e06147;
+    color: #ffffff;
+    border: 1px solid #f27255;
+    box-shadow: 1px 1px 0px rgba(202, 60, 32, .4);
+    transition: all 1s ease;
+}
+
+/* social icons */
+
+.social-links {
+    padding-left: 0;
+}
+
+.social-links li {
+    list-style-type: none;
+    float: left;
+    padding-right: 7px;
+}
+
+.social-links li a {
+    color: #ffffff;
+    background-color: #f26c4f;
+    text-decoration: none;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s linear;
+}
+
+.social-links li a:hover {
+    background-color: #666666;
+    transition: all .3s linear;
+}
+
+.social-links:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* button join */
+
+.form-control {
+    width: 100%;
+    padding: 25px 5px;
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-control:active {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #cccccc;
+}
+
+.join,
+.join:focus,
+.join:active {
+    border-left: 0;
+    border-right: 0;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 25px 0;
+}
+
+.btn-join {
+    background: #f26c4f;
+    outline: none;
+    transition: background .4s linear;
+    margin: 0px;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.btn-join:hover {
+    background: #d3d1d1;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .4) !important;
+}
+
+.btn-icon {
+    opacity: .3;
+}
+
+.input-group-addon {
+    background-color: #ffffff;
+    border: 0;
+}
+

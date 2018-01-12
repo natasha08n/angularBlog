@@ -1,0 +1,98 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand logo" href="index.html">Creative<sup>+</sup></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href="#">Articles</a></li>
+              <li><a href="#">Toutorials</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Web design</a></li>
+              <li><a href="#">Other</a></li>
+              <li><a href="#">Contact</a></li>
+
+          </ul>
+          <div id="appMenu">
+              <ng-template [ngIf]="!user" [ngIfElse]="signedin">
+                <ul class="nav navbar-nav navbar-right new-nav">
+                  <li><a class="hidden-sm nav-main-greeting" (click)="openDialogSignIn()">Sign in</a></li>
+                  <li><a class="hidden-sm nav-secondary" (click)="openDialogSignUp()">Sign up</a></li>
+                </ul>
+              </ng-template>
+              <ng-template #signedin class="nav navbar-nav navbar-right new-nav">
+                <ul class="nav navbar-nav navbar-right new-nav">
+                  <li><a class="hidden-sm nav-main-greeting" routerLink="/profile">Hello, {{user.name}}</a></li>
+                  <li><a class="hidden-sm nav-secondary" (click)="logout()">Logout</a></li>
+                </ul>
+              </ng-template>
+          </div>
+      </div>
+  </div>
+</nav>
+
+<div class="header"></div>
+
+<ul class="left-social">
+    <li class="social-top"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+    <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+    <li class="social-bottom"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+</ul>
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <p>Quisque turpis lorem, vehicula eget rhoncus vel, ultricies ac mauris. Morbi lectus velit, tincidunt congue pharetra eu, varius nec libero. Vivamus justo risus, dignissim ac vestibulum eget, egestas rutrum magna. Etiam malesuada nisi et nisl volutpat tristique.</p>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                </ul>
+                <br>
+                <small>Copyright 2012 Footer here</small>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-envelope btn-icon"></i>
+                            </div>
+                            <input type="text" class="form-control join" placeholder="Join Our Newsletter Here">
+                            <div class="input-group-addon btn-join-block">
+                                <input type="submit" class="btn-join btn-foo" value="Join">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<go-top-button
+    [html]="'<i class=\'fa fa-arrow-up\'></i>'"
+    [animate]="true"
+    [speed]="50"
+    [acceleration]="2"
+    [scrollDistance]="300"
+    [styles]="{
+        'right': '20px',
+        'border-radius': '3px',
+        'background': '#333',
+        'color': '#f26c4f'
+    }">
+</go-top-button>

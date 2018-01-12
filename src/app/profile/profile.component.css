@@ -1,0 +1,41 @@
+.panel-heading h1,
+.user-info p:first-child {
+    font-weight: bold;
+}
+
+.user-info {
+    margin-top: 20px;
+}
+
+.user-info-avatar {
+    margin-left: 7%;
+}
+
+.user-info-icon {
+    width: 15px;
+    height: auto;
+    text-align: center;
+}
+
+.create-post {
+    padding: 10px 20px;
+    background-color: #f26c4f;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all .3s ease-in;
+}
+
+.create-post:hover{
+    background-color: #666;
+    transition: all .3s ease-in;
+}
+
+.list-group-item:first-child {
+    margin-top: 20px;
+}
+
+.list-group-item p {
+    margin: 0;
+}

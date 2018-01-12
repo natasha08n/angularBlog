@@ -1,0 +1,28 @@
+.form-input-short {
+    width: 50%;
+}
+
+.form-input-long {
+    width: 100%;
+}
+
+.edit-post {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.edit-post h2 {
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.mat-form-field {
+    margin-top: 10px;
+}
+
+.mat-dialog-actions {
+    margin-top: 15px;
+}

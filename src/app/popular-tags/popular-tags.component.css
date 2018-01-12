@@ -1,0 +1,17 @@
+.tags {
+    background: #ebebeb;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: background .4s linear;
+    border-radius: 4px;
+    padding: 5px 10px;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .2);
+    font-weight: 250;
+    color: #575757;
+    margin: 5px;
+}
+
+.tags:hover {
+    background: #d3d1d1;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .4) !important;
+}

@@ -1,0 +1,38 @@
+.social-buttons li a {
+    cursor: pointer;
+    padding: 7px;
+    color: white;
+    border-radius: 4px;
+    background-color: #f26c4f;
+    transition: all .3s ease;
+}
+
+.social-buttons li a:hover{
+    background-color: #666;
+    transition: all .7s ease;
+}
+
+.social-buttons li a {
+    text-decoration: none;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .7s ease;
+}
+
+ul.social-buttons {
+    padding-left: 10px;
+}
+
+ul.social-buttons li {
+    list-style-type: none;
+    padding-bottom: 10px;
+}
+
+ul.social-buttons li:last-child {
+    padding-bottom: 0;
+}
