@@ -1,14 +1,7 @@
-var mysql      = require('mysql');
-var express   = require('express');
-var dbconfig   = require('../../config/database');
-
-var connection = mysql.createConnection(dbconfig.connection);
-
-var app       = express();
-var router    = express.Router();
-
-connection.query(`USE ${dbconfig.database}`);
-console.log('conn-entites', dbconfig.database);
+const express = require('express');
+const app     = express();
+const router  = express.Router();
+const models  = require('../../models');
 
 router.get('/posts', (req, res) => {
     console.log('get all the posts');

@@ -1,30 +1,59 @@
-var app   = require('../app');
-var debug = require('debug')('nchobat:server');
-var http  = require('http');
+#!/usr/bin/env node
 
-var port  = normalizePort(process.env.PORT || '3000');
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('express-sequelize');
+var http = require('http');
+var models = require('../models');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
+  /**
+   * Create HTTP server.
+   */
 var server = http.createServer(app);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+models.sequelize.sync().then(function() {
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+  server.listen(port, function() {
+    debug('Express server listening on port ' + server.address().port);
+  });
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
 
+/**
+ * Normalize a port into a number, string, or false.
+ */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
+    // named pipe
     return val;
   }
 
   if (port >= 0) {
+    // port number
     return port;
   }
 
   return false;
 }
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -35,6 +64,7 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
+  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -48,6 +78,10 @@ function onError(error) {
       throw error;
   }
 }
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
 
 function onListening() {
   var addr = server.address();

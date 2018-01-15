@@ -4,5 +4,5 @@ module.exports = {
         'user': 'root',
         'password': 'rootroot'
     },
-	'database': 'creative'
+	'database': 'tutorial'
 };
