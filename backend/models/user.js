@@ -48,7 +48,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 1
         },
         avatarUrl: {
-            type: Sequelize.STRING,
+            type: Sequelize.CHAR(255),
             defaultValue: 'http://via.placeholder.com/100x100'
         }
     }, {
@@ -59,6 +59,12 @@ module.exports = (sequelize, Sequelize) => {
             }
         }
     });
+
+    User.associate = function (models) {
+        User.hasMany(models.post),
+
+        User.hasMany(models.comment);
+    };
 
     return User;
 };

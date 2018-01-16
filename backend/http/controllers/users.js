@@ -32,7 +32,6 @@ router.post('/signup', (req, res) => {
 
 router.post('/signin', (req, res) => {
     const data = req.body;
-    console.log('email', data.email);
     if (!data) {
         let answer = getAnswer(false, 400,  'Please, enter information');
         res.send(answer);
