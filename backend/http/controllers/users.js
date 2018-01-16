@@ -28,6 +28,11 @@ router.post('/signup', (req, res) => {
             res.send(answer);
             return;
         })
+        .catch((error) => {
+            const answer = getAnswer(false, 500, 'Please, try again to sign up');
+            res.send(answer);
+            return;
+        });
 });
 
 router.post('/signin', (req, res) => {

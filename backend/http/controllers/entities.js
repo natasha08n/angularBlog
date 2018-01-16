@@ -3,70 +3,84 @@ const app     = express();
 const router  = express.Router();
 const models  = require('../../models');
 
+const dbconfig   = require('../../config/database');
+var Sequelize = require('sequelize');
+const sequelize = new Sequelize(dbconfig.database, dbconfig.connection.user, dbconfig.connection.password, {
+    dialect: 'mysql'
+});
+
 router.get('/posts', (req, res) => {
-    console.log('get all the posts');
-    connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
-    (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId AND comments.isDeleted = 0) AS comments
-    FROM posts ORDER BY posts.dateCreate DESC`, (err, rows) => {
-        if (err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+    models.post.findAll({
+        attributes: Object.keys(models.post.attributes).concat([
+            [sequelize.literal('(SELECT COUNT(*) FROM comments WHERE comments.postId = post.id)'), 'count']
+        ]),
+        order: [
+            ['dateCreate', 'DESC']
+        ],
+        limit: Number(req.query.limit) || 5000,
+        offset: Number(req.query.offset) || 0
+    })
+        .then((posts) => {
+            posts.forEach((post, index) => {
+                posts[index] = post.dataValues;
+            });
+            res.send(posts);
+            return;
+        })
+        .catch((error) => {
+            const answer = getAnswer(false, 500, error);
             res.send(answer);
             return;
-        }
-        res.send(rows);
-        return;
-    });
-});
-
-router.post('/posts', (req, res) => {
-    const perPage = req.body.count;
-    const offset = perPage * req.body.page;
-    connection.query(`SELECT posts.id, posts.title, posts.subtitle, posts.dateCreate, posts.text, posts.excerpt, posts.userId,
-    (SELECT COUNT(*) FROM comments WHERE posts.id = comments.postId AND comments.isDeleted = 0) AS comments
-    FROM posts ORDER BY posts.dateCreate DESC LIMIT ${perPage} OFFSET ${offset}`, (err, rows) => {
-        if (err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
-            res.send(answer);
-            return;
-        }
-        res.send(rows);
-        return;
-    });
-});
-
-router.get('/posts/count', (req, res) => {
-    connection.query(`SELECT COUNT(posts.id) as count FROM posts`, (err, rows) => {
-        if (err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
-            res.send(answer);
-            return;
-        }
-        res.send(rows);
-        return;
-    });
+        });
 });
 
 router.post('/post', (req, res) => {
-    const postInsert = req.body;
-    const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId, excerpt)
-    VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
-    connection.query(query, (err, rows) => {
-        if (err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
-            res.send(answer);
-            return;
-        }
-        if(rows) {
-            let tags = postInsert.tags;
-            for(let i = 0; i < tags.length; i++) {
-                addTag(tags[i], postInsert.id, (idTag) => {  
-                    addPostTag(idTag, rows.insertId);                
-                })
-            }
-            res.status(200).send((rows.insertId).toString());
-            return;
-        }
-    });
+    const post = req.body;
+
+    // models.post.create(post)
+    //     .then((insertedPost) => {
+    //         console.log('inserted');
+            
+    //         res.send((insertedPost.dataValues.id).toString());
+    //         return;
+    //     })
+    //     .catch((error) => {
+    //         console.log('fail');
+    //         const answer = getAnswer(false, 500, error);
+    //         res.send(answer);
+    //         return;
+    //     });
+
+        // models.tag.bulkCreate(["tet", "tetret"])
+        // .then(() => {
+        //     console.log('success');
+        //     return;
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+
+
+    
+    // const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId, excerpt)
+    // VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
+    // connection.query(query, (err, rows) => {
+    //     if (err) {
+    //         let answer = getAnswer(false, 500, 'Some error in the sql-query');
+    //         res.send(answer);
+    //         return;
+    //     }
+    //     if(rows) {
+    //         let tags = postInsert.tags;
+    //         for(let i = 0; i < tags.length; i++) {
+    //             addTag(tags[i], postInsert.id, (idTag) => {  
+    //                 addPostTag(idTag, rows.insertId);                
+    //             })
+    //         }
+    //         res.status(200).send((rows.insertId).toString());
+    //         return;
+    //     }
+    // });
 });
 
 router.get('/post/:id', (req, res) => {

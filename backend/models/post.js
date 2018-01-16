@@ -11,10 +11,6 @@ module.exports = (sequelize, Sequelize) => {
                 len: {
                     args: [0, 50],
                     msg: 'Title is not valid. It should be less than 50 characters long.'
-                },
-                notNull: {
-                    args: true,
-                    msg: 'Title is required.'
                 }
             }
         },
@@ -25,21 +21,12 @@ module.exports = (sequelize, Sequelize) => {
                 max: {
                     args: 70,
                     msg: 'Subtitle is not valid. It should be less than 70 characters long.'
-                },
-                notNull: {
-                    args: true,
-                    msg: 'Subtitle is required.'
                 }
             }
         },
         text: {
             type: Sequelize.TEXT,
-            validate: {
-                notNull: {
-                    args: true,
-                    msg: 'Text is required.'
-                }
-            }
+            allowNull: false
         },
         excerpt: {
             type: Sequelize.CHAR(255),
@@ -48,16 +35,12 @@ module.exports = (sequelize, Sequelize) => {
                 max: {
                     args: 80,
                     msg: 'Excerpt is not valid. It should be less than 80 characters long.'
-                },
-                notNull: {
-                    args: true,
-                    msg: 'Excerpt is required.'
                 }
             }
         }
     }, {
-        paranoid: true,
-        deletedAt: 'isDeleted',
+        /*paranoid: true,
+        deletedAt: 'isDeleted',*/
         createdAt: 'dateCreate',
         updatedAt: 'dateUpdate'
     });

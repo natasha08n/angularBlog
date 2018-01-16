@@ -2,7 +2,7 @@ const express    = require('express');
 const path       = require('path');
 const logger     = require('morgan');
 const users      = require('./http/controllers/users');
-// const entities   = require('./http/controllers/entities');
+const entities   = require('./http/controllers/entities');
 const port       = process.env.PORT || 3000;
 const app        = express();
 const bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
 app.use(cors());
 app.use('/users', users);
-// app.use('/entities', entities);
+app.use('/entities', entities);
 app.use(logger('dev'));
 
 app.use((req, res, next) => {
