@@ -55,7 +55,7 @@ module.exports = (sequelize, Sequelize) => {
 
         Post.hasMany(models.comment);
 
-        Post.belongsToMany(models.tag, { through: 'tagsinpost' });
+        Post.hasMany(models.tagsinpost);
     };
 
     return Post;
