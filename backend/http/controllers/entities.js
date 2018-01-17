@@ -37,50 +37,20 @@ router.get('/posts', (req, res) => {
 router.post('/post', (req, res) => {
     const post = req.body;
 
-    // models.post.create(post)
-    //     .then((insertedPost) => {
-    //         console.log('inserted');
-            
-    //         res.send((insertedPost.dataValues.id).toString());
-    //         return;
-    //     })
-    //     .catch((error) => {
-    //         console.log('fail');
-    //         const answer = getAnswer(false, 500, error);
-    //         res.send(answer);
-    //         return;
-    //     });
-
-        // models.tag.bulkCreate(["tet", "tetret"])
-        // .then(() => {
-        //     console.log('success');
-        //     return;
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
-
-
-    
-    // const query = `INSERT INTO posts (title, subtitle, text, dateCreate, dateUpdate, userId, excerpt)
-    // VALUES ("${postInsert.title}", "${postInsert.subtitle}", "${postInsert.text}", ${postInsert.dateCreate}, ${postInsert.dateUpdate}, ${postInsert.userId}, "${postInsert.excerpt}")`;
-    // connection.query(query, (err, rows) => {
-    //     if (err) {
-    //         let answer = getAnswer(false, 500, 'Some error in the sql-query');
-    //         res.send(answer);
-    //         return;
-    //     }
-    //     if(rows) {
-    //         let tags = postInsert.tags;
-    //         for(let i = 0; i < tags.length; i++) {
-    //             addTag(tags[i], postInsert.id, (idTag) => {  
-    //                 addPostTag(idTag, rows.insertId);                
-    //             })
-    //         }
-    //         res.status(200).send((rows.insertId).toString());
-    //         return;
-    //     }
-    // });
+    models.post.create(post)
+        .then((insertedPost) => {
+            addTags(post.tags, (addedTags) => {
+                addPostTags(addedTags, insertedPost.dataValues.id);
+            });
+            res.send((insertedPost.dataValues.id).toString());
+            return;
+        })
+        .catch((error) => {
+            console.log(error);
+            const answer = getAnswer(false, 500, error);
+            res.send(answer);
+            return;
+        });
 });
 
 router.get('/post/:id', (req, res) => {
@@ -289,43 +259,53 @@ router.delete('/comment/:id', (req, res) => {
     });
 })
 
-function addTag(tag, postId, callback) {
-    let tagQuery = `INSERT INTO tags (name) VALUE ('${tag}')`;
-    let resultId = 0;
-    connection.query(tagQuery, (err, rows) => {
-        if(err) {
-            connection.query(`SELECT id from tags WHERE name = '${tag}'`, (err, rows) => {
-                if(err) {
-                    let answer = getAnswer(false, 500, 'Some error in the sql-query');
-                    res.send(answer);
-                    return;
-                }
-                if(rows) {
-                    resultId = rows[0].id;
+function addTags(tags, callback) {
+    var result = [];     
 
-                    callback(resultId);
-                }
-            });
-        }
-        if(rows) {
-            resultId = rows.insertId;
-            callback(resultId);
-        }
+    var promises = tags.map((one) => {
+      return models.tag.create({
+          name: one
+        })
+        .then(function(tag) {
+          result.push({
+            id: tag.dataValues.id,
+            name: tag.dataValues.name
+          });
+        })
+        .catch(function(err) {
+            return models.tag.findOne({ where: {name: one}})
+            .then((foundTag) => {
+                result.push({
+                    id: foundTag.dataValues.id,
+                    name: foundTag.dataValues.name
+                });
+            })
+        });
     });
+  
+    return Promise.all(promises)
+        .then(() => {
+            callback(result);
+            return Promise.resolve(result);
+        });
 }
 
-function addPostTag(idTag, postId) {
-    let insertTagPost = `INSERT INTO tagsinpost(tagId, postId) VALUES (${idTag}, ${postId})`;
-    connection.query(insertTagPost, (err, rows) => {
-        if(err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
-            res.send(answer);
-            return;
-        }
-        if(rows) {
-            return rows;
-        }
-    });
+function addPostTags(tags, postId) {
+    let toInsertTags = [];
+    tags.map((tag) => {
+        toInsertTags.push({
+            tagId: tag.id,
+            postId: postId
+        });
+    })
+    models.tagsinpost.bulkCreate(toInsertTags)
+        .then((connectedTags) => {
+            console.log('RETURNED VALUE', connectedTags);
+            return connectedTags;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function deleteOldTags(tags, postId, callback) {

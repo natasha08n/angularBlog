@@ -51,11 +51,11 @@ module.exports = (sequelize, Sequelize) => {
             foreignKey: {
                 allowNull: false
             }
-        }),
+        });
 
         Post.hasMany(models.comment);
 
-        Post.belongsToMany(models.tag, { through: 'tagsinpost', timestamps: false });
+        Post.belongsToMany(models.tag, { through: 'tagsinpost' });
     };
 
     return Post;
