@@ -13,14 +13,14 @@ import { PostService } from './../../../../modules/post/post.service';
 export class PopularTagsComponent {
     public tags: Tag[];
 
-    constructor(
-        private postService: PostService
-    ) {
+    constructor(private postService: PostService) {
         this.getPopularTags();
     }
 
     getPopularTags(): void {
         this.postService.getPopularTags()
-            .subscribe(tags => this.tags = tags);
+            .subscribe((tags) => {
+                this.tags = tags;
+            });
     }
 }

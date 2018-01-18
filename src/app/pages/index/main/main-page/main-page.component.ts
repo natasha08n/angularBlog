@@ -12,7 +12,8 @@ import { PostService }          from './../../../../modules/post/post.service';
 
 export class MainPageComponent implements OnDestroy {
     public posts: Post[];
-    private subscription: Subscription;
+    private subscriptionPosts: Subscription;
+    private subscriptionCount: Subscription;
 
     public length: number;
     public pageSize: number;
@@ -28,10 +29,10 @@ export class MainPageComponent implements OnDestroy {
         this.pageSizeOptions = this.postService.pageSizeOptions;
         this.pageIndex = this.postService.pageIndex;
 
-        this.subscription = postService.posts$.subscribe(
+        this.subscriptionPosts = postService.posts$.subscribe(
             (posts) => this.posts = posts
         );
-        this.subscription = postService.postsCount$.subscribe(
+        this.subscriptionCount = postService.postsCount$.subscribe(
             (count) => this.length = count
         );
 
@@ -49,6 +50,7 @@ export class MainPageComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.subscriptionPosts.unsubscribe();
+        this.subscriptionCount.unsubscribe();
     }
 }

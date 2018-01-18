@@ -37,8 +37,7 @@ export class EditDeleteComponent {
             if (result) {
                 this.postService.deletePost(postId)
                     .subscribe(res => {
-                        if (res['status'] === 'success') {
-                            this.postService.getPostsCount();
+                        if (res['status'] === true) {
                             this.postService.getPosts(this.pageSize, this.pageIndex);
                             this.router.navigateByUrl('');
                         }

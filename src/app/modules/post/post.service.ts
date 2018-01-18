@@ -32,9 +32,8 @@ export class PostService {
     getPosts(count: number = 0, page: number = 0): Observable<Post[]> {
         const offset = count * page;
         const url = `${this.baseUrl}/posts?page=${page}&limit=${count}&offset=${offset}`;
-        console.log('URL', url);
         this.http.get<Post[]>(url, httpOptions)
-            .subscribe(posts => {
+            .subscribe((posts) => {
                 this.posts.next(posts['rows']);
                 this.postsCount.next(posts['count']);
             });
@@ -66,20 +65,13 @@ export class PostService {
         return this.http.get<Tag[]>(url, httpOptions);
     }
 
-    getPostsByTagCount(tagname: string): Observable<Object>  {
-        const url = `${this.baseUrl}/posts/${tagname}/count`;
-        this.http.get<Object>(url, httpOptions)
-            .subscribe(count => {
-                this.postsCount.next(count);
-            });
-        return this.postsCount;
-    }
-
-    getPostsByTag(tagname: string, pageSize: number, pageIndex: number): Observable<Post[]> {
-        const url = `${this.baseUrl}/tag/${tagname}`;
-        this.http.post<Post[]>(url, {count: pageSize, page: pageIndex}, httpOptions)
-            .subscribe(posts => {
-                this.posts.next(posts);
+    getPostsByTag(tagname: string, count: number, page: number): Observable<Object> {
+        const offset = count * page;
+        const url = `${this.baseUrl}/tag/${tagname}?page=${page}&limit=${count}&offset=${offset}`;
+        this.http.get(url, httpOptions)
+            .subscribe((posts) => {
+                this.postsCount.next(posts['count']);
+                this.posts.next(posts['rows']);
             });
         return this.posts;
     }

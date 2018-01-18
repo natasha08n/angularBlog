@@ -11,18 +11,16 @@ import { PostService }          from './../../../../modules/post/post.service';
 
 export class RecentPostsComponent {
     public posts: Post[];
-    private recentPostLength: number = 15;
 
     constructor(private postService: PostService) {
         this.postService.getPosts()
             .subscribe((posts) => {
-                this.posts = posts;
-                this.getRecentPosts();
+                this.getRecentPosts(posts);
             });
     }
 
-    getRecentPosts(): void {
-        this.posts.sort((a, b) => {
+    getRecentPosts(posts): void {
+        posts.sort((a, b) => {
             if (a.comments < b.comments) {
                 return 1;
             } else if (a.comments > b.comments) {
@@ -31,6 +29,6 @@ export class RecentPostsComponent {
                 return 0;
             }
         });
-        this.posts = this.posts.slice(0, 5);
+        this.posts = posts.slice(0, 5);
     }
 }

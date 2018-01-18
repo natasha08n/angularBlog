@@ -12,8 +12,9 @@ import { PostService }          from './../../../../modules/post/post.service';
 })
 
 export class TagPageComponent implements OnDestroy {
-  posts: Post[];
-  subscription: Subscription;
+  public posts: Post[];
+  private subscriptionPosts: Subscription;
+  private subscriptionCount: Subscription;
 
   private tagname: string;
 
@@ -35,36 +36,38 @@ export class TagPageComponent implements OnDestroy {
     this.pageSizeOptions = this.postService.pageSizeOptions;
     this.pageIndex = this.postService.pageIndex;
 
-    this.subscription = postService.posts$.subscribe(
-      (posts) => this.posts = posts
+    this.subscriptionPosts = postService.posts$.subscribe(
+      (posts) => {
+        this.posts = posts;
+        // debugger;
+      }
     );
 
-    router.events.forEach(() => {
-      this.tagname = this.route.snapshot.paramMap.get('tag');
-      this.getPostsByTagCount(this.tagname);
-      this.getPostsByTag(this.tagname, this.pageSize, 0);
-    });
+    this.subscriptionCount = postService.postsCount$.subscribe(
+      (count) => {
+        this.length = count;
+      }
+    );
+
+    this.route.params
+      .subscribe((params) => {
+        this.tagname = this.route.snapshot.paramMap.get('tag');
+        this.getPostsByTag(this.tagname, 5, 0);
+      });
   }
 
   getPostsByTag(tagname: string, pageSize: number, pageIndex: number): void {
     this.postService.getPostsByTag(tagname, pageSize, pageIndex);
   }
 
-  getPostsByTagCount(tagname: string): void {
-    this.postService.getPostsByTagCount(tagname)
-        .subscribe(count => {
-            this.length = count[0]['count'];
-        });
-  }
-
   public getPaginationInfo(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    this.getPostsByTagCount(this.tagname);
-    this.getPostsByTag(this.tagname, this.pageSize, this.pageIndex);
+    this.getPostsByTag(this.tagname, 5, this.pageIndex);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptionPosts.unsubscribe();
+    this.subscriptionCount.unsubscribe();
   }
 }

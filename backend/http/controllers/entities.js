@@ -163,12 +163,16 @@ router.get('/tag/:tag', (req, res) => {
         offset: Number(req.query.offset) || 0
     })
         .then((posts) => {
-            let modifiedPosts = [];
+            let modifiedPosts = {
+                count: 0,
+                rows: []
+            };
             posts.map((post) => {
                 if(post.dataValues.tagsinposts.length) {
-                    modifiedPosts.push(post);
+                    modifiedPosts.rows.push(post);
                 }
             });
+            modifiedPosts.count = modifiedPosts.rows.length;
             res.send(modifiedPosts);
             return;
         })

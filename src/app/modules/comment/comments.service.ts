@@ -21,17 +21,14 @@ export class CommentService {
     constructor(private http: HttpClient) { }
 
     createComment(comment: Object): Observable<Comment> {
-        console.log('service comment', comment);
         const url = `${this.baseUrl}/comment`;
         return this.http.post<Comment>(url, comment, httpOptions);
     }
 
     getCommentsPost(postId: number): Observable<Comment[]> {
-        console.log('in the service, postId = ', postId);
         const url = `${this.baseUrl}/${postId}/comments`;
         this.http.get<Comment[]>(url, httpOptions)
             .subscribe(comments => {
-                console.log('comments without length', comments);
                 if (comments.length) {
                     comments.forEach((comment) => {
                         comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
