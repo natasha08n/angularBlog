@@ -14,9 +14,7 @@ router.get('/posts', (req, res) => {
         attributes: Object.keys(models.post.attributes).concat([
             [sequelize.literal('(SELECT COUNT(*) FROM comments WHERE comments.postId = post.id)'), 'count']
         ]),
-        order: [
-            ['dateCreate', 'DESC']
-        ],
+        order: [ ['dateCreate', 'DESC'] ],
         limit: Number(req.query.limit) || 5000,
         offset: Number(req.query.offset) || 0
     })
@@ -24,7 +22,6 @@ router.get('/posts', (req, res) => {
             posts.forEach((post, index) => {
                 posts[index] = post.dataValues;
             });
-
             res.send(posts);
             return;
         })
@@ -43,7 +40,6 @@ router.post('/post', (req, res) => {
             addTags(post.tags, (addedTags) => {
                 addPostTags(addedTags, insertedPost.dataValues.id);
             });
-
             res.send((insertedPost.dataValues.id).toString());
             return;
         })
@@ -94,11 +90,7 @@ router.put('/post/:id', (req, res) => {
     const post = req.body;
     const postId = req.params.id;
 
-    models.post.update(post, {
-        where: {
-            id: postId
-        }
-    })
+    models.post.update(post, { where: { id: postId } })
         .then((updatedPost) => {
             deleteOldTags(postId, () => {
                 addTags(post.tags, (addedTags) => {
@@ -120,11 +112,7 @@ router.put('/post/:id', (req, res) => {
 router.delete('/post/:id', (req, res) => {
     const postId = req.params.id;
 
-    models.post.destroy({
-        where: {
-            id: postId
-        }
-    })
+    models.post.destroy({ where: { id: postId } })
         .then(() => {
             let answer = getAnswer(true, 200, 'Post has been deleted succesfully');
             res.send(answer);
@@ -139,15 +127,11 @@ router.delete('/post/:id', (req, res) => {
 
 router.get('/tags', (req, res) => {
     models.tagsinpost.findAll({
-        attributes: [
-            [sequelize.fn('COUNT', sequelize.col('tagId')), 'count']
-        ],
+        attributes: [ [sequelize.fn('COUNT', sequelize.col('tagId')), 'count'] ],
         group: 'tagsinpost.tagId',
         order: [[sequelize.col('count'), 'DESC']],
         limit: 10,
-        include: [
-            { model: models.tag, attributes: [ 'name' ] }
-        ]
+        include: [ { model: models.tag, attributes: [ 'name' ] } ]
     })
         .then((tags) => {
             const tagsRes = [];
@@ -220,9 +204,7 @@ router.get('/:id/comments', (req, res) => {
     const postId = req.params.id;
 
     models.comment.findOne({
-        where: {
-            'postId': postId
-        },
+        where: { 'postId': postId },
         include: [
             { model: models.user,
                 attributes: { exclude: ['email', 'password', 'roleId', 'avatarUrl']}
@@ -272,9 +254,7 @@ function addTags(tags, callback) {
     var result = [];     
 
     var promises = tags.map((one) => {
-      return models.tag.create({
-          name: one
-        })
+      return models.tag.create({ name: one })
         .then(function(tag) {
           result.push({
             id: tag.dataValues.id,
@@ -309,20 +289,15 @@ function addPostTags(tags, postId) {
     })
     models.tagsinpost.bulkCreate(toInsertTags)
         .then((connectedTags) => {
-            console.log('RETURNED VALUE', connectedTags);
             return connectedTags;
         })
         .catch((error) => {
-            console.log(error);
+            return error;
         });
 }
 
 function deleteOldTags(postId, callback) {
-    models.tagsinpost.destroy({
-        where: {
-            postId: postId
-        }
-    })
+    models.tagsinpost.destroy({ where: { postId: postId } })
         .then((info) => {
             callback();
             return info;
