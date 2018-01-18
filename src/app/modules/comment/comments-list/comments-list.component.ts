@@ -28,7 +28,6 @@ export class CommentsListsComponent implements OnDestroy {
         this.subscription = commentService.comments$.subscribe(
             (comments) => {
                 this.comments = comments;
-                console.log('this comments', this.comments);
             }
         );
 

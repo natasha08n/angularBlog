@@ -3,7 +3,6 @@ export class Comment {
     userId: number;
     postId: number;
     text: string;
-    dateCreate: number;
     dateUpdate: number;
     previousId: number;
     prevAuthor: string;
@@ -13,7 +12,6 @@ export class Comment {
         userId: number,
         postId: number,
         text: string,
-        dateCreate: number,
         dateUpdate: number,
         previousId: number,
         prevAuthor: string) {
@@ -21,7 +19,6 @@ export class Comment {
         this.userId = userId;
         this.postId = postId;
         this.text = text;
-        this.dateCreate = dateCreate;
         this.dateUpdate = dateUpdate;
         this.previousId = previousId;
         this.prevAuthor = prevAuthor;

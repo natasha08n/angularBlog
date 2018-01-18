@@ -19,7 +19,7 @@ export class PostService {
     private posts = new Subject<Post[]>();
     public posts$ = this.posts.asObservable();
 
-    private postsCount = new Subject<Object>();
+    private postsCount = new Subject<number>();
     public postsCount$ = this.postsCount.asObservable();
 
     public length: number = 0;
@@ -29,27 +29,16 @@ export class PostService {
 
     constructor(private http: HttpClient) { }
 
-    getPostsCount(): Observable<Object>  {
-        const url = `${this.baseUrl}/posts/count`;
-        this.http.get<Object>(url, httpOptions)
-            .subscribe(count => {
-                this.postsCount.next(count);
-            });
-        return this.postsCount;
-    }
-
-    getPosts(count: number, page: number): Observable<Post[]> {
-        const url = `${this.baseUrl}/posts`;
-        this.http.post<Post[]>(url, {count: count, page: page}, httpOptions)
+    getPosts(count: number = 0, page: number = 0): Observable<Post[]> {
+        const offset = count * page;
+        const url = `${this.baseUrl}/posts?page=${page}&limit=${count}&offset=${offset}`;
+        console.log('URL', url);
+        this.http.get<Post[]>(url, httpOptions)
             .subscribe(posts => {
-                this.posts.next(posts);
+                this.posts.next(posts['rows']);
+                this.postsCount.next(posts['count']);
             });
         return this.posts;
-    }
-
-    getAllPosts(): Observable<Post[]> {
-        const url = `${this.baseUrl}/posts`;
-        return this.http.get<Post[]>(url, httpOptions);
     }
 
     createPost(post: Post): Observable<Post> {

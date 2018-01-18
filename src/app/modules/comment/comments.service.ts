@@ -20,20 +20,24 @@ export class CommentService {
 
     constructor(private http: HttpClient) { }
 
-    createComment(comment: Comment): Observable<Comment> {
+    createComment(comment: Object): Observable<Comment> {
+        console.log('service comment', comment);
         const url = `${this.baseUrl}/comment`;
         return this.http.post<Comment>(url, comment, httpOptions);
     }
 
     getCommentsPost(postId: number): Observable<Comment[]> {
+        console.log('in the service, postId = ', postId);
         const url = `${this.baseUrl}/${postId}/comments`;
         this.http.get<Comment[]>(url, httpOptions)
             .subscribe(comments => {
-                comments.forEach((comment) => {
-                    comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
-                });
-                console.log('comments', comments);
-                comments = this.buildHierarchy(comments);
+                console.log('comments without length', comments);
+                if (comments.length) {
+                    comments.forEach((comment) => {
+                        comment.prevAuthor = this.getPreviousAuthor(comment.previousId, comments);
+                    });
+                    comments = this.buildHierarchy(comments);
+                }
                 this.comments.next(comments);
             });
         return this.comments;

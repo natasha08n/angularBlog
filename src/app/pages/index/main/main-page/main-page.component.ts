@@ -31,19 +31,15 @@ export class MainPageComponent implements OnDestroy {
         this.subscription = postService.posts$.subscribe(
             (posts) => this.posts = posts
         );
-        this.getPostsCount();
+        this.subscription = postService.postsCount$.subscribe(
+            (count) => this.length = count
+        );
+
         this.getPosts(this.pageSize, this.pageIndex);
     }
 
     getPosts(pageSize: number, pageIndex: number): void {
       this.postService.getPosts(pageSize, pageIndex);
-    }
-
-    getPostsCount(): void {
-        this.postService.getPostsCount()
-            .subscribe(count => {
-                this.length = count[0]['count'];
-            });
     }
 
     public getPaginationInfo(event: PageEvent) {

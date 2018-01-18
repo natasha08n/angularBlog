@@ -14,7 +14,7 @@ export class RecentPostsComponent {
     private recentPostLength: number = 15;
 
     constructor(private postService: PostService) {
-        this.postService.getAllPosts()
+        this.postService.getPosts()
             .subscribe((posts) => {
                 this.posts = posts;
                 this.getRecentPosts();

@@ -14,7 +14,7 @@ import { Comment }                  from './../../../shared/models/comment';
 export class CommentCreateComponent {
     @Input() userId: number;
     @Input() postId: number;
-    @Input() previousCommentId: number = 0;
+    @Input() previousCommentId: null;
 
     public comment: string = '';
 
@@ -27,16 +27,14 @@ export class CommentCreateComponent {
         this.comment = '';
         const date = Date.now();
         const comment = {
-            id: 0,
             userId: this.userId,
             postId: this.postId,
             text: text,
-            dateCreate: date,
-            dateUpdate: date,
             previousId: Number(this.previousCommentId),
             prevAuthor: '',
             children: []
         };
+        console.log('comment', comment);
         this.commentService.createComment(comment)
             .subscribe( () => {
                 const postId = +this.route.snapshot.paramMap.get('id');

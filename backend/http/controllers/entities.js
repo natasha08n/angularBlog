@@ -10,18 +10,15 @@ const sequelize = new Sequelize(dbconfig.database, dbconfig.connection.user, dbc
 });
 
 router.get('/posts', (req, res) => {
-    models.post.findAll({
+    models.post.findAndCountAll({
         attributes: Object.keys(models.post.attributes).concat([
-            [sequelize.literal('(SELECT COUNT(*) FROM comments WHERE comments.postId = post.id)'), 'count']
+            [sequelize.literal('(SELECT COUNT(*) FROM comments WHERE comments.postId = post.id)'), 'comments']
         ]),
         order: [ ['dateCreate', 'DESC'] ],
         limit: Number(req.query.limit) || 5000,
         offset: Number(req.query.offset) || 0
     })
         .then((posts) => {
-            posts.forEach((post, index) => {
-                posts[index] = post.dataValues;
-            });
             res.send(posts);
             return;
         })
@@ -72,8 +69,7 @@ router.get('/post/:id', (req, res) => {
                 dateCreate: foundedPost.dataValues.dateCreate,
                 text: foundedPost.dataValues.text,
                 tags: tags,
-                authorName: foundedPost.dataValues.user.name,
-                authorSurname: foundedPost.dataValues.user.surname,
+                author: foundedPost.dataValues.user.name + ' ' + foundedPost.dataValues.user.surname,
                 userId: foundedPost.dataValues.userId
             }
 
@@ -187,6 +183,8 @@ router.get('/tag/:tag', (req, res) => {
 router.post('/comment', (req, res) => {
     const comment = req.body;
 
+    console.log('comment backend', comment);
+
     models.comment.create(comment)
         .then((insertedComment) => {
             res.send(insertedComment.dataValues);
@@ -203,7 +201,9 @@ router.post('/comment', (req, res) => {
 router.get('/:id/comments', (req, res) => {
     const postId = req.params.id;
 
-    models.comment.findOne({
+    console.log('backend comments', postId);
+
+    models.comment.findAll({
         where: { 'postId': postId },
         include: [
             { model: models.user,
@@ -212,16 +212,20 @@ router.get('/:id/comments', (req, res) => {
         ]
     })
         .then((foundComments) => {
-            const modifiedComment = {
-                id: foundComments.dataValues.id,
-                text: foundComments.dataValues.text,
-                dateUpdate: foundComments.dataValues.dateUpdate,
-                postId: foundComments.dataValues.postId,
-                userId: foundComments.dataValues.userId,
-                previousId: foundComments.dataValues.previousId,
-                author: foundComments.dataValues.user.name + ' ' + foundComments.dataValues.user.surname
-            }
-            res.send(modifiedComment);
+            let modifiedComments = [];
+            foundComments.map((comment) => {
+                modifiedComments.push({
+                    id: comment.dataValues.id,
+                    text: comment.dataValues.text,
+                    dateUpdate: comment.dataValues.dateUpdate,
+                    postId: comment.dataValues.postId,
+                    userId: comment.dataValues.userId,
+                    previousId: comment.dataValues.previousId,
+                    author: comment.dataValues.user.dataValues.name + ' ' + comment.dataValues.user.dataValues.surname
+                });
+            });
+            
+            res.send(modifiedComments);
             return;
         })
         .catch((error) => {

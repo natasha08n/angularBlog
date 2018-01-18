@@ -7,8 +7,7 @@ export class Post {
     dateUpdate: number;
     tags: string[];
     excerpt: string;
-    authorName: string;
-    authorSurname: string;
+    author: string;
     userId: number;
     comments: number;
 
@@ -18,8 +17,7 @@ export class Post {
         subtitle: string = '',
         text: string = '',
         tags: string[] = [],
-        authorName: string = '',
-        authorSurname: string = '',
+        author: string = '',
         userId: number = 0,
         comments: number = 0) {
         this.id = id;
@@ -27,8 +25,7 @@ export class Post {
         this.subtitle = subtitle;
         this.text = text;
         this.tags = tags;
-        this.authorName = authorName;
-        this.authorSurname = authorSurname;
+        this.author = author;
         this.userId = userId;
         this.comments = comments;
     }

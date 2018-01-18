@@ -37,6 +37,7 @@ export class AuthService {
   }
 
   setUser(user: User): void {
+    console.log('user set user', user);
     this.userSource.next(user);
   }
 
@@ -46,6 +47,7 @@ export class AuthService {
 
   setToken(answer): Object {
     const userInfo = answer.user;
+    console.log('set token', answer);
     if (answer['success'] === true) {
       this.token = answer.token;
       localStorage.setItem('currentUser', JSON.stringify({
