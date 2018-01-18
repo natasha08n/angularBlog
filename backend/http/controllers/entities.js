@@ -174,21 +174,22 @@ router.get('/tag/:tag', (req, res) => {
             [sequelize.literal('(SELECT COUNT(*) FROM comments WHERE comments.postId = post.id)'), 'comments']
         ]),
         include: [
-            //НАТАША ИСПРАВЬ С ПОСТАМИ ВЫВОД, ТОЛЬКО ПО ОПРЕДЕЛЁННОМУ ТЕГУ, В ЭТОМ ВСЯ ЗАДАЧА
-            // { model: models.tagsinpost, attributes: { exclude: ['id', 'postId'] }, include: [
-            //     { model: models.tag, where: { 'name' : tag }, attributes: ['name'] }
-            // ] }
-            
+            { model: models.tagsinpost,
+                attributes: { exclude: ['id', 'postId'] },
+                include: [ { model: models.tag, where: { 'name' : tag }, attributes: ['name'] }]
+            }
         ],
         limit: Number(req.query.limit) || 5000,
         offset: Number(req.query.offset) || 0
     })
         .then((posts) => {
-            // posts.forEach((post, index) => {
-            //     posts[index] = post.dataValues;
-            // });
-
-            res.send(posts);
+            let modifiedPosts = [];
+            posts.map((post) => {
+                if(post.dataValues.tagsinposts.length) {
+                    modifiedPosts.push(post);
+                }
+            });
+            res.send(modifiedPosts);
             return;
         })
         .catch((error) => {
@@ -197,67 +198,74 @@ router.get('/tag/:tag', (req, res) => {
             res.send(answer);
             return;
         });
-
-    // const queryPostTag = `SELECT 
-    //                     tagsinpost.tagId,]
-    //                 FROM
-    //                     posts INNER JOIN tagsinpost ON posts.id = tagsinpost.postId
-    //                 WHERE
-    //                     tagsinpost.tagId IN (SELECT id FROM tags WHERE name = '${tag}')
-    //                 LIMIT ${perPage} OFFSET ${offset}`;
-
 })
 
 router.post('/comment', (req, res) => {
     const comment = req.body;
-    console.log('comment', comment);
-    const queryComment = `INSERT INTO creative.comments(text, dateCreate, dateUpdate, postId, userId, previousId) VALUES ("${comment.text}", ${comment.dateCreate}, ${comment.dateUpdate}, ${comment.postId}, ${comment.userId}, ${comment.previousId});`
-    connection.query(queryComment, (err, rows) => {
-        if(err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+
+    models.comment.create(comment)
+        .then((insertedComment) => {
+            res.send(insertedComment.dataValues);
+            return;
+        })
+        .catch((error) => {
+            console.log(error);
+            let answer = getAnswer(false, 500, error);
             res.send(answer);
             return;
-        }
-        if(rows) {
-            res.send(rows);
-        }
-    })
+        });
 })
 
 router.get('/:id/comments', (req, res) => {
     const postId = req.params.id;
-    const queryComments = `SELECT comments.id, comments.text, comments.dateUpdate, comments.userId, comments.postId, users.name as 'author', comments.previousId, comments.isDeleted
-    FROM comments
-    INNER JOIN users ON comments.userId = users.id
-    INNER JOIN posts ON comments.postId = posts.id
-    WHERE postId = ${postId}`;
-    connection.query(queryComments, (err, rows) => {
-        if(err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
-            res.send(answer);
-            return;
-        }
-        if(rows) {
-            res.send(rows);
-        }
+
+    models.comment.findOne({
+        where: {
+            'postId': postId
+        },
+        include: [
+            { model: models.user,
+                attributes: { exclude: ['email', 'password', 'roleId', 'avatarUrl']}
+            }
+        ]
     })
+        .then((foundComments) => {
+            const modifiedComment = {
+                id: foundComments.dataValues.id,
+                text: foundComments.dataValues.text,
+                dateUpdate: foundComments.dataValues.dateUpdate,
+                postId: foundComments.dataValues.postId,
+                userId: foundComments.dataValues.userId,
+                previousId: foundComments.dataValues.previousId,
+                author: foundComments.dataValues.user.name + ' ' + foundComments.dataValues.user.surname
+            }
+            res.send(modifiedComment);
+            return;
+        })
+        .catch((error) => {
+            res.send(error);
+            return;
+        })
 })
 
 router.delete('/comment/:id', (req, res) => {
     const commentId = req.params.id;
-    const queryDeleteComment = `UPDATE comments
-    SET isDeleted = 1
-    WHERE id = ${commentId}`;
-    connection.query(queryDeleteComment, (err, rows) => {
-        if(err) {
-            let answer = getAnswer(false, 500, 'Some error in the sql-query');
+
+    models.comment.destroy({ where: { id: commentId } })
+        .then((message) => {
+            let answer = {};
+            if (message) {
+               answer = getAnswer(true, 200, 'Comment has been successfully deleted');
+            }
+            answer = getAnswer(false, 400, `The comment with id = ${commentId} doesn't exist.`);             
             res.send(answer);
             return;
-        }
-        if(rows.affectedRows) {
-            res.send({status: 'success'});
-        }
-    });
+        })
+        .catch((error) => {
+            let answer = getAnswer(true, 500, error);
+            res.send(answer);
+            return;
+        })
 })
 
 function addTags(tags, callback) {

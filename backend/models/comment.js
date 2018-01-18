@@ -2,11 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const Comment = sequelize.define('comment', {
         text: {
             type: Sequelize.TEXT,
+            allowNull: false,
             validate: {
-                notNull: {
-                    args: true,
-                    msg: 'Text is required.'
-                },
                 max: {
                     args: 450,
                     msg: 'Comment test shoul be less than 450 characters. Please, shorten your answer.'
