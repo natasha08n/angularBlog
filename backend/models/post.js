@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         excerpt: {
-            type: Sequelize.CHAR(255),
+            type: Sequelize.TEXT,
             allowNull: false,
             validate: {
                 max: {
