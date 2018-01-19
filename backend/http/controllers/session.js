@@ -23,11 +23,12 @@ router.post('', (req, res) => {
     if (!data) {
         let answer = baseFunctions.getAnswer(false, 400,  'Please, enter information');
         res.send(answer);
+        return;
     }
     models.user.findOne({where: {email: data.email}})
         .then((foundUser) => {
             let answer;
-            if(bcrypt.compareSync(data.password, foundUser.dataValues.password)) {
+            if (bcrypt.compareSync(data.password, foundUser.dataValues.password)) {
                 const token = jwt.sign({email: foundUser.email}, config.secret, {
                     expiresIn: 60
                 });

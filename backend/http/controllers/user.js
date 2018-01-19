@@ -13,6 +13,7 @@ router.post('', (req, res) => {
     if (!data) {
         let answer = baseFunctions.getAnswer(false, 400,  'Please, enter information');
         res.send(answer);
+        return;
     }
     models.user.create(req.body)
         .then((insertedUser) => {
