@@ -20,8 +20,11 @@ import { AppRoutingModule }              from './app-routing.module';
 import { AuthService }                   from './modules/authorization/auth.service';
 import { PostService }                   from './modules/post/post.service';
 import { CommentService }                from './modules/comment/comments.service';
+import { AdService }                     from './modules/advertising/ad.service';
 
 import { AuthModule }                    from './modules/authorization/auth.module';
+
+import { AdDirective }                   from './modules/advertising/ad.directive';
 
 import { AppComponent }                  from './app.component';
 import { LoginComponent }                from './modules/authorization/login/login.component';
@@ -39,9 +42,12 @@ import { CommentCreateComponent }        from './modules/comment/comment-create/
 import { CommentViewComponent }          from './modules/comment/comment-view/comment-view.component';
 import { CommentsListsComponent }        from './modules/comment/comments-list/comments-list.component';
 import { DeleteDialogCommentComponent }  from './modules/comment/delete-dialog-comment/delete-dialog-comment.component';
+import { FirstAdComponent }              from './modules/advertising/first-ad/first-ad.component';
+import { AdBannerComponent }             from './modules/advertising/ad-banner/ad-banner.component';
 import { SidebarComponent }              from './pages/index/sidebar/sidebar.component';
 import { PopularTagsComponent }          from './pages/index/sidebar/popular-tags/popular-tags.component';
 import { RecentPostsComponent }          from './pages/index/sidebar/recent-posts/recent-posts.component';
+import { AdBlockComponent }              from './pages/index/sidebar/ad-block/ad-block.component';
 import { LayoutComponent }               from './pages/index/main/layout/layout.component';
 import { TagPageComponent }              from './pages/index/main/tag-page/tag-page.component';
 import { MainPageComponent }             from './pages/index/main/main-page/main-page.component';
@@ -72,6 +78,7 @@ import { ShortenExcerptPipe }            from './shared/pipes/shorten-excerpt.pi
     LayoutComponent,
     PopularTagsComponent,
     RecentPostsComponent,
+    AdBlockComponent,
     TagPageComponent,
     MainPageComponent,
     CommentCreateComponent,
@@ -82,11 +89,15 @@ import { ShortenExcerptPipe }            from './shared/pipes/shorten-excerpt.pi
     DateSuffixPipe,
     ShortenExcerptPipe,
     ProfileComponent,
+    FirstAdComponent,
+    AdBannerComponent,
+    AdDirective,
     NotFoundComponent
   ],
   entryComponents: [
     DeleteComponent,
-    DeleteDialogCommentComponent
+    DeleteDialogCommentComponent,
+    FirstAdComponent
   ],
   imports: [
     AppRoutingModule,
@@ -107,6 +118,7 @@ import { ShortenExcerptPipe }            from './shared/pipes/shorten-excerpt.pi
     AuthService,
     PostService,
     CommentService,
+    AdService,
     NotLoginGuard,
     SaveDataGuard,
     DatePipe,

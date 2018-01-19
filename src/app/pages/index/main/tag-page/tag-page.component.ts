@@ -30,7 +30,6 @@ export class TagPageComponent implements OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-
     this.length = this.postService.length;
     this.pageSize = this.postService.pageSize;
     this.pageSizeOptions = this.postService.pageSizeOptions;
@@ -39,15 +38,12 @@ export class TagPageComponent implements OnDestroy {
     this.subscriptionPosts = postService.posts$.subscribe(
       (posts) => {
         this.posts = posts;
-        // debugger;
-      }
-    );
+      });
 
     this.subscriptionCount = postService.postsCount$.subscribe(
       (count) => {
         this.length = count;
-      }
-    );
+      });
 
     this.route.params
       .subscribe((params) => {
