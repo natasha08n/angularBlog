@@ -37,8 +37,6 @@ export class PostCreateComponent implements OnInit {
 
     createPost(post: Post) {
         this.isDataSaved = true;
-        post.dateCreate = Date.now();
-        post.dateUpdate = post.dateCreate;
         this.postService.createPost(post)
             .subscribe((id) => {
                 this.router.navigate(['/post', id]);

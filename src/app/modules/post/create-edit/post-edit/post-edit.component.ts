@@ -41,11 +41,8 @@ export class PostEditComponent implements OnInit {
 
     editPost(post: Post): void {
         this.isDataSaved = true;
-        post.dateUpdate = Date.now();
-        console.log(post.text);
         this.postService.editPost(post)
             .subscribe(res => {
-                console.log('received message', res);
                 this.router.navigate(['/']);
             });
     }

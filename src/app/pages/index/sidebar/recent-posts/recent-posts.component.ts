@@ -1,4 +1,5 @@
 import { Component }            from '@angular/core';
+import { Subscription }         from 'rxjs/Subscription';
 
 import { Post }                 from './../../../../shared/models/post';
 import { PostService }          from './../../../../modules/post/post.service';
@@ -11,11 +12,14 @@ import { PostService }          from './../../../../modules/post/post.service';
 
 export class RecentPostsComponent {
     public posts: Post[];
+    private subscription: Subscription;
 
     constructor(private postService: PostService) {
-        this.postService.getPosts()
-            .subscribe((posts) => {
-                this.getRecentPosts(posts);
+        this.subscription = postService.posts$.subscribe(
+            (posts) => {
+              this.posts = posts;
+              this.getRecentPosts(this.posts);
+              this.subscription.unsubscribe();
             });
     }
 

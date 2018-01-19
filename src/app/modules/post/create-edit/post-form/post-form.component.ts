@@ -36,7 +36,7 @@ export class PostFormComponent implements OnInit {
 
     private separatorKeysCodes = [ENTER, COMMA];
 
-    private excerptLength: number = 80;
+    private excerptLength: number = 50;
 
     constructor(
         private authService: AuthService,
