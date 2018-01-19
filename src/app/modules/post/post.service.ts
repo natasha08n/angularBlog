@@ -14,7 +14,8 @@ const httpOptions = {
 
 @Injectable()
 export class PostService {
-    private baseUrl = 'http://localhost:3000/entities';
+    private postsUrl = 'http://localhost:3000/posts';
+    private tagsUrl = 'http://localhost:3000/tags';
 
     private posts = new Subject<Post[]>();
     public posts$ = this.posts.asObservable();
@@ -31,7 +32,7 @@ export class PostService {
 
     getPosts(count: number = 0, page: number = 0): Observable<Post[]> {
         const offset = count * page;
-        const url = `${this.baseUrl}/posts?page=${page}&limit=${count}&offset=${offset}`;
+        const url = `${this.postsUrl}?page=${page}&limit=${count}&offset=${offset}`;
         this.http.get<Post[]>(url, httpOptions)
             .subscribe((posts) => {
                 this.posts.next(posts['rows']);
@@ -41,33 +42,33 @@ export class PostService {
     }
 
     createPost(post: Post): Observable<Post> {
-        const url = `${this.baseUrl}/post`;
+        const url = `${this.postsUrl}`;
         return this.http.post<Post>(url, post, httpOptions);
     }
 
     getPost(id: number): Observable<Post> {
-        const url = `${this.baseUrl}/post/${id}`;
+        const url = `${this.postsUrl}/${id}`;
         return this.http.get<Post>(url, httpOptions);
     }
 
     editPost(post: Post) {
-        const url = `${this.baseUrl}/post/${post.id}`;
+        const url = `${this.postsUrl}/${post.id}`;
         return this.http.put(url, post, httpOptions);
     }
 
     deletePost(id: number) {
-        const url = `${this.baseUrl}/post/${id}`;
+        const url = `${this.postsUrl}/${id}`;
         return this.http.delete(url, httpOptions);
     }
 
     getPopularTags(): Observable<Tag[]> {
-        const url = `${this.baseUrl}/tags`;
+        const url = `${this.tagsUrl}`;
         return this.http.get<Tag[]>(url, httpOptions);
     }
 
     getPostsByTag(tagname: string, count: number, page: number): Observable<Object> {
         const offset = count * page;
-        const url = `${this.baseUrl}/tag/${tagname}?page=${page}&limit=${count}&offset=${offset}`;
+        const url = `${this.postsUrl}/tag/${tagname}?page=${page}&limit=${count}&offset=${offset}`;
         this.http.get(url, httpOptions)
             .subscribe((posts) => {
                 this.postsCount.next(posts['count']);

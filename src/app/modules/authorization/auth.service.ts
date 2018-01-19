@@ -17,7 +17,9 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
 
-  private baseUrl = 'http://localhost:3000/users';
+  private sessionUrl = 'http://localhost:3000/session';
+  private usersUrl = 'http://localhost:3000/users';
+
   private token: string;
   private userSource = new Subject<User>();
   public user$ = this.userSource.asObservable();
@@ -28,16 +30,15 @@ export class AuthService {
   ) {}
 
   signIn(data: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/signin`, data, httpOptions)
+    return this.http.post(`${this.sessionUrl}`, data, httpOptions)
       .map((answer) => this.setToken(answer));
   }
 
   signUp(data: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/signup`, data, httpOptions);
+    return this.http.post(`${this.usersUrl}`, data, httpOptions);
   }
 
   setUser(user: User): void {
-    console.log('user set user', user);
     this.userSource.next(user);
   }
 
@@ -47,8 +48,7 @@ export class AuthService {
 
   setToken(answer): Object {
     const userInfo = answer.user;
-    console.log('set token', answer);
-    if (answer['success'] === true) {
+    if (answer['status']) {
       this.token = answer.token;
       localStorage.setItem('currentUser', JSON.stringify({
         id: userInfo.id,
@@ -64,11 +64,11 @@ export class AuthService {
   verify(): Observable<Object> {
     const currentToken = JSON.parse(localStorage.getItem('currentToken'));
     if (currentToken) {
-      return this.http.get(`${this.baseUrl}/checkstate`, {
+      return this.http.get(`${this.sessionUrl}/checkstate`, {
         headers: new HttpHeaders({ 'x-access-token': currentToken.token })
       });
     } else {
-      return this.http.get(`${this.baseUrl}/checkstate`, httpOptions);
+      return this.http.get(`${this.sessionUrl}/checkstate`, httpOptions);
     }
   }
 
@@ -77,7 +77,6 @@ export class AuthService {
     this.userSource.next();
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentToken');
-    console.log(this.router.url, this.router.url === '/post/create');
     if (this.router.url === '/profile' || this.router.url === '/post/:id/edit' || this.router.url === '/post/create') {
       this.router.navigateByUrl('');
     }

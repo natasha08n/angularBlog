@@ -39,10 +39,9 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     this.dialogRef.close();
-    console.log(this.loginForm.value);
     this.authService.signIn(this.loginForm.value)
       .subscribe(answer => {
-        if (answer['success']) {
+        if (answer['status']) {
           this.authService.setUser(answer['user']);
         } else {
           alert(answer['message']);

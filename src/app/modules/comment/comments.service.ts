@@ -13,7 +13,8 @@ const httpOptions = {
 
 @Injectable()
 export class CommentService {
-    private baseUrl = 'http://localhost:3000/entities';
+    private commentsUrl = 'http://localhost:3000/comments';
+    private postsUrl = 'http://localhost:3000/posts';
 
     private comments = new Subject<Comment[]>();
     public comments$ = this.comments.asObservable();
@@ -21,12 +22,12 @@ export class CommentService {
     constructor(private http: HttpClient) { }
 
     createComment(comment: Object): Observable<Comment> {
-        const url = `${this.baseUrl}/comment`;
+        const url = `${this.commentsUrl}`;
         return this.http.post<Comment>(url, comment, httpOptions);
     }
 
     getCommentsPost(postId: number): Observable<Comment[]> {
-        const url = `${this.baseUrl}/${postId}/comments`;
+        const url = `${this.postsUrl}/${postId}/comments`;
         this.http.get<Comment[]>(url, httpOptions)
             .subscribe(comments => {
                 if (comments.length) {
@@ -41,7 +42,7 @@ export class CommentService {
     }
 
     deleteComment(commentId: number) {
-        const url = `${this.baseUrl}/comment/${commentId}`;
+        const url = `${this.commentsUrl}/${commentId}`;
         return this.http.delete<Comment>(url, httpOptions);
     }
 
